@@ -222,47 +222,63 @@
             });
         });
 
-        // FUNCIÓN PARA EXPORTAR A EXCEL
-        window.exportarExcel = () => {
-            const desde = document.getElementById('filtro-desde').value;
-            const hasta = document.getElementById('filtro-hasta').value;
+        // FUNCIÓN PARA EXPORTAR A EXCEL CON AUTO-AJUSTE DE COLUMNAS
+window.exportarExcel = () => {
+    const desde = document.getElementById('filtro-desde').value;
+    const hasta = document.getElementById('filtro-hasta').value;
 
-            if (!desde || !hasta) return alert("⚠️ Seleccione un rango de fechas (Desde y Hasta)");
+    if (!desde || !hasta) return alert("⚠️ Seleccione un rango de fechas (Desde y Hasta)");
 
-            // Filtrar la lista
-            const fDesde = new Date(desde + "T00:00:00");
-            const fHasta = new Date(hasta + "T23:59:59");
+    const fDesde = new Date(desde + "T00:00:00");
+    const fHasta = new Date(hasta + "T23:59:59");
 
-            const datosFiltrados = listaHistorialCompleta.filter(d => {
-                const fechaCarga = new Date(d.fecha.seconds * 1000);
-                return fechaCarga >= fDesde && fechaCarga <= fHasta;
-            });
+    const datosFiltrados = listaHistorialCompleta.filter(d => {
+        const fechaCarga = new Date(d.fecha.seconds * 1000);
+        return fechaCarga >= fDesde && fechaCarga <= fHasta;
+    });
 
-            if (datosFiltrados.length === 0) return alert("No hay datos en ese rango de fechas.");
+    if (datosFiltrados.length === 0) return alert("No hay datos en ese rango de fechas.");
 
-            // Formatear datos para el Excel
-            const rows = datosFiltrados.map(d => ({
-                FECHA: new Date(d.fecha.seconds * 1000).toLocaleDateString('es-AR'),
-                CONTENEDOR: d.contenedor,
-                CLIENTE: d.cliente,
-                DESTINO: d.destino || 'S/D',
-                REFERENCIA: d.referencia || '',
-                PATENTE: d.patente,
-                SEMI: d.patenteSemi || '',
-                TRANSPORTE: d.transporte,
-                CHOFER: d.chofer,
-                TARA_KG: d.tara,
-                BRUTO_KG: d.bruto,
-                NETO_KG: (d.bruto - d.tara),
-                HORA_ENTRADA: d.fechaIngreso ? new Date(d.fechaIngreso.seconds * 1000).toLocaleTimeString() : '',
-                HORA_SALIDA: d.fechaSalida ? new Date(d.fechaSalida.seconds * 1000).toLocaleTimeString() : ''
-            }));
+    // 1. Preparar los datos
+    const rows = datosFiltrados.map(d => ({
+        "FECHA": new Date(d.fecha.seconds * 1000).toLocaleDateString('es-AR'),
+        "CONTENEDOR": d.contenedor,
+        "CLIENTE": d.cliente,
+        "DESTINO": d.destino || 'S/D',
+        "REFERENCIA": d.referencia || '',
+        "PATENTE": d.patente,
+        "SEMI": d.patenteSemi || '',
+        "TRANSPORTE": d.transporte,
+        "CHOFER": d.chofer,
+        "TARA_KG": d.tara,
+        "BRUTO_KG": d.bruto,
+        "NETO_KG": (d.bruto - d.tara),
+        "HORA_ENTRADA": d.fechaIngreso ? new Date(d.fechaIngreso.seconds * 1000).toLocaleTimeString() : '',
+        "HORA_SALIDA": d.fechaSalida ? new Date(d.fechaSalida.seconds * 1000).toLocaleTimeString() : ''
+    }));
 
-            const worksheet = XLSX.utils.json_to_sheet(rows);
-            const workbook = XLSX.utils.book_new();
-            XLSX.utils.book_append_sheet(workbook, worksheet, "Historial ECA");
-            XLSX.writeFile(workbook, `Reporte_Logistica_${desde}_a_${hasta}.xlsx`);
-        };
+    // 2. Crear el libro y la hoja
+    const worksheet = XLSX.utils.json_to_sheet(rows);
+    const workbook = XLSX.utils.book_new();
+
+    // 3. Lógica de AUTO-AJUSTE (Ensanchar columnas)
+    const objectMaxLength = []; 
+    rows.forEach(row => {
+        Object.keys(row).forEach((key, index) => {
+            const value = row[key] ? row[key].toString() : "";
+            // Comparamos el largo del encabezado con el del contenido
+            const width = Math.max(key.length, value.length);
+            objectMaxLength[index] = Math.max(objectMaxLength[index] || 0, width);
+        });
+    });
+
+    // Aplicar los anchos calculados (+2 para dar un pequeño margen de respiro)
+    worksheet["!cols"] = objectMaxLength.map(w => ({ width: w + 2 }));
+
+    // 4. Guardar archivo
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Historial ECA");
+    XLSX.writeFile(workbook, `Reporte_Logistica_${desde}_a_${hasta}.xlsx`);
+};
 
         window.autorizar = (id) => updateDoc(doc(db, "camiones", id), { estado: "Habilitado" });
         window.abrirModal = async (id) => {
