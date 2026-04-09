@@ -198,7 +198,13 @@
                 const fechaDia = data.fecha ? new Date(data.fecha.seconds * 1000).toLocaleDateString('es-AR', {day:'2-digit', month:'2-digit', year:'2-digit'}) : '---';
 
                 if (data.estado !== "Finalizado") {
-                    const estadoColor = data.estado === "En Planta" ? "bg-green-100 text-green-700 font-bold" : "bg-orange-100 text-orange-700";
+                    const estadoColor = data.estado === "En Planta" ? "bg-green-100 text-green-700" : "bg-orange-100 text-orange-700";
+                    
+                    // LÓGICA DEL BOTÓN DE AUTORIZACIÓN
+                    const botonAccion = data.estado === 'Pendiente' 
+                        ? `<button onclick="autorizar('${d.id}')" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-[10px] font-black animate-pulse shadow-md">AUTORIZAR INGRESO</button>` 
+                        : `<span class="text-green-600 font-bold text-[10px] flex items-center gap-1">● AUTORIZADO</span>`;
+
                     contActivos.innerHTML += `
                         <tr class="hover:bg-orange-50/50 transition border-b border-gray-50">
                             <td class="p-4"><p class="font-mono font-black text-orange-600 text-sm">${data.contenedor}</p><p class="text-[10px] text-gray-400 font-mono font-bold uppercase">${data.patente} / ${data.patenteSemi || '-'}</p></td>
@@ -206,7 +212,12 @@
                             <td class="p-4 font-bold text-gray-500 text-[10px] uppercase">${data.transporte}<br><span class="font-normal text-gray-400">${data.chofer}</span></td>
                             <td class="p-4 text-center"><span class="px-2 py-1 rounded text-[9px] uppercase font-bold ${estadoColor}">${data.estado}</span></td>
                             <td class="p-4 text-center font-black text-blue-800 text-sm">${neto > 0 ? neto : '0.00'} Kg</td>
-                            <td class="p-4 text-right"><div class="flex flex-col gap-1 items-end">${data.estado === 'Pendiente' ? `<button onclick="autorizar('${d.id}')" class="bg-green-600 text-white px-3 py-1 rounded text-[10px] font-bold">Autorizar</button>` : ''}<button onclick="abrirModal('${d.id}')" class="text-blue-500 font-black text-[10px] uppercase">Corregir</button></div></td>
+                            <td class="p-4 text-right">
+                                <div class="flex flex-col gap-1 items-end">
+                                    ${botonAccion}
+                                    <button onclick="abrirModal('${d.id}')" class="text-blue-500 font-black text-[10px] uppercase hover:underline">Corregir Datos</button>
+                                </div>
+                            </td>
                         </tr>`;
                 } else {
                     listaHistorialCompleta.push(data);
@@ -258,6 +269,7 @@
         };
 
         window.autorizar = (id) => updateDoc(doc(db, "camiones", id), { estado: "Habilitado" });
+        
         window.abrirModal = async (id) => {
             const snap = await getDoc(doc(db, "camiones", id)); const data = snap.data();
             document.getElementById('edit-id').value = id; 
@@ -273,7 +285,9 @@
             document.getElementById('edit-bruto').value = data.bruto;
             document.getElementById('modal-editar').classList.remove('hidden');
         };
+
         window.cerrarModal = () => document.getElementById('modal-editar').classList.add('hidden');
+
         window.guardarEdicion = async () => {
             const id = document.getElementById('edit-id').value;
             const up = {
