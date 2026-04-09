@@ -55,23 +55,29 @@
             errorMsg.classList.add('hidden');
 
             try {
-                const userCredential = await signInWithEmailAndPassword(auth, email, pass);
-                const user = userCredential.user;
+    const userCredential = await signInWithEmailAndPassword(auth, email, pass);
+    const user = userCredential.user;
 
-                // LÓGICA DE REDIRECCIÓN POR EMAIL
-                if (user.email.includes("recepcion")) {
-                    window.location.href = "https://operaciones-ui.github.io/ingreso_camiones_eca/porteria.html";
-                } else if (user.email.includes("operaciones")) {
-                    window.location.href = "https://operaciones-ui.github.io/ingreso_camiones_eca/logistica.html";
-                } else {
-                    alert("Usuario no reconocido para ningún módulo");
-                }
+    // Convertimos a minúsculas para evitar errores de tipeo
+    const userEmail = user.email.toLowerCase();
 
-            } catch (error) {
-                errorMsg.innerText = "Error: Credenciales incorrectas";
-                errorMsg.classList.remove('hidden');
-                btn.innerText = "Entrar";
-            }
+    if (userEmail.includes("opera")) {
+        window.location.href = "https://operaciones-ui.github.io/ingreso_camiones_eca/logistica.html";
+    } 
+    else if (userEmail.includes("recepc")) {
+        window.location.href = "https://operaciones-ui.github.io/ingreso_camiones_eca/porteria.html";
+    } 
+    else {
+        // Si el mail no tiene las palabras clave, cerramos sesión por seguridad
+        await auth.signOut();
+        alert("Tu cuenta no tiene un perfil asignado. Contacta al administrador.");
+    }
+} catch (error) {
+    console.error(error);
+    errorMsg.innerText = "Correo o contraseña incorrectos";
+    errorMsg.classList.remove('hidden');
+    btn.innerText = "Entrar";
+}
         };
     </script>
 </body>
