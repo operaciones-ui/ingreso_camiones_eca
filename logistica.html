@@ -169,61 +169,81 @@
             document.querySelectorAll('input').forEach(i => i.value = "");
         };
 
-        // ESCUCHA GENERAL PARA AMBAS TABLAS
-        onSnapshot(query(colRef, orderBy("fecha", "desc")), (snapshot) => {
-            const contActivos = document.getElementById('tabla-gestion');
-            const contHistorial = document.getElementById('tabla-historial');
-            contActivos.innerHTML = "";
-            contHistorial.innerHTML = "";
+        // ESCUCHA GENERAL PARA AMBAS TABLAS (ACTUALIZADO CON FECHA)
+onSnapshot(query(colRef, orderBy("fecha", "desc")), (snapshot) => {
+    const contActivos = document.getElementById('tabla-gestion');
+    const contHistorial = document.getElementById('tabla-historial');
+    contActivos.innerHTML = "";
+    contHistorial.innerHTML = "";
 
-            snapshot.forEach(d => {
-                const data = d.data();
-                const neto = (data.bruto - data.tara).toFixed(2);
-                
-                // Formatear tiempos si existen
-                const tEntrada = data.fechaIngreso ? new Date(data.fechaIngreso.seconds * 1000).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) : '--:--';
-                const tSalida = data.fechaSalida ? new Date(data.fechaSalida.seconds * 1000).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) : '--:--';
+    snapshot.forEach(d => {
+        const data = d.data();
+        const neto = (data.bruto - data.tara).toFixed(2);
+        
+        // Formatear Fecha y Tiempos
+        let fechaDia = '---';
+        let tEntrada = '--:--';
+        let tSalida = '--:--';
 
-                if (data.estado !== "Finalizado") {
-                    // Render en tabla principal
-                    const estadoColor = data.estado === "En Planta" ? "bg-green-100 text-green-700" : "bg-orange-100 text-orange-700";
-                    contActivos.innerHTML += `
-                        <tr class="hover:bg-orange-50/50 transition border-b border-gray-50">
-                            <td class="p-4">
-                                <p class="font-mono font-black text-orange-600 text-sm">${data.contenedor || 'S/N'}</p>
-                                <p class="text-gray-400 text-[10px] font-bold font-mono uppercase">${data.patente} / ${data.patenteSemi || '-'}</p>
-                            </td>
-                            <td class="p-4 font-bold text-gray-700">${data.cliente}<br><span class="text-blue-500 text-[10px] italic uppercase">Ref: ${data.referencia}</span></td>
-                            <td class="p-4 font-bold text-gray-500">${data.transporte}<br><span class="font-normal text-[10px] uppercase">${data.chofer}</span></td>
-                            <td class="p-4 text-center"><span class="px-2 py-1 rounded text-[9px] uppercase font-bold ${estadoColor}">${data.estado}</span></td>
-                            <td class="p-4 text-center font-black text-blue-800 text-sm">${neto > 0 ? neto : '0.00'} Kg</td>
-                            <td class="p-4 text-right">
-                                <div class="flex flex-col gap-1 items-end">
-                                    ${data.estado === 'Pendiente' ? `<button onclick="autorizar('${d.id}')" class="bg-green-600 text-white px-3 py-1 rounded text-[10px] font-bold">Autorizar</button>` : ''}
-                                    <button onclick="abrirModal('${d.id}')" class="text-blue-500 font-black text-[10px] uppercase tracking-tighter">Corregir</button>
-                                </div>
-                            </td>
-                        </tr>`;
-                } else {
-                    // Render en historial
-                    contHistorial.innerHTML += `
-                        <tr class="hover:bg-white transition border-b border-slate-200">
-                            <td class="p-3 font-mono font-bold text-slate-600">${data.contenedor}</td>
-                            <td class="p-3"><b>${data.cliente}</b><br><span class="text-slate-400 italic">${data.referencia}</span></td>
-                            <td class="p-3 text-center text-slate-500">${data.tara}</td>
-                            <td class="p-3 text-center text-slate-500">${data.bruto}</td>
-                            <td class="p-3 text-center font-black text-blue-600 bg-blue-50/50">${neto} Kg</td>
-                            <td class="p-3 text-right leading-tight">
-                                <span class="text-green-600 font-bold">E: ${tEntrada}</span><br>
-                                <span class="text-red-400 font-bold">S: ${tSalida}</span>
-                            </td>
-                            <td class="p-3 text-right">
-                                <button onclick="abrirModal('${d.id}')" class="text-slate-400 hover:text-blue-500 font-bold">📝</button>
-                            </td>
-                        </tr>`;
-                }
-            });
-        });
+        // Extraemos la fecha del registro original
+        if (data.fecha) {
+            const f = new Date(data.fecha.seconds * 1000);
+            fechaDia = f.toLocaleDateString('es-AR', { day: '2-digit', month: '2-digit', year: '2-digit' });
+        }
+
+        if (data.fechaIngreso) {
+            tEntrada = new Date(data.fechaIngreso.seconds * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        }
+        
+        if (data.fechaSalida) {
+            tSalida = new Date(data.fechaSalida.seconds * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        }
+
+        if (data.estado !== "Finalizado") {
+            // ... (Código de la tabla de activos se mantiene igual)
+            const estadoColor = data.estado === "En Planta" ? "bg-green-100 text-green-700" : "bg-orange-100 text-orange-700";
+            contActivos.innerHTML += `
+                <tr class="hover:bg-orange-50/50 transition border-b border-gray-50">
+                    <td class="p-4">
+                        <p class="font-mono font-black text-orange-600 text-sm">${data.contenedor || 'S/N'}</p>
+                        <p class="text-gray-400 text-[10px] font-bold font-mono uppercase">${data.patente} / ${data.patenteSemi || '-'}</p>
+                    </td>
+                    <td class="p-4 font-bold text-gray-700">${data.cliente}<br><span class="text-blue-500 text-[10px] italic uppercase">Ref: ${data.referencia}</span></td>
+                    <td class="p-4 font-bold text-gray-500">${data.transporte}<br><span class="font-normal text-[10px] uppercase">${data.chofer}</span></td>
+                    <td class="p-4 text-center"><span class="px-2 py-1 rounded text-[9px] uppercase font-bold ${estadoColor}">${data.estado}</span></td>
+                    <td class="p-4 text-center font-black text-blue-800 text-sm">${neto > 0 ? neto : '0.00'} Kg</td>
+                    <td class="p-4 text-right">
+                        <div class="flex flex-col gap-1 items-end">
+                            ${data.estado === 'Pendiente' ? `<button onclick="autorizar('${d.id}')" class="bg-green-600 text-white px-3 py-1 rounded text-[10px] font-bold">Autorizar</button>` : ''}
+                            <button onclick="abrirModal('${d.id}')" class="text-blue-500 font-black text-[10px] uppercase tracking-tighter">Corregir</button>
+                        </div>
+                    </td>
+                </tr>`;
+        } else {
+            // TABLA HISTORIAL ACTUALIZADA CON FECHA
+            contHistorial.innerHTML += `
+                <tr class="hover:bg-white transition border-b border-slate-200">
+                    <td class="p-3 font-mono font-bold text-slate-600">
+                        <span class="text-[10px] text-slate-400 block">${fechaDia}</span>
+                        ${data.contenedor}
+                    </td>
+                    <td class="p-3"><b>${data.cliente}</b><br><span class="text-slate-400 italic">${data.referencia}</span></td>
+                    <td class="p-3 text-center text-slate-500">${data.tara}</td>
+                    <td class="p-3 text-center text-slate-500">${data.bruto}</td>
+                    <td class="p-3 text-center font-black text-blue-600 bg-blue-50/50">${neto} Kg</td>
+                    <td class="p-3 text-right leading-tight">
+                        <div class="text-[10px]">
+                            <span class="text-green-600 font-bold font-mono">IN: ${tEntrada}</span><br>
+                            <span class="text-red-400 font-bold font-mono">OUT: ${tSalida}</span>
+                        </div>
+                    </td>
+                    <td class="p-3 text-right">
+                        <button onclick="abrirModal('${d.id}')" class="text-slate-400 hover:text-blue-500 font-bold text-lg">📝</button>
+                    </td>
+                </tr>`;
+        }
+    });
+});
 
         window.autorizar = (id) => updateDoc(doc(db, "camiones", id), { estado: "Habilitado" });
 
