@@ -73,8 +73,8 @@
                         <input id="patenteSemi" type="text" class="w-full border p-2 rounded bg-gray-50 text-xs font-mono uppercase outline-none focus:ring-1 focus:ring-orange-400">
                     </div>
                     <div class="md:col-span-2">
-                        <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">N° Celular</label>
-                        <input id="celular" type="tel" placeholder="223 5..." class="w-full border p-2 rounded bg-gray-50 text-xs outline-none focus:ring-1 focus:ring-orange-400">
+                        <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Celular</label>
+                        <input id="celular" type="tel" class="w-full border p-2 rounded bg-gray-50 text-xs outline-none focus:ring-1 focus:ring-orange-400">
                     </div>
                     <div class="md:col-span-1 flex items-end">
                         <button onclick="crearViaje()" class="w-full bg-orange-600 text-white p-2 rounded font-black hover:bg-orange-700 transition-all uppercase text-[10px] shadow-lg h-[34px]">Registrar</button>
@@ -176,30 +176,45 @@
 
     <script type="module">
 
-        // Variable global para guardar los datos de los choferes
-        let baseChoferes = [];
+        // Variable para almacenar temporalmente los datos de los choferes
+let baseChoferes = [];
 
-        // 1. Cargar la lista de choferes desde Firebase
-        onSnapshot(collection(db, "choferes"), (snap) => {
-            const datalist = document.getElementById('lista-choferes');
-            datalist.innerHTML = "";
-            baseChoferes = [];
+// 1. Escuchar la base de choferes en tiempo real
+onSnapshot(collection(db, "choferes"), (snap) => {
+    const datalist = document.getElementById('lista-choferes');
+    datalist.innerHTML = "";
+    baseChoferes = [];
 
-            snap.forEach(doc => {
-                const d = doc.data();
-                baseChoferes.push(d); // Guardamos para autocompletar luego
-                const option = document.createElement('option');
-                option.value = d.nombre;
-                datalist.appendChild(option);
-            });
+    snap.forEach(doc => {
+        const d = doc.data();
+        // Guardamos el objeto completo para tener DNI, Transporte y Celular a mano
+        baseChoferes.push({
+            nombre: d.Nombre,
+            transporte: d.Transporte,
+            celular: d.celular,
+            dni: d.Dni
         });
 
-// 2. Función para autocompletar Celular y Transporte cuando eligen un nombre
+        // Agregamos el nombre a la lista de sugerencias
+        const option = document.createElement('option');
+        option.value = d.Nombre;
+        datalist.appendChild(option);
+    });
+});
+
+// 2. Función para autocompletar cuando se elige un nombre
 window.autocompletarChofer = (valor) => {
-    const choferEncontrado = baseChoferes.find(c => c.nombre === valor);
-    if (choferEncontrado) {
-        if(choferEncontrado.celular) document.getElementById('celular').value = choferEncontrado.celular;
-        if(choferEncontrado.transporte) document.getElementById('transporte').value = choferEncontrado.transporte;
+    // Buscamos si el nombre escrito coincide exactamente con uno de nuestra base
+    const encontrado = baseChoferes.find(c => c.nombre === valor);
+    
+    if (encontrado) {
+        // Si lo encuentra, autocompleta los campos automáticamente
+        document.getElementById('celular').value = encontrado.celular || "";
+        document.getElementById('transporte').value = encontrado.transporte || "";
+        
+        // Opcional: Si quieres guardar el DNI en la carga aunque no haya un campo visible, 
+        // podrías asignarlo a una variable o agregar un campo oculto.
+        console.log("Chofer seleccionado DNI:", encontrado.dni);
     }
 };
         
