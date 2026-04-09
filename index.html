@@ -9,30 +9,39 @@
 <body class="bg-slate-200 flex items-center justify-center h-screen">
 
     <div class="bg-white p-8 rounded-xl shadow-lg w-full max-w-md">
-        <h1 class="text-2xl font-bold text-center mb-6 text-gray-800">Ingreso al Sistema</h1>
+        <div class="flex justify-center mb-6">
+            <img src="https://raw.githubusercontent.com/operaciones-ui/ingreso_camiones_eca/main/logo.png" 
+                 alt="Logo ECA" 
+                 class="h-16 w-auto object-contain"
+                 onerror="this.src='https://via.placeholder.com/150?text=ECA+Logística'">
+        </div>
+
+        <h1 class="text-2xl font-bold text-center mb-6 text-gray-800 border-t pt-4">Ingreso al Sistema</h1>
         
         <div class="space-y-4">
             <div>
                 <label class="block text-sm font-medium text-gray-700">Correo Electrónico</label>
-                <input type="email" id="email" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+                <input type="email" id="email" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none" placeholder="usuario@eca.com">
             </div>
             <div>
                 <label class="block text-sm font-medium text-gray-700">Contraseña</label>
-                <input type="password" id="password" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+                <input type="password" id="password" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none" placeholder="••••••••">
             </div>
-            <button onclick="login()" id="btnLogin" class="w-full bg-blue-600 text-white p-3 rounded-lg font-bold hover:bg-blue-700 transition">
+            <button onclick="login()" id="btnLogin" class="w-full bg-blue-600 text-white p-3 rounded-lg font-bold hover:bg-blue-700 transition shadow-md">
                 Entrar
             </button>
             <p id="error-msg" class="text-red-500 text-sm text-center hidden font-medium"></p>
         </div>
+        
+        <p class="text-center text-[10px] text-gray-400 mt-8 uppercase tracking-widest">ECA - Torre de Control</p>
     </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
+        // CONFIGURACIÓN FIREBASE
         const firebaseConfig = {
-            // REEMPLAZA CON TUS DATOS
             apiKey: "AIzaSyD59XE1FYbUPqiUjn7vBMT89PcGjB2Svzs",
             authDomain: "ingresocamiones.firebaseapp.com",
             projectId: "ingresocamiones",
@@ -50,33 +59,40 @@
             const errorMsg = document.getElementById('error-msg');
             const btn = document.getElementById('btnLogin');
 
+            if (!email || !pass) {
+                errorMsg.innerText = "Complete todos los campos";
+                errorMsg.classList.remove('hidden');
+                return;
+            }
+
             btn.innerText = "Verificando...";
+            btn.disabled = true;
             errorMsg.classList.add('hidden');
 
             try {
-    const userCredential = await signInWithEmailAndPassword(auth, email, pass);
-    const user = userCredential.user;
+                const userCredential = await signInWithEmailAndPassword(auth, email, pass);
+                const user = userCredential.user;
+                const userEmail = user.email.toLowerCase();
 
-    // Convertimos a minúsculas para evitar errores de tipeo
-    const userEmail = user.email.toLowerCase();
-
-    if (userEmail.includes("opera")) {
-        window.location.href = "https://operaciones-ui.github.io/ingreso_camiones_eca/logistica.html";
-    } 
-    else if (userEmail.includes("recepc")) {
-        window.location.href = "https://operaciones-ui.github.io/ingreso_camiones_eca/porteria.html";
-    } 
-    else {
-        // Si el mail no tiene las palabras clave, cerramos sesión por seguridad
-        await auth.signOut();
-        alert("Tu cuenta no tiene un perfil asignado. Contacta al administrador.");
-    }
-} catch (error) {
-    console.error(error);
-    errorMsg.innerText = "Correo o contraseña incorrectos";
-    errorMsg.classList.remove('hidden');
-    btn.innerText = "Entrar";
-}
+                if (userEmail.includes("opera")) {
+                    window.location.href = "https://operaciones-ui.github.io/ingreso_camiones_eca/logistica.html";
+                } 
+                else if (userEmail.includes("recepc")) {
+                    window.location.href = "https://operaciones-ui.github.io/ingreso_camiones_eca/porteria.html";
+                } 
+                else {
+                    await auth.signOut();
+                    alert("Tu cuenta no tiene un perfil asignado. Contacta al administrador.");
+                    btn.innerText = "Entrar";
+                    btn.disabled = false;
+                }
+            } catch (error) {
+                console.error(error);
+                errorMsg.innerText = "Correo o contraseña incorrectos";
+                errorMsg.classList.remove('hidden');
+                btn.innerText = "Entrar";
+                btn.disabled = false;
+            }
         };
     </script>
 </body>
