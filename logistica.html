@@ -79,10 +79,10 @@
         <div class="bg-slate-200/50 rounded-xl shadow-inner overflow-hidden border border-slate-300">
             <table class="w-full text-left text-[11px]">
                 <thead>
-                    <tr class="bg-slate-300/50 text-slate-500 border-b border-slate-300">
+                    <tr class="bg-slate-300/50 text-slate-500 border-b border-slate-300 font-bold uppercase">
                         <th class="p-3">Fecha / Contenedor</th>
                         <th class="p-3">Cliente / Destino</th>
-                        <th class="p-3 text-center">Tara/Bruto</th>
+                        <th class="p-3">Referencia</th> <th class="p-3 text-center">Tara/Bruto</th>
                         <th class="p-3 text-center font-black">Neto</th>
                         <th class="p-3 text-right">Tiempos</th>
                         <th class="p-3 text-right">...</th>
@@ -184,7 +184,7 @@
                         <tr class="hover:bg-white transition border-b border-slate-200">
                             <td class="p-3 font-mono font-bold text-slate-600"><span class="text-[9px] text-slate-400 block">${fechaDia}</span>${data.contenedor}</td>
                             <td class="p-3"><b>${data.cliente}</b><br><div class="flex items-center gap-1 text-blue-600 text-[9px] font-bold uppercase tracking-tighter italic"><span>📍</span>${data.destino || 'S/D'}</div></td>
-                            <td class="p-3 text-center text-slate-500 leading-tight">${data.tara}<br>${data.bruto}</td>
+                            <td class="p-3 font-bold text-slate-500 uppercase">${data.referencia || '-'}</td> <td class="p-3 text-center text-slate-500 leading-tight">${data.tara}<br>${data.bruto}</td>
                             <td class="p-3 text-center font-black text-blue-600 bg-blue-50/50">${neto} Kg</td>
                             <td class="p-3 text-right leading-tight text-[10px]"><span class="text-green-600 font-bold">IN: ${tEntrada}</span><br><span class="text-red-400 font-bold">OUT: ${tSalida}</span></td>
                             <td class="p-3 text-right"><button onclick="abrirModal('${d.id}')" class="text-slate-400 font-bold text-lg">📝</button></td>
