@@ -25,46 +25,63 @@
         </div>
 
         <div class="bg-white p-6 rounded-xl shadow-md mb-8">
-            <h2 class="font-black mb-4 text-gray-700 flex items-center text-sm uppercase italic"><span class="mr-2">📦</span> Registro de Carga</h2>
-            <div class="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-8 gap-4">
-                <div class="lg:col-span-2 md:col-span-2">
-                    <label class="block text-[10px] font-bold text-orange-600 uppercase mb-1">Número de Contenedor</label>
-                    <input id="contenedor" type="text" placeholder="MSCU123456-7" class="w-full border p-2 rounded bg-orange-50 uppercase font-mono font-bold outline-none focus:ring-2 focus:ring-orange-400 text-sm">
-                </div>
-                <div class="lg:col-span-1 md:col-span-1">
-                    <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Patente Camión</label>
-                    <input id="patente" type="text" placeholder="AAA 111" class="w-full border p-2 rounded bg-gray-50 uppercase font-mono text-sm">
-                </div>
-                <div class="lg:col-span-1 md:col-span-1">
-                    <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Patente Semi</label>
-                    <input id="patenteSemi" type="text" placeholder="BBB 222" class="w-full border p-2 rounded bg-gray-50 uppercase font-mono text-sm">
-                </div>
-                <div class="lg:col-span-2 md:col-span-2">
-                    <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Empresa Transporte</label>
-                    <input id="transporte" type="text" class="w-full border p-2 rounded bg-gray-50 text-sm">
-                </div>
-                <div class="lg:col-span-2 md:col-span-2">
-                    <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Nombre Chofer completo</label>
-                    <input id="chofer" type="text" class="w-full border p-2 rounded bg-gray-50 text-sm">
-                </div>
-                <div class="lg:col-span-2 md:col-span-2">
-                    <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Cliente / Exportador</label>
-                    <input id="cliente" type="text" class="w-full border p-2 rounded bg-gray-50 text-sm">
-                </div>
-                <div class="lg:col-span-2 md:col-span-2">
-                    <label class="block text-[10px] font-bold text-blue-600 uppercase mb-1">País de Destino</label>
-                    <input id="destino" type="text" placeholder="Ej: Brasil" class="w-full border border-blue-100 p-2 rounded bg-blue-50 font-bold text-sm outline-none focus:ring-2 focus:ring-blue-400">
-                </div>
-                <div class="lg:col-span-2 md:col-span-1">
-                    <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Referencia</label>
-                    <input id="referencia" type="text" class="w-full border p-2 rounded bg-gray-50 text-sm">
-                </div>
-                <div class="lg:col-span-2 md:col-span-1 flex items-end">
-                    <button onclick="crearViaje()" class="w-full bg-orange-600 text-white p-2 rounded font-black hover:bg-orange-700 transition-all uppercase text-xs shadow-lg h-[38px]">Registrar</button>
-                </div>
+    <h2 class="font-black mb-4 text-gray-700 flex items-center text-sm uppercase italic"><span class="mr-2">📝</span> Nuevo Registro de Carga</h2>
+    <div class="space-y-4">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-3">
+            <div class="md:col-span-1">
+                <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Ref.</label>
+                <input id="referencia" type="text" class="w-full border p-2 rounded bg-gray-50 text-xs">
+            </div>
+            <div class="md:col-span-3">
+                <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Cliente / Exportador</label>
+                <input id="cliente" type="text" class="w-full border p-2 rounded bg-gray-50 text-xs font-bold">
+            </div>
+            <div class="md:col-span-2">
+                <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Barco / Viaje</label>
+                <input id="barcoViaje" type="text" placeholder="Vessel 001E" class="w-full border p-2 rounded bg-gray-50 text-xs">
+            </div>
+            <div class="md:col-span-1">
+                <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Tipo</label>
+                <input id="tipoContenedor" type="text" placeholder="40HC" class="w-full border p-2 rounded bg-gray-50 text-xs">
+            </div>
+            <div class="md:col-span-3">
+                <label class="block text-[10px] font-bold text-orange-600 uppercase mb-1">N° Contenedor</label>
+                <input id="contenedor" type="text" class="w-full border p-2 rounded bg-orange-50 uppercase font-mono font-bold text-xs outline-none focus:ring-1 focus:ring-orange-400">
+            </div>
+            <div class="md:col-span-2">
+                <label class="block text-[10px] font-bold text-blue-600 uppercase mb-1">País</label>
+                <input id="destino" type="text" class="w-full border p-2 rounded bg-blue-50 text-xs font-bold">
             </div>
         </div>
 
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-3">
+            <div class="md:col-span-2">
+                <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Transporte</label>
+                <input id="transporte" type="text" class="w-full border p-2 rounded bg-gray-50 text-xs">
+            </div>
+            <div class="md:col-span-3">
+                <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Nombre Chofer</label>
+                <input id="chofer" type="text" class="w-full border p-2 rounded bg-gray-50 text-xs">
+            </div>
+            <div class="md:col-span-2">
+                <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Pat. Camión</label>
+                <input id="patente" type="text" class="w-full border p-2 rounded bg-gray-50 text-xs font-mono uppercase">
+            </div>
+            <div class="md:col-span-2">
+                <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Pat. Semi</label>
+                <input id="patenteSemi" type="text" class="w-full border p-2 rounded bg-gray-50 text-xs font-mono uppercase">
+            </div>
+            <div class="md:col-span-2">
+                <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Celular</label>
+                <input id="celular" type="tel" placeholder="223 5..." class="w-full border p-2 rounded bg-gray-50 text-xs">
+            </div>
+            <div class="md:col-span-1 flex items-end">
+                <button onclick="crearViaje()" class="w-full bg-orange-600 text-white p-2 rounded font-black hover:bg-orange-700 transition-all uppercase text-[10px] shadow-lg h-[34px]">Registrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+        
         <h2 class="text-xs font-black text-gray-500 mb-2 uppercase tracking-widest">Cargas en Curso</h2>
         <div class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 mb-10">
             <table class="w-full text-left text-xs">
@@ -166,19 +183,28 @@
 
         let listaHistorialCompleta = [];
 
-        window.crearViaje = async () => {
-            const data = {
-                contenedor: document.getElementById('contenedor').value.toUpperCase(),
-                patente: document.getElementById('patente').value.toUpperCase(),
-                patenteSemi: document.getElementById('patenteSemi').value.toUpperCase(),
-                transporte: document.getElementById('transporte').value,
-                chofer: document.getElementById('chofer').value,
-                cliente: document.getElementById('cliente').value,
-                destino: document.getElementById('destino').value,
-                referencia: document.getElementById('referencia').value,
-                estado: "Pendiente",
-                tara: 0, bruto: 0, fecha: serverTimestamp()
-            };
+
+            window.crearViaje = async () => {
+    const data = {
+        referencia: document.getElementById('referencia').value,
+        cliente: document.getElementById('cliente').value,
+        barcoViaje: document.getElementById('barcoViaje').value,
+        tipoContenedor: document.getElementById('tipoContenedor').value,
+        contenedor: document.getElementById('contenedor').value.toUpperCase(),
+        destino: document.getElementById('destino').value,
+        transporte: document.getElementById('transporte').value,
+        chofer: document.getElementById('chofer').value,
+        patente: document.getElementById('patente').value.toUpperCase(),
+        patenteSemi: document.getElementById('patenteSemi').value.toUpperCase(),
+        celular: document.getElementById('celular').value,
+        estado: "Pendiente",
+        tara: 0, bruto: 0, fecha: serverTimestamp()
+    };
+    if(!data.contenedor) return alert("Ingrese Contenedor");
+    await addDoc(colRef, data);
+    document.querySelectorAll('input').forEach(i => i.value = "");
+};
+        
             if(!data.contenedor) return alert("Ingrese Contenedor");
             await addDoc(colRef, data);
             document.querySelectorAll('input').forEach(i => i.value = "");
