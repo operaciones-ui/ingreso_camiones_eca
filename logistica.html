@@ -14,15 +14,11 @@
                 <h1 class="text-2xl font-bold text-gray-800">ECA: Gestión de Exportación</h1>
                 <p class="text-xs text-orange-600 font-bold uppercase tracking-widest">Torre de Control de Contenedores</p>
             </div>
-            <button onclick="cerrarSesion()" class="bg-gray-100 text-gray-500 px-4 py-2 rounded-lg font-bold text-xs hover:bg-red-500 hover:text-white transition-all">
-                Cerrar Sesión
-            </button>
+            <button onclick="cerrarSesion()" class="bg-gray-100 text-gray-500 px-4 py-2 rounded-lg font-bold text-xs hover:bg-red-500 hover:text-white transition-all">Cerrar Sesión</button>
         </div>
 
         <div class="bg-white p-6 rounded-xl shadow-md mb-8">
-            <h2 class="font-black mb-4 text-gray-700 flex items-center text-sm uppercase italic">
-                <span class="mr-2">📦</span> Nueva Carga / Booking
-            </h2>
+            <h2 class="font-black mb-4 text-gray-700 flex items-center text-sm uppercase italic"><span class="mr-2">📦</span> Registro de Booking / Carga</h2>
             <div class="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-8 gap-4">
                 <div class="lg:col-span-2 md:col-span-2">
                     <label class="block text-[10px] font-bold text-orange-600 uppercase mb-1">Número de Contenedor</label>
@@ -30,97 +26,92 @@
                 </div>
                 <div class="lg:col-span-1 md:col-span-1">
                     <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Patente Camión</label>
-                    <input id="patente" type="text" placeholder="AAA 111" class="w-full border p-2 rounded bg-gray-50 uppercase font-mono outline-none focus:ring-2 focus:ring-gray-300 text-sm">
+                    <input id="patente" type="text" placeholder="AAA 111" class="w-full border p-2 rounded bg-gray-50 uppercase font-mono text-sm">
                 </div>
                 <div class="lg:col-span-1 md:col-span-1">
                     <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Patente Semi</label>
-                    <input id="patenteSemi" type="text" placeholder="BBB 222" class="w-full border p-2 rounded bg-gray-50 uppercase font-mono outline-none focus:ring-2 focus:ring-gray-300 text-sm">
+                    <input id="patenteSemi" type="text" placeholder="BBB 222" class="w-full border p-2 rounded bg-gray-50 uppercase font-mono text-sm">
                 </div>
                 <div class="lg:col-span-2 md:col-span-2">
                     <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Empresa Transporte</label>
-                    <input id="transporte" type="text" class="w-full border p-2 rounded bg-gray-50 outline-none focus:ring-2 focus:ring-gray-300 text-sm">
+                    <input id="transporte" type="text" class="w-full border p-2 rounded bg-gray-50 text-sm">
                 </div>
                 <div class="lg:col-span-2 md:col-span-2">
                     <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Nombre Chofer completo</label>
-                    <input id="chofer" type="text" class="w-full border p-2 rounded bg-gray-50 outline-none focus:ring-2 focus:ring-gray-300 text-sm">
+                    <input id="chofer" type="text" class="w-full border p-2 rounded bg-gray-50 text-sm">
                 </div>
-                <div class="lg:col-span-3 md:col-span-2">
+                <div class="lg:col-span-2 md:col-span-2">
                     <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Cliente / Exportador</label>
-                    <input id="cliente" type="text" class="w-full border p-2 rounded bg-gray-50 outline-none focus:ring-2 focus:ring-gray-300 text-sm">
+                    <input id="cliente" type="text" class="w-full border p-2 rounded bg-gray-50 text-sm">
                 </div>
-                <div class="lg:col-span-3 md:col-span-1">
-                    <label class="block text-[10px] font-bold text-blue-600 uppercase mb-1">Referencia</label>
-                    <input id="referencia" type="text" class="w-full border border-blue-100 p-2 rounded bg-blue-50 outline-none focus:ring-2 focus:ring-blue-400 font-bold text-sm">
+                <div class="lg:col-span-2 md:col-span-2">
+                    <label class="block text-[10px] font-bold text-blue-600 uppercase mb-1">País de Destino</label>
+                    <input id="destino" type="text" placeholder="Ej: Brasil" class="w-full border border-blue-100 p-2 rounded bg-blue-50 font-bold text-sm outline-none focus:ring-2 focus:ring-blue-400">
+                </div>
+                <div class="lg:col-span-2 md:col-span-1">
+                    <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Referencia</label>
+                    <input id="referencia" type="text" class="w-full border p-2 rounded bg-gray-50 text-sm">
                 </div>
                 <div class="lg:col-span-2 md:col-span-1 flex items-end">
-                    <button onclick="crearViaje()" class="w-full bg-orange-600 text-white p-2 rounded font-black hover:bg-orange-700 transition-all uppercase text-xs shadow-lg h-[38px]">
-                        Registrar
-                    </button>
+                    <button onclick="crearViaje()" class="w-full bg-orange-600 text-white p-2 rounded font-black hover:bg-orange-700 transition-all uppercase text-xs shadow-lg h-[38px]">Registrar</button>
                 </div>
             </div>
         </div>
 
-        <h2 class="text-xs font-black text-gray-500 mb-2 uppercase tracking-widest">Cargas en Curso / Pendientes</h2>
+        <h2 class="text-xs font-black text-gray-500 mb-2 uppercase tracking-widest">Cargas en Curso</h2>
         <div class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 mb-10">
-            <div class="overflow-x-auto">
-                <table class="w-full text-left text-xs">
-                    <thead>
-                        <tr class="bg-gray-50 text-gray-400 font-bold uppercase border-b">
-                            <th class="p-4 text-orange-600">Contenedor / Patentes</th>
-                            <th class="p-4">Cliente / Referencia</th>
-                            <th class="p-4">Transporte / Chofer</th>
-                            <th class="p-4 text-center">Estado</th>
-                            <th class="p-4 text-center">Neto (Kg)</th>
-                            <th class="p-4 text-right">Acción</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tabla-gestion" class="divide-y divide-gray-100"></tbody>
-                </table>
-            </div>
+            <table class="w-full text-left text-xs">
+                <thead>
+                    <tr class="bg-gray-50 text-gray-400 border-b">
+                        <th class="p-4 text-orange-600">Contenedor / Patentes</th>
+                        <th class="p-4">Cliente / Destino</th>
+                        <th class="p-4">Transporte</th>
+                        <th class="p-4 text-center">Estado</th>
+                        <th class="p-4 text-center">Neto</th>
+                        <th class="p-4 text-right">Acción</th>
+                    </tr>
+                </thead>
+                <tbody id="tabla-gestion" class="divide-y divide-gray-100"></tbody>
+            </table>
         </div>
 
-        <h2 class="text-xs font-black text-blue-500 mb-2 uppercase tracking-widest flex items-center">
-            <span class="mr-2">🕒</span> Historial de Cargas Finalizadas (Hoy)
-        </h2>
+        <h2 class="text-xs font-black text-blue-500 mb-2 uppercase tracking-widest flex items-center"><span class="mr-2">🕒</span> Historial de Cargas</h2>
         <div class="bg-slate-200/50 rounded-xl shadow-inner overflow-hidden border border-slate-300">
-            <div class="overflow-x-auto">
-                <table class="w-full text-left text-[11px]">
-                    <thead>
-                        <tr class="bg-slate-300/50 text-slate-500 font-bold uppercase border-b border-slate-300">
-                            <th class="p-3">Contenedor</th>
-                            <th class="p-3">Cliente / Ref</th>
-                            <th class="p-3 text-center">Tara</th>
-                            <th class="p-3 text-center">Bruto</th>
-                            <th class="p-3 text-center font-black">Neto</th>
-                            <th class="p-3 text-right">Tiempos</th>
-                            <th class="p-3 text-right">Acción</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tabla-historial" class="divide-y divide-slate-200"></tbody>
-                </table>
-            </div>
+            <table class="w-full text-left text-[11px]">
+                <thead>
+                    <tr class="bg-slate-300/50 text-slate-500 border-b border-slate-300">
+                        <th class="p-3">Fecha / Contenedor</th>
+                        <th class="p-3">Cliente / Destino</th>
+                        <th class="p-3 text-center">Tara/Bruto</th>
+                        <th class="p-3 text-center font-black">Neto</th>
+                        <th class="p-3 text-right">Tiempos</th>
+                        <th class="p-3 text-right">...</th>
+                    </tr>
+                </thead>
+                <tbody id="tabla-historial" class="divide-y divide-slate-200"></tbody>
+            </table>
         </div>
     </div>
 
     <div id="modal-editar" class="hidden fixed inset-0 bg-slate-900/90 backdrop-blur-sm flex items-center justify-center p-4 z-50">
         <div class="bg-white p-6 rounded-2xl shadow-2xl w-full max-w-2xl">
-            <h3 class="font-black text-xl mb-6 text-gray-800 border-b pb-4 uppercase italic">✏️ Corregir Información</h3>
+            <h3 class="font-black text-xl mb-6 text-gray-800 border-b pb-4 uppercase">✏️ Editar Carga</h3>
             <input id="edit-id" type="hidden">
             <div class="grid grid-cols-2 gap-4 text-sm">
-                <div class="col-span-2 bg-orange-50 p-2 rounded border border-orange-100">
-                    <label class="text-[10px] font-bold text-orange-600 uppercase">Contenedor</label>
-                    <input id="edit-contenedor" type="text" class="w-full bg-transparent font-black text-lg font-mono uppercase">
-                </div>
-                <div><label class="text-[10px] font-bold text-gray-400">Patente Camión</label><input id="edit-patente" type="text" class="w-full border p-2 rounded uppercase font-mono"></div>
-                <div><label class="text-[10px] font-bold text-gray-400">Patente Semi</label><input id="edit-patenteSemi" type="text" class="w-full border p-2 rounded uppercase font-mono"></div>
-                <div><label class="text-[10px] font-bold text-gray-400">Cliente</label><input id="edit-cliente" type="text" class="w-full border p-2 rounded font-bold"></div>
-                <div><label class="text-[10px] font-bold text-gray-400">Referencia</label><input id="edit-referencia" type="text" class="w-full border p-2 rounded font-bold text-blue-600"></div>
-                <div class="bg-orange-600 p-2 rounded text-white"><label class="text-[10px] font-bold uppercase">Peso Tara (Kg)</label><input id="edit-tara" type="number" class="w-full bg-transparent font-black outline-none text-xl"></div>
-                <div class="bg-blue-600 p-2 rounded text-white"><label class="text-[10px] font-bold uppercase">Peso Bruto (Kg)</label><input id="edit-bruto" type="number" class="w-full bg-transparent font-black outline-none text-xl"></div>
+                <div class="col-span-2"><label class="text-[10px] font-bold text-orange-600 uppercase">Contenedor</label><input id="edit-contenedor" type="text" class="w-full border-b-2 border-orange-200 font-black text-lg font-mono uppercase outline-none"></div>
+                <div><label class="text-[10px] font-bold text-gray-400 uppercase">Patente Camión</label><input id="edit-patente" type="text" class="w-full border p-2 rounded uppercase font-mono"></div>
+                <div><label class="text-[10px] font-bold text-gray-400 uppercase">Patente Semi</label><input id="edit-patenteSemi" type="text" class="w-full border p-2 rounded uppercase font-mono"></div>
+                <div><label class="text-[10px] font-bold text-gray-400 uppercase">Cliente</label><input id="edit-cliente" type="text" class="w-full border p-2 rounded font-bold"></div>
+                <div><label class="text-[10px] font-bold text-blue-600 uppercase">País Destino</label><input id="edit-destino" type="text" class="w-full border p-2 rounded font-bold bg-blue-50"></div>
+                <div><label class="text-[10px] font-bold text-gray-400 uppercase">Referencia</label><input id="edit-referencia" type="text" class="w-full border p-2 rounded"></div>
+                <div><label class="text-[10px] font-bold text-gray-400 uppercase">Transporte</label><input id="edit-transporte" type="text" class="w-full border p-2 rounded"></div>
+                <div><label class="text-[10px] font-bold text-gray-400 uppercase">Chofer</label><input id="edit-chofer" type="text" class="w-full border p-2 rounded"></div>
+                <div class="bg-orange-600 p-2 rounded text-white shadow-inner"><label class="text-[10px] font-bold uppercase opacity-80">Peso Tara (Kg)</label><input id="edit-tara" type="number" class="w-full bg-transparent font-black outline-none text-xl"></div>
+                <div class="bg-blue-600 p-2 rounded text-white shadow-inner"><label class="text-[10px] font-bold uppercase opacity-80">Peso Bruto (Kg)</label><input id="edit-bruto" type="number" class="w-full bg-transparent font-black outline-none text-xl"></div>
             </div>
             <div class="flex gap-3 mt-8">
-                <button onclick="guardarEdicion()" class="flex-1 bg-zinc-800 text-white p-4 rounded-xl font-black uppercase">Guardar</button>
-                <button onclick="cerrarModal()" class="flex-1 bg-gray-100 p-4 rounded-xl font-black uppercase">Cancelar</button>
+                <button onclick="guardarEdicion()" class="flex-1 bg-zinc-800 text-white p-4 rounded-xl font-black uppercase">Guardar Cambios</button>
+                <button onclick="cerrarModal()" class="flex-1 bg-gray-100 text-gray-400 p-4 rounded-xl font-black uppercase">Cancelar</button>
             </div>
         </div>
     </div>
@@ -144,12 +135,7 @@
         const auth = getAuth(app);
         const colRef = collection(db, "camiones");
 
-        onAuthStateChanged(auth, async (user) => {
-            if (!user || !user.email.toLowerCase().includes("opera")) {
-                await signOut(auth); window.location.href = "index.html";
-            }
-        });
-
+        onAuthStateChanged(auth, (user) => { if (!user) window.location.href = "index.html"; });
         window.cerrarSesion = () => signOut(auth);
 
         window.crearViaje = async () => {
@@ -160,6 +146,7 @@
                 transporte: document.getElementById('transporte').value,
                 chofer: document.getElementById('chofer').value,
                 cliente: document.getElementById('cliente').value,
+                destino: document.getElementById('destino').value,
                 referencia: document.getElementById('referencia').value,
                 estado: "Pendiente",
                 tara: 0, bruto: 0, fecha: serverTimestamp()
@@ -169,113 +156,64 @@
             document.querySelectorAll('input').forEach(i => i.value = "");
         };
 
-        // ESCUCHA GENERAL PARA AMBAS TABLAS (ACTUALIZADO CON FECHA)
-onSnapshot(query(colRef, orderBy("fecha", "desc")), (snapshot) => {
-    const contActivos = document.getElementById('tabla-gestion');
-    const contHistorial = document.getElementById('tabla-historial');
-    contActivos.innerHTML = "";
-    contHistorial.innerHTML = "";
+        onSnapshot(query(colRef, orderBy("fecha", "desc")), (snapshot) => {
+            const contActivos = document.getElementById('tabla-gestion');
+            const contHistorial = document.getElementById('tabla-historial');
+            contActivos.innerHTML = ""; contHistorial.innerHTML = "";
 
-    snapshot.forEach(d => {
-        const data = d.data();
-        const neto = (data.bruto - data.tara).toFixed(2);
-        
-        // Formatear Fecha y Tiempos
-        let fechaDia = '---';
-        let tEntrada = '--:--';
-        let tSalida = '--:--';
+            snapshot.forEach(d => {
+                const data = d.data();
+                const neto = (data.bruto - data.tara).toFixed(2);
+                const tEntrada = data.fechaIngreso ? new Date(data.fechaIngreso.seconds * 1000).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) : '--:--';
+                const tSalida = data.fechaSalida ? new Date(data.fechaSalida.seconds * 1000).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) : '--:--';
+                const fechaDia = data.fecha ? new Date(data.fecha.seconds * 1000).toLocaleDateString('es-AR', {day:'2-digit', month:'2-digit', year:'2-digit'}) : '---';
 
-        // Extraemos la fecha del registro original
-        if (data.fecha) {
-            const f = new Date(data.fecha.seconds * 1000);
-            fechaDia = f.toLocaleDateString('es-AR', { day: '2-digit', month: '2-digit', year: '2-digit' });
-        }
-
-        if (data.fechaIngreso) {
-            tEntrada = new Date(data.fechaIngreso.seconds * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-        }
-        
-        if (data.fechaSalida) {
-            tSalida = new Date(data.fechaSalida.seconds * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-        }
-
-        if (data.estado !== "Finalizado") {
-            // ... (Código de la tabla de activos se mantiene igual)
-            const estadoColor = data.estado === "En Planta" ? "bg-green-100 text-green-700" : "bg-orange-100 text-orange-700";
-            contActivos.innerHTML += `
-                <tr class="hover:bg-orange-50/50 transition border-b border-gray-50">
-                    <td class="p-4">
-                        <p class="font-mono font-black text-orange-600 text-sm">${data.contenedor || 'S/N'}</p>
-                        <p class="text-gray-400 text-[10px] font-bold font-mono uppercase">${data.patente} / ${data.patenteSemi || '-'}</p>
-                    </td>
-                    <td class="p-4 font-bold text-gray-700">${data.cliente}<br><span class="text-blue-500 text-[10px] italic uppercase">Ref: ${data.referencia}</span></td>
-                    <td class="p-4 font-bold text-gray-500">${data.transporte}<br><span class="font-normal text-[10px] uppercase">${data.chofer}</span></td>
-                    <td class="p-4 text-center"><span class="px-2 py-1 rounded text-[9px] uppercase font-bold ${estadoColor}">${data.estado}</span></td>
-                    <td class="p-4 text-center font-black text-blue-800 text-sm">${neto > 0 ? neto : '0.00'} Kg</td>
-                    <td class="p-4 text-right">
-                        <div class="flex flex-col gap-1 items-end">
-                            ${data.estado === 'Pendiente' ? `<button onclick="autorizar('${d.id}')" class="bg-green-600 text-white px-3 py-1 rounded text-[10px] font-bold">Autorizar</button>` : ''}
-                            <button onclick="abrirModal('${d.id}')" class="text-blue-500 font-black text-[10px] uppercase tracking-tighter">Corregir</button>
-                        </div>
-                    </td>
-                </tr>`;
-        } else {
-            // TABLA HISTORIAL ACTUALIZADA CON FECHA
-            contHistorial.innerHTML += `
-                <tr class="hover:bg-white transition border-b border-slate-200">
-                    <td class="p-3 font-mono font-bold text-slate-600">
-                        <span class="text-[10px] text-slate-400 block">${fechaDia}</span>
-                        ${data.contenedor}
-                    </td>
-                    <td class="p-3"><b>${data.cliente}</b><br><span class="text-slate-400 italic">${data.referencia}</span></td>
-                    <td class="p-3 text-center text-slate-500">${data.tara}</td>
-                    <td class="p-3 text-center text-slate-500">${data.bruto}</td>
-                    <td class="p-3 text-center font-black text-blue-600 bg-blue-50/50">${neto} Kg</td>
-                    <td class="p-3 text-right leading-tight">
-                        <div class="text-[10px]">
-                            <span class="text-green-600 font-bold font-mono">IN: ${tEntrada}</span><br>
-                            <span class="text-red-400 font-bold font-mono">OUT: ${tSalida}</span>
-                        </div>
-                    </td>
-                    <td class="p-3 text-right">
-                        <button onclick="abrirModal('${d.id}')" class="text-slate-400 hover:text-blue-500 font-bold text-lg">📝</button>
-                    </td>
-                </tr>`;
-        }
-    });
-});
+                if (data.estado !== "Finalizado") {
+                    const estadoColor = data.estado === "En Planta" ? "bg-green-100 text-green-700 font-bold" : "bg-orange-100 text-orange-700";
+                    contActivos.innerHTML += `
+                        <tr class="hover:bg-orange-50/50 transition border-b border-gray-50">
+                            <td class="p-4"><p class="font-mono font-black text-orange-600 text-sm">${data.contenedor}</p><p class="text-[10px] text-gray-400 font-mono font-bold uppercase">${data.patente} / ${data.patenteSemi || '-'}</p></td>
+                            <td class="p-4 font-bold text-gray-700">${data.cliente}<br><div class="flex items-center gap-1 text-blue-600 text-[10px] font-black uppercase tracking-tighter"><span>📍</span>${data.destino || 'S/D'}</div></td>
+                            <td class="p-4 font-bold text-gray-500 text-[10px] uppercase">${data.transporte}<br><span class="font-normal text-gray-400">${data.chofer}</span></td>
+                            <td class="p-4 text-center"><span class="px-2 py-1 rounded text-[9px] uppercase font-bold ${estadoColor}">${data.estado}</span></td>
+                            <td class="p-4 text-center font-black text-blue-800 text-sm">${neto > 0 ? neto : '0.00'} Kg</td>
+                            <td class="p-4 text-right"><div class="flex flex-col gap-1 items-end">${data.estado === 'Pendiente' ? `<button onclick="autorizar('${d.id}')" class="bg-green-600 text-white px-3 py-1 rounded text-[10px] font-bold">Autorizar</button>` : ''}<button onclick="abrirModal('${d.id}')" class="text-blue-500 font-black text-[10px] uppercase">Corregir</button></div></td>
+                        </tr>`;
+                } else {
+                    contHistorial.innerHTML += `
+                        <tr class="hover:bg-white transition border-b border-slate-200">
+                            <td class="p-3 font-mono font-bold text-slate-600"><span class="text-[9px] text-slate-400 block">${fechaDia}</span>${data.contenedor}</td>
+                            <td class="p-3"><b>${data.cliente}</b><br><div class="flex items-center gap-1 text-blue-600 text-[9px] font-bold uppercase tracking-tighter italic"><span>📍</span>${data.destino || 'S/D'}</div></td>
+                            <td class="p-3 text-center text-slate-500 leading-tight">${data.tara}<br>${data.bruto}</td>
+                            <td class="p-3 text-center font-black text-blue-600 bg-blue-50/50">${neto} Kg</td>
+                            <td class="p-3 text-right leading-tight text-[10px]"><span class="text-green-600 font-bold">IN: ${tEntrada}</span><br><span class="text-red-400 font-bold">OUT: ${tSalida}</span></td>
+                            <td class="p-3 text-right"><button onclick="abrirModal('${d.id}')" class="text-slate-400 font-bold text-lg">📝</button></td>
+                        </tr>`;
+                }
+            });
+        });
 
         window.autorizar = (id) => updateDoc(doc(db, "camiones", id), { estado: "Habilitado" });
-
         window.abrirModal = async (id) => {
-            const snap = await getDoc(doc(db, "camiones", id));
-            const data = snap.data();
-            document.getElementById('edit-id').value = id;
-            document.getElementById('edit-contenedor').value = data.contenedor || '';
-            document.getElementById('edit-patente').value = data.patente;
-            document.getElementById('edit-patenteSemi').value = data.patenteSemi || '';
-            document.getElementById('edit-cliente').value = data.cliente || '';
-            document.getElementById('edit-referencia').value = data.referencia || '';
-            document.getElementById('edit-tara').value = data.tara;
-            document.getElementById('edit-bruto').value = data.bruto;
+            const snap = await getDoc(doc(db, "camiones", id)); const data = snap.data();
+            document.getElementById('edit-id').value = id; document.getElementById('edit-contenedor').value = data.contenedor || '';
+            document.getElementById('edit-patente').value = data.patente; document.getElementById('edit-patenteSemi').value = data.patenteSemi || '';
+            document.getElementById('edit-cliente').value = data.cliente || ''; document.getElementById('edit-destino').value = data.destino || '';
+            document.getElementById('edit-referencia').value = data.referencia || ''; document.getElementById('edit-transporte').value = data.transporte || '';
+            document.getElementById('edit-chofer').value = data.chofer || ''; document.getElementById('edit-tara').value = data.tara; document.getElementById('edit-bruto').value = data.bruto;
             document.getElementById('modal-editar').classList.remove('hidden');
         };
-
         window.cerrarModal = () => document.getElementById('modal-editar').classList.add('hidden');
-
         window.guardarEdicion = async () => {
             const id = document.getElementById('edit-id').value;
             const up = {
-                contenedor: document.getElementById('edit-contenedor').value.toUpperCase(),
-                patente: document.getElementById('edit-patente').value.toUpperCase(),
-                patenteSemi: document.getElementById('edit-patenteSemi').value.toUpperCase(),
-                cliente: document.getElementById('edit-cliente').value,
-                referencia: document.getElementById('edit-referencia').value,
-                tara: parseFloat(document.getElementById('edit-tara').value) || 0,
-                bruto: parseFloat(document.getElementById('edit-bruto').value) || 0
+                contenedor: document.getElementById('edit-contenedor').value.toUpperCase(), patente: document.getElementById('edit-patente').value.toUpperCase(),
+                patenteSemi: document.getElementById('edit-patenteSemi').value.toUpperCase(), cliente: document.getElementById('edit-cliente').value,
+                destino: document.getElementById('edit-destino').value, referencia: document.getElementById('edit-referencia').value,
+                transporte: document.getElementById('edit-transporte').value, chofer: document.getElementById('edit-chofer').value,
+                tara: parseFloat(document.getElementById('edit-tara').value) || 0, bruto: parseFloat(document.getElementById('edit-bruto').value) || 0
             };
-            await updateDoc(doc(db, "camiones", id), up);
-            cerrarModal();
+            await updateDoc(doc(db, "camiones", id), up); cerrarModal();
         };
     </script>
 </body>
