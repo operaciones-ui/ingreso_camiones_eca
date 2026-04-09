@@ -60,8 +60,9 @@
                         <input id="transporte" type="text" class="w-full border p-2 rounded bg-gray-50 text-xs outline-none focus:ring-1 focus:ring-orange-400">
                     </div>
                     <div class="md:col-span-3">
-                        <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Apellido y Nombre Chofer</label>
-                        <input id="chofer" type="text" class="w-full border p-2 rounded bg-gray-50 text-xs outline-none focus:ring-1 focus:ring-orange-400">
+                        <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Nombre Chofer</label>
+                        <input id="chofer" list="lista-choferes" oninput="autocompletarChofer(this.value)" placeholder="Escriba para buscar..." class="w-full border p-2 rounded bg-gray-50 text-xs outline-none focus:ring-1 focus:ring-orange-400">
+                        <datalist id="lista-choferes"></datalist>
                     </div>
                     <div class="md:col-span-2">
                         <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Patente Camión</label>
