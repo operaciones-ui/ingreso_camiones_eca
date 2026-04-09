@@ -38,12 +38,17 @@
 
     <div id="modal-pesaje" class="hidden fixed inset-0 bg-black/95 backdrop-blur-md flex items-center justify-center p-4 z-50">
         <div class="bg-zinc-800 p-6 rounded-2xl border border-zinc-700 w-full max-w-md shadow-2xl">
-            <h3 id="modal-titulo" class="font-black text-2xl mb-2 text-orange-500 uppercase italic">PESAJE</h3>
+            <h3 id="modal-titulo" class="font-black text-2xl mb-2 text-orange-500 uppercase italic text-center">PESAJE</h3>
             <div id="modal-info-unidad" class="bg-zinc-900 p-4 rounded-xl mb-6 border border-zinc-700 text-center space-y-1"></div>
-            <input id="peso-input" type="number" class="w-full bg-black border-2 border-zinc-700 p-6 rounded-xl text-5xl text-center mb-6 text-white font-mono outline-none focus:border-orange-500" placeholder="0">
+            
+            <div class="relative">
+                <input id="peso-input" type="number" class="w-full bg-black border-2 border-zinc-700 p-6 rounded-xl text-5xl text-center mb-6 text-white font-mono outline-none focus:border-orange-500" placeholder="0">
+                <span class="absolute right-4 bottom-10 text-zinc-600 font-bold text-xl">KG</span>
+            </div>
+
             <div class="flex gap-3">
                 <button id="btn-confirmar-peso" class="flex-1 bg-orange-600 p-4 rounded-xl font-black uppercase hover:bg-orange-500 transition-all text-sm">Confirmar Peso</button>
-                <button onclick="cerrarModal()" class="flex-1 bg-zinc-700 p-4 rounded-xl font-black text-zinc-400 uppercase text-sm">Volver</button>
+                <button onclick="cerrarModal()" class="flex-1 bg-zinc-700 p-4 rounded-xl font-black text-zinc-400 uppercase text-sm text-center">Volver</button>
             </div>
         </div>
     </div>
@@ -67,99 +72,142 @@
         const db = getFirestore(app);
         const auth = getAuth(app);
 
+        // CONTROL DE ACCESO
         onAuthStateChanged(auth, async (user) => {
-            if (!user || !user.email.toLowerCase().includes("recepc")) { await signOut(auth); window.location.href = "index.html"; }
+            if (!user || !user.email.toLowerCase().includes("recepc")) { 
+                await signOut(auth); 
+                window.location.href = "index.html"; 
+            }
         });
 
         window.cerrarSesion = () => signOut(auth);
 
-       // CREAR TARJETA (Actualizada: Chofer arriba, Transporte solo abajo)
-const crearTarjeta = (id, data, esEntrada) => {
-    return `
-    <div class="bg-zinc-800 p-5 rounded-2xl border-l-8 ${esEntrada ? 'border-orange-500' : 'border-blue-500'} shadow-xl">
-        <div class="mb-4">
-            <div class="flex justify-between items-start mb-1">
-                <div>
-                    <p class="text-[10px] text-zinc-500 font-bold uppercase tracking-widest">Chofer</p>
-                    <p class="text-lg font-bold text-white leading-tight">${data.chofer || 'S/N'}</p>
+        // COMPONENTE DE TARJETA ACTUALIZADO
+        const crearTarjeta = (id, data, esEntrada) => {
+            const colorPrincipal = esEntrada ? 'orange-500' : 'blue-500';
+            const bgBoton = esEntrada ? 'bg-orange-600 hover:bg-orange-500' : 'bg-blue-600 hover:bg-blue-500';
+
+            return `
+            <div class="bg-zinc-800 p-5 rounded-2xl border-l-8 border-${colorPrincipal} shadow-xl">
+                <div class="flex justify-between items-start mb-4">
+                    <div>
+                        <p class="text-[10px] text-zinc-500 font-bold uppercase tracking-widest">Chofer</p>
+                        <p class="text-lg font-bold text-white leading-tight">${data.chofer || 'S/N'}</p>
+                        <p class="text-xs text-orange-400 font-mono font-bold mt-1 tracking-wider">📞 ${data.celular || 'Sin celular'}</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-[10px] text-zinc-500 font-bold uppercase tracking-widest">${data.tipoContenedor || 'CONTENEDOR'}</p>
+                        <p class="text-3xl font-mono font-black text-orange-500 leading-none mt-1">${data.contenedor}</p>
+                    </div>
                 </div>
-                <div class="text-right">
-                    <p class="text-[10px] text-zinc-500 font-bold uppercase tracking-widest">Contenedor</p>
-                    <p class="text-3xl font-mono font-black text-orange-500 leading-none mt-1">${data.contenedor}</p>
+
+                <div class="grid grid-cols-2 gap-4 border-t border-zinc-700/50 pt-3 mb-3 text-xs">
+                    <div>
+                        <p class="text-[9px] text-zinc-500 font-bold uppercase italic">Patentes</p>
+                        <p class="font-mono font-bold text-zinc-200 uppercase">${data.patente} / ${data.patenteSemi || '-'}</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-[9px] text-zinc-500 font-bold uppercase italic">País Destino</p>
+                        <p class="font-bold text-blue-400 uppercase tracking-tighter italic">📍 ${data.destino || 'S/D'}</p>
+                    </div>
                 </div>
-            </div>
-        </div>
 
-        <div class="grid grid-cols-2 gap-4 border-t border-zinc-700/50 pt-4 mb-4">
-            <div>
-                <p class="text-[10px] text-zinc-500 font-bold uppercase italic">Patentes (Camión/Semi)</p>
-                <p class="text-sm font-mono font-bold text-white uppercase">${data.patente} / ${data.patenteSemi || '-'}</p>
-            </div>
-            <div class="text-right">
-                <p class="text-[10px] text-zinc-500 font-bold uppercase italic">Destino</p>
-                <p class="text-sm font-bold text-blue-400 uppercase tracking-tighter">📍 ${data.destino || 'S/D'}</p>
-            </div>
-        </div>
+                <div class="bg-zinc-900/50 p-3 rounded-xl mb-4 flex justify-between items-center text-[11px]">
+                    <div>
+                        <span class="text-zinc-500 block font-bold uppercase text-[8px]">Barco / Viaje</span>
+                        <span class="text-zinc-300 font-bold uppercase italic">${data.barcoViaje || 'N/C'}</span>
+                    </div>
+                    <div class="text-right">
+                        <span class="text-zinc-500 block font-bold uppercase text-[8px]">Cliente</span>
+                        <span class="text-zinc-300 font-bold">${data.cliente}</span>
+                    </div>
+                </div>
 
-        <div class="bg-zinc-900/50 p-3 rounded-xl mb-4 flex justify-between items-center text-xs">
-            <div>
-                <span class="text-zinc-500 block font-bold uppercase text-[9px]">Empresa de Transporte</span>
-                <span class="text-zinc-300 font-bold text-sm">${data.transporte}</span>
-            </div>
-            <div class="text-right">
-                <span class="text-zinc-500 block font-bold uppercase text-[9px]">Cliente</span>
-                <span class="text-zinc-300 font-bold">${data.cliente}</span>
-            </div>
-        </div>
+                <button onclick="prepararPesaje('${id}', '${data.contenedor}', '${esEntrada ? 'ingreso' : 'salida'}')" 
+                    class="w-full ${bgBoton} p-4 rounded-xl font-black text-sm uppercase transition-all shadow-md active:scale-95">
+                    ${esEntrada ? 'Registrar Tara (Entrada)' : 'Registrar Bruto (Salida)'}
+                </button>
+            </div>`;
+        };
 
-        <button onclick="prepararPesaje('${id}', '${data.contenedor}', '${esEntrada ? 'ingreso' : 'salida'}')" 
-            class="w-full ${esEntrada ? 'bg-orange-600 hover:bg-orange-500' : 'bg-blue-600 hover:bg-blue-500'} p-4 rounded-xl font-black text-sm uppercase transition-all shadow-md">
-            ${esEntrada ? 'Registrar Tara' : 'Registrar Bruto'}
-        </button>
-    </div>`;
-};
-
-        // SNAPSHOTS (Misma lógica)
+        // ESCUCHA EN TIEMPO REAL: HABILITADOS (ENTRADA)
         onSnapshot(query(collection(db, "camiones"), where("estado", "==", "Habilitado")), (snap) => {
             const cont = document.getElementById('lista-habilitados');
-            cont.innerHTML = snap.empty ? '<p class="text-center py-10 text-zinc-600 italic">No hay ingresos hoy.</p>' : "";
+            cont.innerHTML = snap.empty ? '<p class="text-center py-10 text-zinc-600 italic">Esperando camiones autorizados por Logística...</p>' : "";
             snap.forEach(d => cont.innerHTML += crearTarjeta(d.id, d.data(), true));
         });
 
+        // ESCUCHA EN TIEMPO REAL: EN PLANTA (SALIDA)
         onSnapshot(query(collection(db, "camiones"), where("estado", "==", "En Planta")), (snap) => {
             const cont = document.getElementById('lista-en-planta');
-            cont.innerHTML = snap.empty ? '<p class="text-center py-10 text-zinc-600 italic">No hay unidades en predio.</p>' : "";
+            cont.innerHTML = snap.empty ? '<p class="text-center py-10 text-zinc-600 italic">No hay camiones dentro del predio.</p>' : "";
             snap.forEach(d => cont.innerHTML += crearTarjeta(d.id, d.data(), false));
         });
 
-        // MODAL PESAJE (Actualizado con Nombre del Chofer)
-        let currentId = null; let modoAccion = "";
+        // LÓGICA DEL MODAL DE PESAJE
+        let currentId = null; 
+        let modoAccion = "";
+
         window.prepararPesaje = async (id, contenedor, modo) => {
-            currentId = id; modoAccion = modo;
-            const snap = await getDoc(doc(db, "camiones", id)); const d = snap.data();
+            currentId = id; 
+            modoAccion = modo;
+            
+            const snap = await getDoc(doc(db, "camiones", id));
+            const d = snap.data();
+
             document.getElementById('modal-titulo').innerText = modo === 'ingreso' ? "ENTRADA: TARA" : "SALIDA: BRUTO";
             document.getElementById('modal-info-unidad').innerHTML = `
-                <p class="text-[10px] text-zinc-500 uppercase tracking-widest font-bold">Unidad</p>
-                <p class="text-4xl font-mono font-black text-white leading-none">${d.contenedor}</p>
-                <p class="text-sm font-bold text-zinc-300 pt-2">${d.chofer || '---'}</p>
-                <p class="text-xs text-zinc-500 uppercase">${d.cliente} | 📍 ${d.destino || ''}</p>`;
-            document.getElementById('peso-input').value = ""; document.getElementById('modal-pesaje').classList.remove('hidden');
+                <div class="mb-2">
+                    <p class="text-[10px] text-zinc-500 uppercase font-bold tracking-widest">Unidad</p>
+                    <p class="text-4xl font-mono font-black text-white leading-none">${d.contenedor}</p>
+                </div>
+                <div class="border-t border-zinc-800 pt-2">
+                    <p class="text-sm font-bold text-orange-500 italic">${d.chofer || '---'}</p>
+                    <p class="text-[10px] text-zinc-400 uppercase tracking-tighter">${d.cliente} | Destino: ${d.destino || 'S/D'}</p>
+                </div>`;
+            
+            document.getElementById('peso-input').value = "";
+            document.getElementById('modal-pesaje').classList.remove('hidden');
+            setTimeout(() => document.getElementById('peso-input').focus(), 300);
         };
 
         window.cerrarModal = () => document.getElementById('modal-pesaje').classList.add('hidden');
 
         document.getElementById('btn-confirmar-peso').onclick = async () => {
             const peso = parseFloat(document.getElementById('peso-input').value);
-            if (!peso || peso <= 0) return alert("Peso inválido");
+            
+            if (!peso || peso <= 0) {
+                return alert("⚠️ Por favor, ingrese un peso válido.");
+            }
+
             const docRef = doc(db, "camiones", currentId);
-            if (modoAccion === "ingreso") { await updateDoc(docRef, { tara: peso, estado: "En Planta", fechaIngreso: serverTimestamp() }); }
-            else { await updateDoc(docRef, { bruto: peso, estado: "Finalizado", fechaSalida: serverTimestamp() }); }
-            cerrarModal();
+
+            try {
+                if (modoAccion === "ingreso") { 
+                    await updateDoc(docRef, { 
+                        tara: peso, 
+                        estado: "En Planta", 
+                        fechaIngreso: serverTimestamp() 
+                    }); 
+                } else { 
+                    await updateDoc(docRef, { 
+                        bruto: peso, 
+                        estado: "Finalizado", 
+                        fechaSalida: serverTimestamp() 
+                    }); 
+                }
+                cerrarModal();
+            } catch (error) {
+                console.error("Error al guardar peso:", error);
+                alert("Ocurrió un error al guardar los datos.");
+            }
         };
 
+        // NAVEGACIÓN ENTRE TABS
         window.cambiarTab = (tabId) => {
             document.getElementById('tab-entrada').classList.toggle('hidden', tabId !== 'tab-entrada');
             document.getElementById('tab-salida').classList.toggle('hidden', tabId !== 'tab-salida');
+            
             document.getElementById('btn-tab-entrada').className = `flex-1 p-4 rounded-xl font-black text-sm transition-all ${tabId === 'tab-entrada' ? 'bg-orange-600 text-white shadow-lg' : 'bg-zinc-800 text-gray-500'}`;
             document.getElementById('btn-tab-salida').className = `flex-1 p-4 rounded-xl font-black text-sm transition-all ${tabId === 'tab-salida' ? 'bg-blue-700 text-white shadow-lg' : 'bg-zinc-800 text-gray-500'}`;
         };
