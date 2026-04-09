@@ -226,16 +226,21 @@
                         </tr>`;
                 } else {
                     listaHistorialCompleta.push(data);
-                    contHistorial.innerHTML += `
-                        <tr class="hover:bg-white transition border-b border-slate-200">
-                            <td class="p-3 font-mono font-bold text-slate-600"><span class="text-[9px] text-slate-400 block">${fechaDia}</span>${data.contenedor}</td>
-                            <td class="p-3"><b>${data.cliente}</b><br><div class="flex items-center gap-1 text-blue-600 text-[9px] font-bold uppercase tracking-tighter italic"><span>📍</span>${data.destino || 'S/D'}</div></td>
-                            <td class="p-3 font-bold text-slate-500 uppercase">${data.referencia || '-'}</td>
-                            <td class="p-3 text-center text-slate-500 leading-tight">${data.tara}<br>${data.bruto}</td>
-                            <td class="p-3 text-center font-black text-blue-600 bg-blue-50/50">${neto} Kg</td>
-                            <td class="p-3 text-right leading-tight text-[10px]"><span class="text-green-600 font-bold">IN: ${tEntrada}</span><br><span class="text-red-400 font-bold">OUT: ${tSalida}</span></td>
-                            <td class="p-3 text-right"><button onclick="abrirModal('${d.id}')" class="text-slate-400 font-bold text-lg">📝</button></td>
-                        </tr>`;
+                    // Busca esta parte dentro del else (sección de historial) del onSnapshot:
+
+contHistorial.innerHTML += `
+    <tr class="hover:bg-white transition border-b border-slate-200">
+        <td class="p-3 font-mono font-bold text-slate-600">
+            <span class="text-[12px] text-orange-600 block font-extrabold mb-1 tracking-tight">${fechaDia}</span>
+            <span class="text-sm">${data.contenedor}</span>
+        </td>
+        <td class="p-3"><b>${data.cliente}</b><br><div class="flex items-center gap-1 text-blue-600 text-[9px] font-bold uppercase tracking-tighter italic"><span>📍</span>${data.destino || 'S/D'}</div></td>
+        <td class="p-3 font-bold text-slate-500 uppercase">${data.referencia || '-'}</td>
+        <td class="p-3 text-center text-slate-500 leading-tight">${data.tara}<br>${data.bruto}</td>
+        <td class="p-3 text-center font-black text-blue-600 bg-blue-50/50">${neto} Kg</td>
+        <td class="p-3 text-right leading-tight text-[10px]"><span class="text-green-600 font-bold">IN: ${tEntrada}</span><br><span class="text-red-400 font-bold">OUT: ${tSalida}</span></td>
+        <td class="p-3 text-right"><button onclick="abrirModal('${d.id}')" class="text-slate-400 font-bold text-lg">📝</button></td>
+    </tr>`;
                 }
             });
         });
