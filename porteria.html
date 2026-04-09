@@ -120,7 +120,7 @@ const crearTarjeta = (id, data, esEntrada) => {
 };
 
         // SNAPSHOTS (Misma lógica)
-        onSnapshot(query(collection(db, "camiones"), where("estado", "==", "Habilitado"")), (snap) => {
+        onSnapshot(query(collection(db, "camiones"), where("estado", "==", "Habilitado")), (snap) => {
             const cont = document.getElementById('lista-habilitados');
             cont.innerHTML = snap.empty ? '<p class="text-center py-10 text-zinc-600 italic">No hay ingresos hoy.</p>' : "";
             snap.forEach(d => cont.innerHTML += crearTarjeta(d.id, d.data(), true));
