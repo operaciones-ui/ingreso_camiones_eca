@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control de Acceso Planta</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-5">
+
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-3xl font-bold text-center mb-8 text-blue-800">Control de Camiones</h1>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h2 class="text-xl font-bold mb-4 border-b pb-2 text-orange-600">Logística: Autorizar Carga</h2>
+                <div id="lista-pendientes" class="space-y-4">
+                    <p class="text-gray-400">Cargando pendientes...</p>
+                </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h2 class="text-xl font-bold mb-4 border-b pb-2 text-green-600">Portería: Camiones Habilitados</h2>
+                <div id="lista-habilitados" class="space-y-4">
+                    <p class="text-gray-400">Esperando autorizaciones...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, collection, onSnapshot, updateDoc, doc, query, where, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        // CONFIGURACIÓN DE TU FIREBASE (Reemplaza esto con tus datos)
+        const firebaseConfig = {
+            apiKey: "AIzaSyD59XE1FYbUPqiUjn7vBMT89PcGjB2Svzs",
+            authDomain: "ingresocamiones.firebaseapp.com",
+            projectId: "ingresocamiones",
+            storageBucket: "ingresocamiones.firebasestorage.app",
+            messagingSenderId: "170806305489",
+            appId: "1:170806305489:web:0264fc24aec12a19a31bf0"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const colRef = collection(db, "camiones");
+
+        // --- LÓGICA LOGÍSTICA (Escuchar pendientes) ---
+        const qPendientes = query(colRef, where("estado", "==", "Pendiente"));
+        onSnapshot(qPendientes, (snapshot) => {
+            const container = document.getElementById('lista-pendientes');
+            container.innerHTML = "";
+            snapshot.forEach(d => {
+                const data = d.data();
+                container.innerHTML += `
+                    <div class="p-3 border rounded bg-gray-50 flex justify-between items-center">
+                        <div>
+                            <p class="font-bold">${data.patente}</p>
+                            <p class="text-sm text-gray-600">${data.chofer}</p>
+                        </div>
+                        <button onclick="autorizar('${d.id}')" class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700">Autorizar</button>
+                    </div>`;
+            });
+        });
+
+        // --- LÓGICA PORTERÍA (Escuchar habilitados) ---
+        const qHabilitados = query(colRef, where("estado", "==", "Habilitado"));
+        onSnapshot(qHabilitados, (snapshot) => {
+            const container = document.getElementById('lista-habilitados');
+            container.innerHTML = "";
+            snapshot.forEach(d => {
+                const data = d.data();
+                container.innerHTML += `
+                    <div class="p-3 border rounded bg-green-50 flex justify-between items-center border-green-200">
+                        <div>
+                            <p class="font-bold">${data.patente}</p>
+                            <p class="text-sm text-gray-600">${data.chofer}</p>
+                        </div>
+                        <button onclick="ingresar('${d.id}')" class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700">Ingresó</button>
+                    </div>`;
+            });
+        });
+
+        // FUNCIONES GLOBALES PARA LOS BOTONES
+        window.autorizar = async (id) => {
+            await updateDoc(doc(db, "camiones", id), { 
+                estado: "Habilitado",
+                fechaHabilitacion: serverTimestamp() 
+            });
+        };
+
+        window.ingresar = async (id) => {
+            await updateDoc(doc(db, "camiones", id), { 
+                estado: "En Planta",
+                fechaIngreso: serverTimestamp() 
+            });
+        };
+    </script>
+</body>
+</html>
