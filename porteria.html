@@ -3,31 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Módulo Portería</title>
+    <title>Módulo Portería - ECA</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-zinc-900 text-white p-4">
     <div class="max-w-2xl mx-auto">
-        <h1 class="text-2xl font-bold text-green-400 mb-6 border-b border-green-900 pb-2">Acceso Planta: Camiones Habilitados</h1>
+        <div class="flex justify-between items-center mb-6 border-b border-green-900 pb-2">
+            <h1 class="text-2xl font-bold text-green-400">Acceso Planta: Camiones Habilitados</h1>
+            <button onclick="cerrarSesion()" class="text-xs bg-zinc-700 text-gray-300 px-2 py-1 rounded hover:bg-zinc-600 transition">Cerrar Sesión</button>
+        </div>
 
         <div id="lista-habilitados" class="space-y-4">
-            </div>
+            <p class="text-gray-500 text-center">Cargando autorizaciones...</p>
+        </div>
     </div>
 
     <script type="module">
-
-        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-
-        const auth = getAuth(app);
-        onAuthStateChanged(auth, (user) => {
-            if (!user) {
-            // Si no está logueado, lo manda al login
-            window.location.href = "index.html";
-            }
-        });
-        
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getFirestore, collection, onSnapshot, query, where, updateDoc, doc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyD59XE1FYbUPqiUjn7vBMT89PcGjB2Svzs",
@@ -38,31 +32,58 @@
             appId: "1:170806305489:web:0264fc24aec12a19a31bf0"
         };
 
+        // 1. Inicializar Firebase primero
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
+        const auth = getAuth(app);
 
+        // 2. DOBLE CANDADO: Validar sesión y rol (recepc)
+        onAuthStateChanged(auth, async (user) => {
+            if (!user) {
+                window.location.href = "index.html";
+            } else {
+                const email = user.email.toLowerCase();
+                if (!email.includes("recepc")) {
+                    alert("ACCESO DENEGADO: Área exclusiva para Portería.");
+                    await signOut(auth);
+                    window.location.href = "index.html";
+                }
+            }
+        });
+
+        window.cerrarSesion = () => signOut(auth);
+
+        // 3. Lógica de visualización en tiempo real
         onSnapshot(query(collection(db, "camiones"), where("estado", "==", "Habilitado")), (snapshot) => {
             const container = document.getElementById('lista-habilitados');
             container.innerHTML = snapshot.empty ? '<p class="text-gray-500 text-center">No hay camiones autorizados por el momento.</p>' : "";
+            
             snapshot.forEach(d => {
                 const data = d.data();
                 container.innerHTML += `
-                    <div class="bg-zinc-800 p-4 rounded-lg flex justify-between items-center border border-zinc-700">
+                    <div class="bg-zinc-800 p-4 rounded-lg flex justify-between items-center border border-zinc-700 shadow-md">
                         <div>
-                            <p class="text-xl font-mono text-green-400">${data.patente}</p>
-                            <p class="text-gray-400">${data.chofer}</p>
+                            <p class="text-xl font-mono text-green-400 font-bold">${data.patente}</p>
+                            <p class="text-gray-400 text-sm italic">${data.chofer}</p>
                         </div>
-                        <button onclick="ingresar('${d.id}')" class="bg-green-600 hover:bg-green-500 text-white px-6 py-2 rounded font-bold transition">
+                        <button onclick="ingresar('${d.id}')" class="bg-green-600 hover:bg-green-500 text-white px-6 py-2 rounded font-bold transition-all transform active:scale-95">
                             DAR INGRESO
                         </button>
                     </div>`;
             });
         });
 
-        window.ingresar = (id) => updateDoc(doc(db, "camiones", id), { 
-            estado: "En Planta",
-            fechaIngreso: serverTimestamp() 
-        });
+        // 4. Función para cambiar estado al ingresar
+        window.ingresar = async (id) => {
+            try {
+                await updateDoc(doc(db, "camiones", id), { 
+                    estado: "En Planta",
+                    fechaIngreso: serverTimestamp() 
+                });
+            } catch (error) {
+                console.error("Error al registrar ingreso:", error);
+            }
+        };
     </script>
 </body>
 </html>
