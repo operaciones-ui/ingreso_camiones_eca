@@ -3,117 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Logística: Gestión y Pesaje Total - ECA</title>
+    <title>Logística: Control de Exportación - ECA</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-slate-100 p-4 font-sans text-gray-800">
 
-    <div class="max-w-6xl mx-auto">
-        <div class="flex justify-between items-center mb-6 bg-white p-4 rounded-lg shadow-sm">
+    <div class="max-w-7xl mx-auto">
+        <div class="flex justify-between items-center mb-6 bg-white p-4 rounded-lg shadow-sm border-l-8 border-orange-500">
             <div>
-                <h1 class="text-2xl font-bold text-orange-600">ECA: Gestión Logística</h1>
-                <p class="text-xs text-gray-500 italic">Panel de Control de Unidades y Pesajes</p>
+                <h1 class="text-2xl font-bold text-gray-800">ECA: Torre de Control</h1>
+                <p class="text-xs text-orange-600 font-bold uppercase tracking-widest">Gestión Logística Avanzada</p>
             </div>
-            <button onclick="cerrarSesion()" class="bg-red-50 text-red-600 px-4 py-2 rounded-lg font-bold text-sm hover:bg-red-600 hover:text-white transition">
+            <button onclick="cerrarSesion()" class="bg-gray-100 text-gray-500 px-4 py-2 rounded-lg font-bold text-xs hover:bg-red-500 hover:text-white transition-all">
                 Cerrar Sesión
             </button>
         </div>
 
-        <div class="bg-white p-6 rounded-xl shadow-md mb-8 border-t-4 border-orange-500">
-            <h2 class="font-bold mb-4 text-gray-700 flex items-center italic">
-                <span class="mr-2">🚛</span> Programar Nuevo Viaje
+        <div class="bg-white p-6 rounded-xl shadow-md mb-8">
+            <h2 class="font-black mb-4 text-gray-700 flex items-center text-sm uppercase">
+                <span class="mr-2">📋</span> Programar Nueva Exportación
             </h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4">
                 <div>
-                    <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Patente</label>
-                    <input id="patente" type="text" placeholder="ABC-123" class="w-full border p-3 rounded-lg uppercase outline-none focus:ring-2 focus:ring-orange-500 font-mono">
+                    <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Patente Camión</label>
+                    <input id="patente" type="text" class="w-full border p-2 rounded bg-gray-50 uppercase font-mono outline-none focus:ring-2 focus:ring-orange-400">
                 </div>
                 <div>
-                    <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Nombre del Chofer</label>
-                    <input id="chofer" type="text" placeholder="Nombre completo" class="w-full border p-3 rounded-lg outline-none focus:ring-2 focus:ring-orange-500">
+                    <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Patente Semi</label>
+                    <input id="patenteSemi" type="text" class="w-full border p-2 rounded bg-gray-50 uppercase font-mono outline-none focus:ring-2 focus:ring-orange-400">
                 </div>
-                <div class="flex items-end">
-                    <button onclick="crearViaje()" class="w-full bg-orange-500 text-white p-3 rounded-lg font-bold hover:bg-orange-600 shadow-lg shadow-orange-200 transition">
-                        REGISTRAR PENDIENTE
+                <div class="lg:col-span-2">
+                    <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Empresa Transporte</label>
+                    <input id="transporte" type="text" class="w-full border p-2 rounded bg-gray-50 outline-none focus:ring-2 focus:ring-orange-400">
+                </div>
+                <div class="lg:col-span-2">
+                    <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Chofer</label>
+                    <input id="chofer" type="text" class="w-full border p-2 rounded bg-gray-50 outline-none focus:ring-2 focus:ring-orange-400">
+                </div>
+
+                <div class="lg:col-span-2">
+                    <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Contenedor</label>
+                    <input id="contenedor" type="text" class="w-full border p-2 rounded bg-gray-50 font-mono outline-none focus:ring-2 focus:ring-orange-400">
+                </div>
+                <div class="lg:col-span-1">
+                    <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Cliente</label>
+                    <input id="cliente" type="text" class="w-full border p-2 rounded bg-gray-50 outline-none focus:ring-2 focus:ring-orange-400">
+                </div>
+                <div class="lg:col-span-1">
+                    <label class="block text-[10px] font-bold text-blue-600 uppercase mb-1">Referencia / Booking</label>
+                    <input id="referencia" type="text" placeholder="Ej: REF-9900" class="w-full border border-blue-100 p-2 rounded bg-blue-50 outline-none focus:ring-2 focus:ring-blue-400 font-bold">
+                </div>
+                <div class="lg:col-span-2 flex items-end">
+                    <button onclick="crearViaje()" class="w-full bg-orange-500 text-white p-2 rounded font-bold hover:bg-orange-600 transition-all uppercase text-sm shadow-lg shadow-orange-100">
+                        Registrar Viaje
                     </button>
                 </div>
             </div>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
-            
-            <div class="lg:col-span-1 space-y-4">
-                <h2 class="font-bold text-gray-600 flex items-center px-2 uppercase text-xs tracking-widest">
-                    <span class="w-2 h-2 bg-orange-500 rounded-full mr-2 animate-pulse"></span> Por Autorizar
-                </h2>
-                <div id="lista-pendientes" class="space-y-3">
-                    </div>
-            </div>
-
-            <div class="lg:col-span-3">
-                <h2 class="font-bold text-gray-600 flex items-center px-2 uppercase text-xs tracking-widest mb-4">
-                    <span class="w-2 h-2 bg-green-500 rounded-full mr-2"></span> Monitoreo en Planta y Finalizados
-                </h2>
-                <div class="bg-white rounded-xl shadow-md overflow-hidden">
-                    <table class="w-full text-left border-collapse">
-                        <thead>
-                            <tr class="bg-gray-50 border-b border-gray-100 text-[10px] uppercase text-gray-400 font-black">
-                                <th class="p-4">Unidad</th>
-                                <th class="p-4">Estado</th>
-                                <th class="p-4 text-center">Tara (Kg)</th>
-                                <th class="p-4 text-center">Bruto (Kg)</th>
-                                <th class="p-4 text-center">Neto (Kg)</th>
-                                <th class="p-4 text-right">Gestión</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tabla-gestion" class="divide-y divide-gray-50 text-sm">
-                            </tbody>
-                    </table>
-                </div>
+        <div class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100">
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs">
+                    <thead>
+                        <tr class="bg-gray-50 text-gray-400 font-bold uppercase border-b">
+                            <th class="p-4">Camión / Semi</th>
+                            <th class="p-4">Transporte / Chofer</th>
+                            <th class="p-4">Cliente / Ref.</th>
+                            <th class="p-4">Contenedor</th>
+                            <th class="p-4 text-center">Estado</th>
+                            <th class="p-4 text-center">Neto (Kg)</th>
+                            <th class="p-4 text-right">Gestión</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabla-gestion" class="divide-y divide-gray-100"></tbody>
+                </table>
             </div>
         </div>
     </div>
 
-    <div id="modal-editar" class="hidden fixed inset-0 bg-slate-900/80 flex items-center justify-center p-4 z-50 backdrop-blur-sm">
-        <div class="bg-white p-6 rounded-2xl shadow-2xl w-full max-w-md border border-gray-100">
-            <h3 class="font-black text-xl mb-1 text-gray-800">Corregir Viaje</h3>
-            <p class="text-xs text-gray-400 mb-6 uppercase tracking-widest border-b pb-4">Solo Logística puede editar pesos</p>
-            
+    <div id="modal-editar" class="hidden fixed inset-0 bg-slate-900/90 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+        <div class="bg-white p-6 rounded-2xl shadow-2xl w-full max-w-2xl">
+            <h3 class="font-black text-xl mb-6 text-gray-800 border-b pb-4">Editar Registro</h3>
             <input id="edit-id" type="hidden">
-            
-            <div class="grid grid-cols-2 gap-4">
-                <div class="col-span-2">
-                    <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Patente</label>
-                    <input id="edit-patente" type="text" class="w-full border p-3 rounded-xl uppercase font-mono focus:ring-2 focus:ring-blue-500 outline-none">
-                </div>
-                <div class="col-span-2">
-                    <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Chofer</label>
-                    <input id="edit-chofer" type="text" class="w-full border p-3 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none">
-                </div>
-                <div>
-                    <label class="block text-[10px] font-bold text-orange-500 uppercase mb-1">Peso Tara</label>
-                    <input id="edit-tara" type="number" step="0.01" class="w-full border-orange-100 border bg-orange-50 p-3 rounded-xl font-bold">
-                </div>
-                <div>
-                    <label class="block text-[10px] font-bold text-blue-500 uppercase mb-1">Peso Bruto</label>
-                    <input id="edit-bruto" type="number" step="0.01" class="w-full border-blue-100 border bg-blue-50 p-3 rounded-xl font-bold">
-                </div>
+            <div class="grid grid-cols-2 gap-4 text-sm">
+                <div><label class="text-[10px] font-bold text-gray-400 uppercase">Patente Camión</label><input id="edit-patente" type="text" class="w-full border p-2 rounded uppercase font-mono"></div>
+                <div><label class="text-[10px] font-bold text-gray-400 uppercase">Patente Semi</label><input id="edit-patenteSemi" type="text" class="w-full border p-2 rounded uppercase font-mono"></div>
+                <div><label class="text-[10px] font-bold text-gray-400 uppercase">Transporte</label><input id="edit-transporte" type="text" class="w-full border p-2 rounded"></div>
+                <div><label class="text-[10px] font-bold text-gray-400 uppercase">Chofer</label><input id="edit-chofer" type="text" class="w-full border p-2 rounded"></div>
+                <div><label class="text-[10px] font-bold text-gray-400 uppercase">Cliente</label><input id="edit-cliente" type="text" class="w-full border p-2 rounded font-bold text-blue-600"></div>
+                <div><label class="text-[10px] font-bold text-gray-400 uppercase">Referencia</label><input id="edit-referencia" type="text" class="w-full border p-2 rounded font-bold text-blue-600 bg-blue-50"></div>
+                <div class="col-span-2"><label class="text-[10px] font-bold text-gray-400 uppercase">Contenedor</label><input id="edit-contenedor" type="text" class="w-full border p-2 rounded font-mono uppercase"></div>
+                <div class="bg-orange-50 p-2 rounded border border-orange-100"><label class="text-[10px] font-bold text-orange-600 uppercase">Tara</label><input id="edit-tara" type="number" class="w-full bg-transparent font-bold"></div>
+                <div class="bg-blue-50 p-2 rounded border border-blue-100"><label class="text-[10px] font-bold text-blue-600 uppercase">Bruto</label><input id="edit-bruto" type="number" class="w-full bg-transparent font-bold"></div>
             </div>
-
             <div class="flex gap-3 mt-8">
-                <button onclick="guardarEdicion()" class="flex-1 bg-blue-600 text-white p-3 rounded-xl font-bold hover:bg-blue-700 shadow-lg shadow-blue-200 transition">
-                    GUARDAR CAMBIOS
-                </button>
-                <button onclick="cerrarModal()" class="flex-1 bg-gray-100 text-gray-500 p-3 rounded-xl font-bold hover:bg-gray-200 transition">
-                    CANCELAR
-                </button>
+                <button onclick="guardarEdicion()" class="flex-1 bg-blue-600 text-white p-3 rounded-xl font-bold">GUARDAR</button>
+                <button onclick="cerrarModal()" class="flex-1 bg-gray-100 p-3 rounded-xl font-bold">CANCELAR</button>
             </div>
         </div>
     </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getFirestore, collection, addDoc, onSnapshot, query, where, updateDoc, doc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, onSnapshot, query, updateDoc, doc, serverTimestamp, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
         const firebaseConfig = {
@@ -130,90 +122,72 @@
         const auth = getAuth(app);
         const colRef = collection(db, "camiones");
 
-        // SEGURIDAD: DOBLE CANDADO
         onAuthStateChanged(auth, async (user) => {
             if (!user || !user.email.toLowerCase().includes("opera")) {
-                await signOut(auth);
-                window.location.href = "index.html";
+                await signOut(auth); window.location.href = "index.html";
             }
         });
 
         window.cerrarSesion = () => signOut(auth);
 
-        // CREAR VIAJE
         window.crearViaje = async () => {
-            const patente = document.getElementById('patente').value.trim().toUpperCase();
-            const chofer = document.getElementById('chofer').value.trim();
-            if(!patente || !chofer) return alert("Completa los datos");
-            
-            await addDoc(colRef, { 
-                patente, 
-                chofer, 
-                estado: "Pendiente", 
-                tara: 0, 
-                bruto: 0, 
-                fechaRegistro: serverTimestamp() 
-            });
-            
-            document.getElementById('patente').value = "";
-            document.getElementById('chofer').value = "";
+            const data = {
+                patente: document.getElementById('patente').value.toUpperCase(),
+                patenteSemi: document.getElementById('patenteSemi').value.toUpperCase(),
+                transporte: document.getElementById('transporte').value,
+                chofer: document.getElementById('chofer').value,
+                contenedor: document.getElementById('contenedor').value.toUpperCase(),
+                cliente: document.getElementById('cliente').value,
+                referencia: document.getElementById('referencia').value,
+                estado: "Pendiente",
+                tara: 0, bruto: 0, fecha: serverTimestamp()
+            };
+            if(!data.patente || !data.chofer) return alert("Falta Patente/Chofer");
+            await addDoc(colRef, data);
+            document.querySelectorAll('input').forEach(i => i.value = "");
         };
 
-        // LISTA 1: PENDIENTES (IZQUIERDA)
-        onSnapshot(query(colRef, where("estado", "==", "Pendiente")), (snapshot) => {
-            const container = document.getElementById('lista-pendientes');
-            container.innerHTML = "";
-            snapshot.forEach(d => {
-                const data = d.data();
-                container.innerHTML += `
-                    <div class="p-4 bg-white rounded-xl shadow-sm border border-orange-100 flex justify-between items-center group">
-                        <div>
-                            <p class="font-black text-orange-600 font-mono">${data.patente}</p>
-                            <p class="text-[10px] text-gray-400 font-bold uppercase">${data.chofer}</p>
-                        </div>
-                        <div class="flex gap-1">
-                            <button onclick="autorizar('${d.id}')" class="bg-green-500 text-white p-2 rounded-lg text-[10px] font-bold hover:bg-green-600 transition">OK</button>
-                            <button onclick="abrirModal('${d.id}', '${data.patente}', '${data.chofer}', ${data.tara}, ${data.bruto})" class="bg-gray-100 text-gray-400 p-2 rounded-lg text-[10px] hover:bg-gray-200 transition">📝</button>
-                        </div>
-                    </div>`;
-            });
-        });
-
-        // LISTA 2: GESTIÓN DE PESOS (TABLA)
-        onSnapshot(query(colRef, where("estado", "in", ["Habilitado", "En Planta", "Finalizado"])), (snapshot) => {
+        onSnapshot(query(colRef), (snapshot) => {
             const container = document.getElementById('tabla-gestion');
             container.innerHTML = "";
             snapshot.forEach(d => {
                 const data = d.data();
-                const tara = data.tara || 0;
-                const bruto = data.bruto || 0;
-                const neto = (bruto > 0) ? (bruto - tara).toFixed(2) : "0.00";
-                
-                let badgeClass = data.estado === "Finalizado" ? "bg-gray-100 text-gray-500" : (data.estado === "En Planta" ? "bg-green-100 text-green-600" : "bg-blue-100 text-blue-600");
+                const neto = data.bruto > 0 ? (data.bruto - data.tara).toFixed(2) : "0.00";
+                const estadoColor = data.estado === "Finalizado" ? "bg-gray-100 text-gray-500" : (data.estado === "En Planta" ? "bg-green-100 text-green-700 font-bold" : "bg-orange-100 text-orange-700");
 
                 container.innerHTML += `
-                    <tr class="hover:bg-gray-50 transition">
-                        <td class="p-4 font-mono font-bold">${data.patente}</td>
-                        <td class="p-4"><span class="px-2 py-1 rounded-full text-[9px] font-black uppercase ${badgeClass}">${data.estado}</span></td>
-                        <td class="p-4 text-center font-mono text-gray-500">${tara}</td>
-                        <td class="p-4 text-center font-mono text-gray-500">${bruto}</td>
-                        <td class="p-4 text-center font-mono font-black text-blue-600">${neto}</td>
+                    <tr class="hover:bg-gray-50 transition border-b border-gray-50">
+                        <td class="p-4 font-mono font-bold text-blue-600">${data.patente}<br><span class="text-gray-400 text-[10px]">${data.patenteSemi || '-'}</span></td>
+                        <td class="p-4 font-bold">${data.transporte}<br><span class="font-normal text-gray-500">${data.chofer}</span></td>
+                        <td class="p-4 font-bold text-gray-700">${data.cliente || '-'}<br><span class="text-blue-500 text-[10px] font-black italic">Ref: ${data.referencia || '-'}</span></td>
+                        <td class="p-4 font-mono text-[11px]">${data.contenedor || '-'}</td>
+                        <td class="p-4 text-center"><span class="px-2 py-1 rounded text-[9px] uppercase ${estadoColor}">${data.estado}</span></td>
+                        <td class="p-4 text-center font-black text-blue-800">${neto} Kg</td>
                         <td class="p-4 text-right">
-                            <button onclick="abrirModal('${d.id}', '${data.patente}', '${data.chofer}', ${tara}, ${bruto})" class="text-xs font-bold text-blue-500 hover:underline px-2">Corregir</button>
+                            <div class="flex flex-col gap-1">
+                                ${data.estado === 'Pendiente' ? `<button onclick="autorizar('${d.id}')" class="bg-green-600 text-white px-2 py-1 rounded text-[9px]">Autorizar</button>` : ''}
+                                <button onclick="abrirModal('${d.id}')" class="text-blue-500 underline text-[10px] font-bold">Editar/Pesos</button>
+                            </div>
                         </td>
                     </tr>`;
             });
         });
 
-        // FUNCIONES DE EDICIÓN
         window.autorizar = (id) => updateDoc(doc(db, "camiones", id), { estado: "Habilitado" });
 
-        window.abrirModal = (id, patente, chofer, tara, bruto) => {
+        window.abrirModal = async (id) => {
+            const snap = await getDoc(doc(db, "camiones", id));
+            const data = snap.data();
             document.getElementById('edit-id').value = id;
-            document.getElementById('edit-patente').value = patente;
-            document.getElementById('edit-chofer').value = chofer;
-            document.getElementById('edit-tara').value = tara;
-            document.getElementById('edit-bruto').value = bruto;
+            document.getElementById('edit-patente').value = data.patente;
+            document.getElementById('edit-patenteSemi').value = data.patenteSemi || '';
+            document.getElementById('edit-transporte').value = data.transporte || '';
+            document.getElementById('edit-chofer').value = data.chofer;
+            document.getElementById('edit-contenedor').value = data.contenedor || '';
+            document.getElementById('edit-cliente').value = data.cliente || '';
+            document.getElementById('edit-referencia').value = data.referencia || '';
+            document.getElementById('edit-tara').value = data.tara;
+            document.getElementById('edit-bruto').value = data.bruto;
             document.getElementById('modal-editar').classList.remove('hidden');
         };
 
@@ -221,13 +195,18 @@
 
         window.guardarEdicion = async () => {
             const id = document.getElementById('edit-id').value;
-            const upData = {
+            const up = {
                 patente: document.getElementById('edit-patente').value.toUpperCase(),
+                patenteSemi: document.getElementById('edit-patenteSemi').value.toUpperCase(),
+                transporte: document.getElementById('edit-transporte').value,
                 chofer: document.getElementById('edit-chofer').value,
+                contenedor: document.getElementById('edit-contenedor').value.toUpperCase(),
+                cliente: document.getElementById('edit-cliente').value,
+                referencia: document.getElementById('edit-referencia').value,
                 tara: parseFloat(document.getElementById('edit-tara').value) || 0,
                 bruto: parseFloat(document.getElementById('edit-bruto').value) || 0
             };
-            await updateDoc(doc(db, "camiones", id), upData);
+            await updateDoc(doc(db, "camiones", id), up);
             cerrarModal();
         };
     </script>
