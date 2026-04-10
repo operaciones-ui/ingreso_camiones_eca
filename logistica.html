@@ -26,29 +26,29 @@
             <h2 class="font-black mb-4 text-gray-700 flex items-center text-sm uppercase italic"><span class="mr-2">📝</span> Nuevo Registro de Carga</h2>
             <div class="space-y-4">
                 <div class="grid grid-cols-1 md:grid-cols-12 gap-3">
-                    <div class="md:col-span-1"><label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Ref.</label><input id="referencia" type="text" class="w-full border p-2 rounded bg-gray-50 text-xs"></div>
-                    <div class="md:col-span-3"><label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Cliente / Exportador</label><input id="cliente" type="text" class="w-full border p-2 rounded bg-gray-50 text-xs font-bold"></div>
-                    <div class="md:col-span-2"><label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Barco / Viaje</label><input id="barcoViaje" type="text" class="w-full border p-2 rounded bg-gray-50 text-xs"></div>
-                    <div class="md:col-span-1"><label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Tipo</label><input id="tipoContenedor" type="text" placeholder="40HC" class="w-full border p-2 rounded bg-gray-50 text-xs"></div>
+                    <div class="md:col-span-1"><label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Ref.</label><input id="referencia" type="text" class="w-full border p-2 rounded bg-gray-50 text-xs outline-none focus:ring-1 focus:ring-orange-400"></div>
+                    <div class="md:col-span-3"><label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Cliente / Exportador</label><input id="cliente" type="text" class="w-full border p-2 rounded bg-gray-50 text-xs font-bold outline-none focus:ring-1 focus:ring-orange-400"></div>
+                    <div class="md:col-span-2"><label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Barco / Viaje</label><input id="barcoViaje" type="text" class="w-full border p-2 rounded bg-gray-50 text-xs outline-none focus:ring-1 focus:ring-orange-400"></div>
+                    <div class="md:col-span-1"><label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Tipo</label><input id="tipoContenedor" type="text" placeholder="40HC" class="w-full border p-2 rounded bg-gray-50 text-xs outline-none focus:ring-1 focus:ring-orange-400"></div>
                     <div class="md:col-span-3"><label class="block text-[10px] font-bold text-orange-600 uppercase mb-1">N° Contenedor</label><input id="contenedor" type="text" class="w-full border border-orange-300 p-1.5 rounded bg-orange-50 uppercase font-mono font-bold text-base outline-none focus:ring-1 focus:ring-orange-500 text-orange-900 h-[32px]"></div>
-                    <div class="md:col-span-2"><label class="block text-[10px] font-bold text-blue-600 uppercase mb-1">País</label><input id="destino" type="text" class="w-full border p-2 rounded bg-blue-50 text-xs font-bold"></div>
+                    <div class="md:col-span-2"><label class="block text-[10px] font-bold text-blue-600 uppercase mb-1">País</label><input id="destino" type="text" class="w-full border p-2 rounded bg-blue-50 text-xs font-bold outline-none focus:ring-1 focus:ring-blue-400"></div>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-12 gap-2">
-                    <div class="md:col-span-2"><label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Transporte</label><input id="transporte" type="text" class="w-full border p-2 rounded bg-gray-50 text-xs"></div>
-                    <div class="md:col-span-3"><label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Nombre Chofer</label><input id="chofer" list="lista-choferes" oninput="autocompletarChofer(this.value)" class="w-full border p-2 rounded bg-gray-50 text-xs"><datalist id="lista-choferes"></datalist></div>
-                    <div class="md:col-span-1"><label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">DNI</label><input id="dni" type="text" class="w-full border p-2 rounded bg-gray-50 text-[10px]"></div>
-                    <div class="md:col-span-1"><label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Pat. Camión</label><input id="patenteCamion" type="text" class="w-full border p-2 rounded bg-gray-50 text-[10px] font-mono uppercase"></div>
-                    <div class="md:col-span-1"><label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Pat. Semi</label><input id="patenteSemi" type="text" class="w-full border p-2 rounded bg-gray-50 text-[10px] font-mono uppercase"></div>
-                    <div class="md:col-span-2"><label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Celular</label><input id="celular" type="tel" class="w-full border p-2 rounded bg-gray-50 text-xs"></div>
-                    <div class="md:col-span-2 flex items-end"><button onclick="crearViaje()" class="w-full bg-orange-600 text-white p-2 rounded font-black hover:bg-orange-700 uppercase text-[10px] h-[34px] shadow-lg">Registrar</button></div>
+                    <div class="md:col-span-2"><label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Transporte</label><input id="transporte" type="text" class="w-full border p-2 rounded bg-gray-50 text-xs outline-none"></div>
+                    <div class="md:col-span-3"><label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Nombre Chofer</label><input id="chofer" list="lista-choferes" oninput="autocompletarChofer(this.value)" class="w-full border p-2 rounded bg-gray-50 text-xs outline-none"><datalist id="lista-choferes"></datalist></div>
+                    <div class="md:col-span-1"><label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">DNI</label><input id="dni" type="text" class="w-full border p-2 rounded bg-gray-50 text-[10px] outline-none"></div>
+                    <div class="md:col-span-1"><label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Pat. Camión</label><input id="patenteCamion" type="text" class="w-full border p-2 rounded bg-gray-50 text-[10px] font-mono uppercase outline-none"></div>
+                    <div class="md:col-span-1"><label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Pat. Semi</label><input id="patenteSemi" type="text" class="w-full border p-2 rounded bg-gray-50 text-[10px] font-mono uppercase outline-none"></div>
+                    <div class="md:col-span-2"><label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Celular</label><input id="celular" type="tel" class="w-full border p-2 rounded bg-gray-50 text-xs outline-none"></div>
+                    <div class="md:col-span-1 flex items-end"><button onclick="crearViaje()" class="w-full bg-orange-600 text-white p-2 rounded font-black hover:bg-orange-700 uppercase text-[10px] h-[34px] shadow-lg">Registrar</button></div>
                 </div>
             </div>
         </div>
 
         <h2 class="text-xs font-black text-gray-500 mb-2 uppercase tracking-widest">Cargas en Curso</h2>
-        <div class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 mb-10">
-            <table class="w-full text-left text-xs">
+        <div class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 mb-10 text-xs">
+            <table class="w-full text-left">
                 <thead>
                     <tr class="bg-gray-50 text-gray-400 border-b font-bold uppercase text-[10px]">
                         <th class="p-4">Ref / Cliente</th>
@@ -70,20 +70,13 @@
                    <span class="mr-2">🕒</span> Historial de Cargas Finalizadas
                </h2>
                <div class="bg-white p-3 rounded-xl shadow-sm border border-slate-200 flex flex-wrap gap-3 items-end">
-                   <div>
-                       <label class="block text-[9px] font-bold text-gray-400 uppercase">Desde</label>
-                       <input id="filtro-desde" type="date" class="text-xs border p-1 rounded outline-none">
-                   </div>
-                   <div>
-                       <label class="block text-[9px] font-bold text-gray-400 uppercase">Hasta</label>
-                       <input id="filtro-hasta" type="date" class="text-xs border p-1 rounded outline-none">
-                   </div>
-                   <button onclick="exportarExcel()" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-xs font-black uppercase flex items-center gap-2 transition-all">
+                   <input id="filtro-desde" type="date" class="text-xs border p-1 rounded">
+                   <input id="filtro-hasta" type="date" class="text-xs border p-1 rounded">
+                   <button onclick="exportarExcel()" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-xs font-black uppercase flex items-center gap-2">
                        <span>📊</span> Exportar Excel
                    </button>
                </div>
            </div>
-
            <div class="bg-slate-200/50 rounded-xl shadow-inner overflow-hidden border border-slate-300">
                <table class="w-full text-left text-[11px]">
                    <thead>
@@ -104,18 +97,18 @@
 
     <div id="modal-editar" class="hidden fixed inset-0 bg-slate-900/90 backdrop-blur-sm flex items-center justify-center p-4 z-50">
         <div class="bg-white p-6 rounded-2xl shadow-2xl w-full max-w-3xl text-sm">
-            <h3 class="font-black text-xl mb-6 text-gray-800 border-b pb-4 uppercase">✏️ Editar Registro</h3>
+            <h3 class="font-black text-xl mb-6 border-b pb-4 uppercase">✏️ Editar Registro</h3>
             <input id="edit-id" type="hidden">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div class="md:col-span-2"><label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Chofer</label><input id="edit-chofer" type="text" class="w-full border p-2 rounded"></div>
-                <div><label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">DNI</label><input id="edit-dni" type="text" class="w-full border p-2 rounded"></div>
-                <div><label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Patente Camión</label><input id="edit-patenteCamion" type="text" class="w-full border p-2 rounded uppercase font-mono"></div>
-                <div><label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Patente Semi</label><input id="edit-patenteSemi" type="text" class="w-full border p-2 rounded uppercase font-mono"></div>
-                <div><label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Tara</label><input id="edit-tara" type="number" class="w-full border p-2 rounded"></div>
-                <div><label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Bruto</label><input id="edit-bruto" type="number" class="w-full border p-2 rounded"></div>
+                <div class="md:col-span-2"><label class="text-[10px] font-bold text-gray-400 uppercase">Chofer</label><input id="edit-chofer" type="text" class="w-full border p-2 rounded"></div>
+                <div><label class="text-[10px] font-bold text-gray-400 uppercase">DNI</label><input id="edit-dni" type="text" class="w-full border p-2 rounded"></div>
+                <div><label class="text-[10px] font-bold text-gray-400 uppercase">Patente Camión</label><input id="edit-patenteCamion" type="text" class="w-full border p-2 rounded uppercase"></div>
+                <div><label class="text-[10px] font-bold text-gray-400 uppercase">Patente Semi</label><input id="edit-patenteSemi" type="text" class="w-full border p-2 rounded uppercase"></div>
+                <div><label class="text-[10px] font-bold text-gray-400 uppercase">Tara</label><input id="edit-tara" type="number" class="w-full border p-2 rounded"></div>
+                <div><label class="text-[10px] font-bold text-gray-400 uppercase">Bruto</label><input id="edit-bruto" type="number" class="w-full border p-2 rounded"></div>
             </div>
             <div class="flex gap-3 mt-8">
-                <button onclick="guardarEdicion()" class="flex-1 bg-zinc-800 text-white p-4 rounded-xl font-black uppercase">Guardar</button>
+                <button onclick="guardarEdicion()" class="flex-1 bg-zinc-800 text-white p-4 rounded-xl font-black uppercase tracking-widest">Guardar</button>
                 <button onclick="cerrarModal()" class="flex-1 bg-gray-100 text-gray-400 p-4 rounded-xl font-black uppercase">Cancelar</button>
             </div>
         </div>
@@ -181,6 +174,7 @@
                 celular: document.getElementById('celular').value,
                 estado: "Pendiente", tara: 0, bruto: 0, fecha: serverTimestamp()
             };
+            if(!data.contenedor) return alert("Falta contenedor");
             await addDoc(colRef, data);
             document.querySelectorAll('input').forEach(i => i.value = "");
         };
@@ -199,17 +193,22 @@
                 const fechaDia = data.fecha ? new Date(data.fecha.seconds * 1000).toLocaleDateString('es-AR') : '---';
 
                 if (data.estado !== "Finalizado") {
+                    // SECCIÓN ANIMADA DE AUTORIZACIÓN
+                    const botonAccion = data.estado === 'Pendiente' 
+                        ? `<button onclick="autorizar('${d.id}')" class="bg-red-500 text-white px-2 py-1 rounded text-[9px] font-black animate-pulse shadow-md">AUTORIZAR</button>` 
+                        : `<span class="text-green-600 font-bold text-[9px] flex items-center justify-end gap-1">✔ HABILITADO</span>`;
+
                     contActivos.innerHTML += `
                         <tr class="hover:bg-orange-50/50 border-b border-gray-50">
                             <td class="p-4"><b>${data.cliente}</b><p class="text-[9px] text-gray-400">REF: ${data.referencia || '-'}</p></td>
                             <td class="p-4 font-mono font-black text-orange-600">${data.contenedor}</td>
                             <td class="p-4"><b>${data.chofer}</b><p class="text-[9px] text-gray-400 italic">DNI: ${data.dni || '-'}</p></td>
-                            <td class="p-4 font-mono text-[10px]">C: ${data.patenteCamion || '-'}<br>S: ${data.patenteSemi || '-'}</td>
-                            <td class="p-4 text-center"><span class="px-2 py-1 rounded text-[9px] font-bold bg-orange-100">${data.estado}</span></td>
+                            <td class="p-4 font-mono text-[9px] text-gray-500 uppercase">C: ${data.patenteCamion || '-'}<br>S: ${data.patenteSemi || '-'}</td>
+                            <td class="p-4 text-center"><span class="px-2 py-1 rounded text-[9px] font-bold bg-orange-100 text-orange-700">${data.estado}</span></td>
                             <td class="p-4 text-center font-black text-blue-800">${neto > 0 ? neto : '0.00'} Kg</td>
-                            <td class="p-4 text-right">
-                                <button onclick="autorizar('${d.id}')" class="text-blue-600 font-bold mr-3">AUTORIZAR</button>
-                                <button onclick="abrirModal('${d.id}')" class="text-gray-400">EDITAR</button>
+                            <td class="p-4 text-right flex flex-col items-end gap-1">
+                                ${botonAccion}
+                                <button onclick="abrirModal('${d.id}')" class="text-blue-500 text-[10px] font-bold uppercase tracking-tighter">Editar</button>
                             </td>
                         </tr>`;
                 } else {
@@ -260,10 +259,11 @@
             if (!desde || !hasta) return alert("Seleccione fechas");
             const fDesde = new Date(desde + "T00:00:00");
             const fHasta = new Date(hasta + "T23:59:59");
-            const ws = XLSX.utils.json_to_sheet(listaHistorialCompleta.filter(d => {
+            const filtrados = listaHistorialCompleta.filter(d => {
                 const f = new Date(d.fecha.seconds * 1000);
                 return f >= fDesde && f <= fHasta;
-            }).map(d => ({
+            });
+            const ws = XLSX.utils.json_to_sheet(filtrados.map(d => ({
                 "FECHA": new Date(d.fecha.seconds * 1000).toLocaleDateString('es-AR'),
                 "CONTENEDOR": d.contenedor,
                 "CLIENTE": d.cliente,
