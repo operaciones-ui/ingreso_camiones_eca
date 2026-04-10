@@ -29,7 +29,12 @@
                     <div class="md:col-span-1"><label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Ref.</label><input id="referencia" type="text" class="w-full border p-2 rounded bg-gray-50 text-xs outline-none focus:ring-1 focus:ring-orange-400"></div>
                     <div class="md:col-span-3"><label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Cliente / Exportador</label><input id="cliente" type="text" class="w-full border p-2 rounded bg-gray-50 text-xs font-bold outline-none focus:ring-1 focus:ring-orange-400"></div>
                     <div class="md:col-span-2"><label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Barco / Viaje</label><input id="barcoViaje" type="text" class="w-full border p-2 rounded bg-gray-50 text-xs outline-none focus:ring-1 focus:ring-orange-400"></div>
-                    <div class="md:col-span-1"><label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Tipo</label><input id="tipoContenedor" type="text" placeholder="40HC" class="w-full border p-2 rounded bg-gray-50 text-xs outline-none focus:ring-1 focus:ring-orange-400"></div>
+                    <div class="md:col-span-1">
+                        <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Tipo</label>
+                        <select id="tipoContenedor" class="w-full border p-2 rounded bg-gray-50 text-xs outline-none focus:ring-1 focus:ring-orange-400">
+                            <option value="">Cargando...</option>
+                        </select>
+                    </div>
                     <div class="md:col-span-3"><label class="block text-[10px] font-bold text-orange-600 uppercase mb-1">N° Contenedor</label><input id="contenedor" type="text" class="w-full border border-orange-300 p-1.5 rounded bg-orange-50 uppercase font-mono font-bold text-base outline-none focus:ring-1 focus:ring-orange-500 text-orange-900 h-[32px]"></div>
                     <div class="md:col-span-2"><label class="block text-[10px] font-bold text-blue-600 uppercase mb-1">País</label><input id="destino" type="text" class="w-full border p-2 rounded bg-blue-50 text-xs font-bold outline-none focus:ring-1 focus:ring-blue-400"></div>
                 </div>
@@ -74,7 +79,7 @@
                    <input id="filtro-desde" type="date" class="text-xs border p-1 rounded outline-none">
                    <input id="filtro-hasta" type="date" class="text-xs border p-1 rounded outline-none">
                    <button onclick="verHistorialCompleto()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-xs font-black uppercase flex items-center gap-2 transition-all">
-                        <span>🖥️</span> Pantalla Completa
+                       <span>🖥️</span> Pantalla Completa
                         </button>
                    <button onclick="exportarExcel()" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-xs font-black uppercase flex items-center gap-2 transition-all">
                        <span>📊</span> Exportar Excel
@@ -114,7 +119,12 @@
                 <div class="md:col-span-3"><label class="block font-bold text-gray-400 uppercase mb-1">Barco / Viaje</label><input id="edit-barcoViaje" type="text" class="w-full border p-2 rounded"></div>
                 <div class="md:col-span-3"><label class="block font-bold text-orange-600 uppercase mb-1">N° Contenedor</label><input id="edit-contenedor" type="text" class="w-full border border-orange-200 p-2 rounded font-mono font-bold uppercase bg-orange-50"></div>
                 
-                <div class="md:col-span-2"><label class="block font-bold text-gray-400 uppercase mb-1">Tipo</label><input id="edit-tipoContenedor" type="text" class="w-full border p-2 rounded"></div>
+                <div class="md:col-span-2">
+                    <label class="block font-bold text-gray-400 uppercase mb-1">Tipo</label>
+                    <select id="edit-tipoContenedor" class="w-full border p-2 rounded">
+                        <option value="">Cargando...</option>
+                    </select>
+                </div>
                 <div class="md:col-span-4"><label class="block font-bold text-blue-600 uppercase mb-1">Destino</label><input id="edit-destino" type="text" class="w-full border p-2 rounded"></div>
                 <div class="md:col-span-3"><label class="block font-bold text-gray-400 uppercase mb-1">Transporte</label><input id="edit-transporte" type="text" class="w-full border p-2 rounded"></div>
                 <div class="md:col-span-3"><label class="block font-bold text-gray-400 uppercase mb-1">Celular</label><input id="edit-celular" type="text" class="w-full border p-2 rounded"></div>
@@ -158,6 +168,21 @@
         const db = getFirestore(app);
         const auth = getAuth(app);
         const colRef = collection(db, "camiones");
+
+        // --- CARGAR TIPOS DE CONTENEDORES ---
+        onSnapshot(collection(db, "tiposContenedor"), (snap) => {
+            const selectRegistro = document.getElementById('tipoContenedor');
+            const selectEdit = document.getElementById('edit-tipoContenedor');
+            
+            let optionsHtml = '<option value="" disabled selected>Seleccione...</option>';
+            snap.forEach(doc => {
+                const tipo = doc.data().nombre;
+                optionsHtml += `<option value="${tipo}">${tipo}</option>`;
+            });
+
+            selectRegistro.innerHTML = optionsHtml;
+            selectEdit.innerHTML = optionsHtml;
+        });
 
         // --- AUTOCUMPLEADO ---
         let baseChoferes = [];
@@ -203,6 +228,7 @@
             if(!data.contenedor) return alert("Falta contenedor");
             await addDoc(colRef, data);
             document.querySelectorAll('input').forEach(i => i.value = "");
+            document.getElementById('tipoContenedor').value = "";
         };
 
         onSnapshot(query(colRef, orderBy("fecha", "desc")), (snapshot) => {
@@ -258,7 +284,6 @@
             const snap = await getDoc(doc(db, "camiones", id)); const d = snap.data();
             document.getElementById('edit-id').value = id; 
             
-            // Carga de campos completa
             document.getElementById('edit-referencia').value = d.referencia || '';
             document.getElementById('edit-cliente').value = d.cliente || '';
             document.getElementById('edit-barcoViaje').value = d.barcoViaje || '';
@@ -298,12 +323,11 @@
                 patenteSemi: document.getElementById('edit-patenteSemi').value.toUpperCase(),
                 tara: parseFloat(document.getElementById('edit-tara').value) || 0,
                 bruto: parseFloat(document.getElementById('edit-bruto').value) || 0
-            }; // Se cerró correctamente el objeto aquí
+            };
 
             await updateDoc(doc(db, "camiones", id), up); 
             cerrarModal();
 
-            // Refrescar la pantalla completa si está abierta
             if (!document.getElementById('modal-historial-completo').classList.contains('hidden')) {
                 verHistorialCompleto();
             }
@@ -335,66 +359,57 @@
 
         onAuthStateChanged(auth, (user) => { if (!user) window.location.href = "index.html"; });
         window.cerrarSesion = () => signOut(auth);
-        // --- CONTROL DE INACTIVIDAD LOGÍSTICA (2 MINUTOS) ---
+        
         let timerInactividad;
-
         const resetearReloj = () => {
             clearTimeout(timerInactividad);
             timerInactividad = setTimeout(() => {
-                // Cerramos sesión en Firebase
                 signOut(auth).then(() => {
                     window.location.href = "index.html";
                 });
-            }, 120000); // 120000 ms = 2 minutos
+            }, 120000);
         };
 
-        // Eventos que resetean el cronómetro de inactividad
         const eventos = ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart'];
         eventos.forEach(evento => {
             document.addEventListener(evento, resetearReloj, true);
         });
 
-        // Iniciar el reloj al cargar la página
         resetearReloj();
-        // Funciones para el historial en pantalla completa
-window.verHistorialCompleto = () => {
-    const modal = document.getElementById('modal-historial-completo');
-    const tablaFull = document.getElementById('tabla-historial-full');
-    const tablaOriginal = document.getElementById('tabla-historial');
-    
-    // Clonamos el contenido de la tabla pequeña a la grande
-    tablaFull.innerHTML = tablaOriginal.innerHTML;
-    
-    // Quitamos la columna de edición (la última) para que se vea más limpio en pantalla completa si deseas
-    // O simplemente lo dejamos igual. Aquí lo mostramos:
-    modal.classList.remove('hidden');
-};
 
-window.cerrarHistorialCompleto = () => {
-    document.getElementById('modal-historial-completo').classList.add('hidden');
-};
+        window.verHistorialCompleto = () => {
+            const modal = document.getElementById('modal-historial-completo');
+            const tablaFull = document.getElementById('tabla-historial-full');
+            const tablaOriginal = document.getElementById('tabla-historial');
+            tablaFull.innerHTML = tablaOriginal.innerHTML;
+            modal.classList.remove('hidden');
+        };
+
+        window.cerrarHistorialCompleto = () => {
+            document.getElementById('modal-historial-completo').classList.add('hidden');
+        };
     </script>
+
     <div id="modal-historial-completo" class="hidden fixed inset-0 bg-slate-100 z-[60] overflow-hidden flex flex-col">
-    <div class="bg-white p-4 shadow-md flex justify-between items-center border-b-4 border-blue-500">
-        <h2 class="font-black text-xl text-slate-700 uppercase tracking-tighter">📋 Historial Completo de Operaciones</h2>
-        <button onclick="cerrarHistorialCompleto()" class="bg-red-500 text-white px-6 py-2 rounded-full font-bold shadow-lg hover:bg-red-700">CERRAR [X]</button>
+        <div class="bg-white p-4 shadow-md flex justify-between items-center border-b-4 border-blue-500">
+            <h2 class="font-black text-xl text-slate-700 uppercase tracking-tighter">📋 Historial Completo de Operaciones</h2>
+            <button onclick="cerrarHistorialCompleto()" class="bg-red-500 text-white px-6 py-2 rounded-full font-bold shadow-lg hover:bg-red-700">CERRAR [X]</button>
+        </div>
+        <div class="flex-1 overflow-auto p-4">
+            <table class="w-full text-left bg-white rounded-xl shadow-lg">
+                <thead class="sticky top-0 bg-slate-800 text-white text-[10px] uppercase font-bold">
+                    <tr>
+                        <th class="p-4">Fecha</th>
+                        <th class="p-4">Contenedor</th>
+                        <th class="p-4">Cliente / Destino</th>
+                        <th class="p-4">Chofer / DNI</th>
+                        <th class="p-4 text-center">Neto</th>
+                        <th class="p-4 text-right">Ingreso/Salida</th>
+                    </tr>
+                </thead>
+                <tbody id="tabla-historial-full" class="divide-y divide-slate-100 text-xs"></tbody>
+            </table>
+        </div>
     </div>
-    <div class="flex-1 overflow-auto p-4">
-        <table class="w-full text-left bg-white rounded-xl shadow-lg">
-            <thead class="sticky top-0 bg-slate-800 text-white text-[10px] uppercase font-bold">
-                <tr>
-                    <th class="p-4">Fecha</th>
-                    <th class="p-4">Contenedor</th>
-                    <th class="p-4">Cliente / Destino</th>
-                    <th class="p-4">Chofer / DNI</th>
-                    <th class="p-4 text-center">Neto</th>
-                    <th class="p-4 text-right">Ingreso/Salida</th>
-                </tr>
-            </thead>
-            <tbody id="tabla-historial-full" class="divide-y divide-slate-100 text-xs">
-                </tbody>
-        </table>
-    </div>
-</div>
 </body>
 </html>
