@@ -213,6 +213,25 @@
             document.getElementById('btn-tab-entrada').className = `flex-1 p-4 rounded-xl font-black text-sm transition-all ${tabId === 'tab-entrada' ? 'bg-orange-600 text-white shadow-lg' : 'bg-zinc-800 text-gray-500'}`;
             document.getElementById('btn-tab-salida').className = `flex-1 p-4 rounded-xl font-black text-sm transition-all ${tabId === 'tab-salida' ? 'bg-blue-700 text-white shadow-lg' : 'bg-zinc-800 text-gray-500'}`;
         };
+        // --- LÓGICA DE CIERRE POR INACTIVIDAD (2 MINUTOS) ---
+let temporizadorInactividad;
+
+const reiniciarTemporizador = () => {
+    clearTimeout(temporizadorInactividad);
+    temporizadorInactividad = setTimeout(() => {
+        alert("Sesión cerrada por inactividad (2 minutos).");
+        signOut(auth).then(() => {
+            window.location.href = "index.html";
+        });
+    }, 120000); // 120,000 milisegundos = 2 minutos
+};
+
+        // Escuchar eventos de interacción para resetear el reloj
+        window.onload = reiniciarTemporizador;
+        document.onmousemove = reiniciarTemporizador;
+        document.onkeypress = reiniciarTemporizador;
+        document.ontouchstart = reiniciarTemporizador; // Para tablets o celulares
+        document.onclick = reiniciarTemporizador;
     </script>
 </body>
 </html>
