@@ -58,7 +58,6 @@
         import { getFirestore, collection, onSnapshot, query, where, updateDoc, doc, serverTimestamp, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-        // CONFIGURACIÓN FIREBASE
         const firebaseConfig = {
             apiKey: "AIzaSyD59XE1FYbUPqiUjn7vBMT89PcGjB2Svzs",
             authDomain: "ingresocamiones.firebaseapp.com",
@@ -72,7 +71,6 @@
         const db = getFirestore(app);
         const auth = getAuth(app);
 
-        // CONTROL DE ACCESO
         onAuthStateChanged(auth, async (user) => {
             if (!user || !user.email.toLowerCase().includes("recepc")) { 
                 await signOut(auth); 
@@ -82,7 +80,6 @@
 
         window.cerrarSesion = () => signOut(auth);
 
-        // COMPONENTE DE TARJETA ACTUALIZADO CON DNI Y FECHA ESTIMADA
         const crearTarjeta = (id, data, esEntrada) => {
             const colorPrincipal = esEntrada ? 'orange-500' : 'blue-500';
             const bgBoton = esEntrada ? 'bg-orange-600 hover:bg-orange-500' : 'bg-blue-600 hover:bg-blue-500';
@@ -105,29 +102,20 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="grid grid-cols-2 gap-4 border-t border-zinc-700/50 pt-3 mb-3 text-xs">
                     <div>
                         <p class="text-[9px] text-zinc-500 font-bold uppercase italic">Patentes</p>
-                        <p class="font-mono font-bold text-zinc-200 uppercase">${data.patenteCamion || data.patente || '-'} / ${data.patenteSemi || '-'}</p>
+                        <p class="font-mono font-bold text-zinc-200 uppercase">${data.patenteCamion || '-'} / ${data.patenteSemi || '-'}</p>
                     </div>
                     <div class="text-right">
                         <p class="text-[9px] text-zinc-500 font-bold uppercase italic">País Destino</p>
                         <p class="font-bold text-blue-400 uppercase tracking-tighter italic">📍 ${data.destino || 'S/D'}</p>
                     </div>
                 </div>
-
                 <div class="bg-zinc-900/50 p-3 rounded-xl mb-4 flex justify-between items-center text-[11px]">
-                    <div>
-                        <span class="text-zinc-500 block font-bold uppercase text-[8px]">Barco / Viaje</span>
-                        <span class="text-zinc-300 font-bold uppercase italic">${data.barcoViaje || 'N/C'}</span>
-                    </div>
-                    <div class="text-right">
-                        <span class="text-zinc-500 block font-bold uppercase text-[8px]">Cliente</span>
-                        <span class="text-zinc-300 font-bold">${data.cliente}</span>
-                    </div>
+                    <div><span class="text-zinc-500 block font-bold uppercase text-[8px]">Barco / Viaje</span><span class="text-zinc-300 font-bold uppercase italic">${data.barcoViaje || 'N/C'}</span></div>
+                    <div class="text-right"><span class="text-zinc-500 block font-bold uppercase text-[8px]">Cliente</span><span class="text-zinc-300 font-bold">${data.cliente}</span></div>
                 </div>
-
                 <button onclick="prepararPesaje('${id}', '${data.contenedor}', '${esEntrada ? 'ingreso' : 'salida'}')" 
                     class="w-full ${bgBoton} p-4 rounded-xl font-black text-sm uppercase transition-all shadow-md active:scale-95">
                     ${esEntrada ? 'Registrar Tara (Entrada)' : 'Registrar Bruto (Salida)'}
@@ -135,44 +123,28 @@
             </div>`;
         };
 
-        // ESCUCHA EN TIEMPO REAL: HABILITADOS (ENTRADA)
         onSnapshot(query(collection(db, "camiones"), where("estado", "==", "Habilitado")), (snap) => {
             const cont = document.getElementById('lista-habilitados');
             cont.innerHTML = snap.empty ? '<p class="text-center py-10 text-zinc-600 italic">Esperando camiones autorizados por Logística...</p>' : "";
             snap.forEach(d => cont.innerHTML += crearTarjeta(d.id, d.data(), true));
         });
 
-        // ESCUCHA EN TIEMPO REAL: EN PLANTA (SALIDA)
         onSnapshot(query(collection(db, "camiones"), where("estado", "==", "En Planta")), (snap) => {
             const cont = document.getElementById('lista-en-planta');
             cont.innerHTML = snap.empty ? '<p class="text-center py-10 text-zinc-600 italic">No hay camiones dentro del predio.</p>' : "";
             snap.forEach(d => cont.innerHTML += crearTarjeta(d.id, d.data(), false));
         });
 
-        // LÓGICA DEL MODAL DE PESAJE CON DNI
-        let currentId = null; 
-        let modoAccion = "";
-
+        let currentId = null; let modoAccion = "";
         window.prepararPesaje = async (id, contenedor, modo) => {
-            currentId = id; 
-            modoAccion = modo;
-            
+            currentId = id; modoAccion = modo;
             const snap = await getDoc(doc(db, "camiones", id));
             const d = snap.data();
-
             document.getElementById('modal-titulo').innerText = modo === 'ingreso' ? "ENTRADA: TARA" : "SALIDA: BRUTO";
             document.getElementById('modal-info-unidad').innerHTML = `
-                <div class="mb-2">
-                    <p class="text-[10px] text-zinc-500 uppercase font-bold tracking-widest">Unidad</p>
-                    <p class="text-4xl font-mono font-black text-white leading-none">${d.contenedor}</p>
-                </div>
-                <div class="border-t border-zinc-800 pt-2">
-                    <p class="text-sm font-bold text-orange-500 italic">${d.chofer || '---'}</p>
-                    <p class="text-[9px] text-zinc-500 font-mono">DNI: ${d.dni || '-'}</p>
-                    <p class="text-[10px] text-zinc-400 uppercase tracking-tighter mt-1">${d.cliente} | Destino: ${d.destino || 'S/D'}</p>
-                    <p class="text-[10px] text-blue-400 font-bold mt-1">Estimado Carga: ${d.fechaEstimada || 'S/D'}</p>
-                </div>`;
-            
+                <div class="mb-2"><p class="text-4xl font-mono font-black text-white leading-none">${d.contenedor}</p></div>
+                <div class="border-t border-zinc-800 pt-2"><p class="text-sm font-bold text-orange-500 italic">${d.chofer || '---'}</p>
+                <p class="text-[10px] text-blue-400 font-bold mt-1">Estimado Carga: ${d.fechaEstimada || 'S/D'}</p></div>`;
             document.getElementById('peso-input').value = "";
             document.getElementById('modal-pesaje').classList.remove('hidden');
             setTimeout(() => document.getElementById('peso-input').focus(), 300);
@@ -182,61 +154,24 @@
 
         document.getElementById('btn-confirmar-peso').onclick = async () => {
             const peso = parseFloat(document.getElementById('peso-input').value);
-            
-            if (!weight || peso <= 0) {
-                return alert("⚠️ Por favor, ingrese un peso válido.");
-            }
-
+            if (!peso || peso <= 0) return alert("⚠️ Ingrese un peso válido.");
             const docRef = doc(db, "camiones", currentId);
-
             try {
                 if (modoAccion === "ingreso") { 
-                    await updateDoc(docRef, { 
-                        tara: peso, 
-                        estado: "En Planta", 
-                        fechaIngreso: serverTimestamp() 
-                    }); 
+                    await updateDoc(docRef, { tara: peso, estado: "En Planta", fechaIngreso: serverTimestamp() }); 
                 } else { 
-                    await updateDoc(docRef, { 
-                        bruto: peso, 
-                        estado: "Finalizado", 
-                        fechaSalida: serverTimestamp() 
-                    }); 
+                    await updateDoc(docRef, { bruto: peso, estado: "Finalizado", fechaSalida: serverTimestamp() }); 
                 }
                 cerrarModal();
-            } catch (error) {
-                console.error("Error al guardar peso:", error);
-                alert("Ocurrió un error al guardar los datos.");
-            }
+            } catch (error) { alert("Error al guardar: " + error.message); }
         };
 
-        // NAVEGACIÓN ENTRE TABS
         window.cambiarTab = (tabId) => {
             document.getElementById('tab-entrada').classList.toggle('hidden', tabId !== 'tab-entrada');
             document.getElementById('tab-salida').classList.toggle('hidden', tabId !== 'tab-salida');
-            
             document.getElementById('btn-tab-entrada').className = `flex-1 p-4 rounded-xl font-black text-sm transition-all ${tabId === 'tab-entrada' ? 'bg-orange-600 text-white shadow-lg' : 'bg-zinc-800 text-gray-500'}`;
             document.getElementById('btn-tab-salida').className = `flex-1 p-4 rounded-xl font-black text-sm transition-all ${tabId === 'tab-salida' ? 'bg-blue-700 text-white shadow-lg' : 'bg-zinc-800 text-gray-500'}`;
         };
-
-        // --- LÓGICA DE CIERRE POR INACTIVIDAD (2 MINUTOS) ---
-        let temporizadorInactividad;
-
-        const reiniciarTemporizador = () => {
-            clearTimeout(temporizadorInactividad);
-            temporizadorInactividad = setTimeout(() => {
-                alert("Sesión cerrada por inactividad (2 minutos).");
-                signOut(auth).then(() => {
-                    window.location.href = "index.html";
-                });
-            }, 120000);
-        };
-
-        window.onload = reiniciarTemporizador;
-        document.onmousemove = reiniciarTemporizador;
-        document.onkeypress = reiniciarTemporizador;
-        document.ontouchstart = reiniciarTemporizador;
-        document.onclick = reiniciarTemporizador;
     </script>
 </body>
 </html>
