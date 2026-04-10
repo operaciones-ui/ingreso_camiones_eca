@@ -297,11 +297,15 @@
                 patenteSemi: document.getElementById('edit-patenteSemi').value.toUpperCase(),
                 tara: parseFloat(document.getElementById('edit-tara').value) || 0,
                 bruto: parseFloat(document.getElementById('edit-bruto').value) || 0
-                if (!document.getElementById('modal-historial-completo').classList.contains('hidden')) {
-        verHistorialCompleto();
-            };
+            }; // Se cerró correctamente el objeto aquí
+
             await updateDoc(doc(db, "camiones", id), up); 
             cerrarModal();
+
+            // Refrescar la pantalla completa si está abierta
+            if (!document.getElementById('modal-historial-completo').classList.contains('hidden')) {
+                verHistorialCompleto();
+            }
         };
 
         window.exportarExcel = () => {
