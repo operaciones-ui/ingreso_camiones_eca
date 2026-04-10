@@ -182,6 +182,8 @@
         // --- FUNCIÓN PARA BANDERAS ---
         const getFlag = (paisNombre) => {
             if (!paisNombre) return '';
+            // Pasamos el nombre de la DB a minúsculas y quitamos espacios extra
+            const nombreLimpio = paisNombre.toLowerCase().trim();
             const paises = {
                 'uruguay': 'uy', 'colombia': 'co', 'francia': 'fr', 'paises bajos': 'nl', 
                 'chile': 'cl', 'panama': 'pa', 'japon': 'jp', 'china': 'cn', 'eeuu': 'us'
