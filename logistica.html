@@ -58,9 +58,9 @@
                     <div class="md:col-span-2"><label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Transporte</label><input id="transporte" type="text" class="w-full border p-2 rounded bg-gray-50 text-xs outline-none"></div>
                     <div class="md:col-span-1"><label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Pat. Camión</label><input id="patenteCamion" type="text" class="w-full border p-2 rounded bg-gray-50 text-xs font-mono uppercase outline-none"></div>
                     <div class="md:col-span-1"><label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Pat. Semi</label><input id="patenteSemi" type="text" class="w-full border p-2 rounded bg-gray-50 text-xs font-mono uppercase outline-none"></div>
-                    <div>
-                        <label class="block text-[10px] font-black text-blue-500 uppercase mb-1">Fecha Estimada de Carga</label>
-                        <input type="date" id="fecha-estimada" class="w-full bg-slate-100 border-none rounded-lg p-2 text-xs focus:ring-2 focus:ring-blue-500 outline-none">
+                    <div class="md:col-span-1">
+                        <label class="block text-[10px] font-black text-blue-500 uppercase mb-1">Est. Carga</label>
+                        <input type="date" id="fecha-estimada" class="w-full border border-blue-200 bg-blue-50 p-2 rounded text-[10px] focus:ring-1 focus:ring-blue-400 outline-none">
                     </div>
                     <div class="md:col-span-1 flex items-end"><button onclick="crearViaje()" class="w-full bg-orange-600 text-white p-2 rounded font-black hover:bg-orange-700 uppercase text-[10px] h-[34px] shadow-lg">Registrar</button></div>
                 </div>
@@ -75,7 +75,7 @@
                         <th class="p-4">Ref / Cliente</th>
                         <th class="p-4">Contenedor</th>
                         <th class="p-4">Chofer / DNI</th>
-                        <th class="p-4">Patentes</th>
+                        <th class="p-4">Patentes / Est. Carga</th>
                         <th class="p-4 text-center">Estado</th>
                         <th class="p-4 text-center">Neto</th>
                         <th class="p-4 text-right">Acción</th>
@@ -149,10 +149,11 @@
                 <div class="md:col-span-3"><label class="block font-bold text-gray-400 uppercase mb-1">Transporte</label><input id="edit-transporte" type="text" class="w-full border p-2 rounded"></div>
                 <div class="md:col-span-3"><label class="block font-bold text-gray-400 uppercase mb-1">Celular</label><input id="edit-celular" type="text" class="w-full border p-2 rounded"></div>
 
-                <div class="md:col-span-4"><label class="block font-bold text-gray-400 uppercase mb-1">Nombre Chofer</label><input id="edit-chofer" type="text" class="w-full border p-2 rounded"></div>
+                <div class="md:col-span-3"><label class="block font-bold text-gray-400 uppercase mb-1">Nombre Chofer</label><input id="edit-chofer" type="text" class="w-full border p-2 rounded"></div>
                 <div class="md:col-span-2"><label class="block font-bold text-gray-400 uppercase mb-1">DNI</label><input id="edit-dni" type="text" class="w-full border p-2 rounded"></div>
-                <div class="md:col-span-3"><label class="block font-bold text-gray-400 uppercase mb-1">Pat. Camión</label><input id="edit-patenteCamion" type="text" class="w-full border p-2 rounded uppercase font-mono"></div>
-                <div class="md:col-span-3"><label class="block font-bold text-gray-400 uppercase mb-1">Pat. Semi</label><input id="edit-patenteSemi" type="text" class="w-full border p-2 rounded uppercase font-mono"></div>
+                <div class="md:col-span-2"><label class="block font-bold text-gray-400 uppercase mb-1">Pat. Camión</label><input id="edit-patenteCamion" type="text" class="w-full border p-2 rounded uppercase font-mono"></div>
+                <div class="md:col-span-2"><label class="block font-bold text-gray-400 uppercase mb-1">Pat. Semi</label><input id="edit-patenteSemi" type="text" class="w-full border p-2 rounded uppercase font-mono"></div>
+                <div class="md:col-span-3"><label class="block font-black text-blue-500 uppercase mb-1">Fecha Est. Carga</label><input id="edit-fecha-estimada" type="date" class="w-full border border-blue-200 p-2 rounded bg-blue-50 font-bold"></div>
 
                 <div class="md:col-span-6 bg-slate-50 p-3 rounded-xl border border-dashed border-slate-300">
                     <label class="block font-black text-blue-800 uppercase mb-2 text-center text-[10px]">Pesaje (Balanza)</label>
@@ -307,6 +308,7 @@
                 patenteCamion: document.getElementById('patenteCamion').value.toUpperCase(),
                 patenteSemi: document.getElementById('patenteSemi').value.toUpperCase(),
                 celular: document.getElementById('celular').value,
+                fechaEstimada: document.getElementById('fecha-estimada').value,
                 estado: "Pendiente", tara: 0, bruto: 0, fecha: serverTimestamp()
             };
             if(!data.contenedor) return alert("Falta contenedor");
@@ -344,7 +346,7 @@
                             <td class="p-4"><b>${data.cliente}</b><p class="text-[9px] text-gray-400">REF: ${data.referencia || '-'}</p></td>
                             <td class="p-4 font-mono font-black text-orange-600">${data.contenedor}</td>
                             <td class="p-4"><b>${data.chofer}</b><p class="text-[9px] text-gray-400 italic">DNI: ${data.dni || '-'}</p></td>
-                            <td class="p-4 font-mono text-[9px] text-gray-500 uppercase">C: ${data.patenteCamion || '-'}<br>S: ${data.patenteSemi || '-'}</td>
+                            <td class="p-4 font-mono text-[9px] text-gray-500 uppercase">C: ${data.patenteCamion || '-'}<br>S: ${data.patenteSemi || '-'}<br><span class="text-blue-600 font-bold">EST: ${data.fechaEstimada || '-'}</span></td>
                             <td class="p-4 text-center"><span class="${estadoClases}">${data.estado}</span></td>
                             <td class="p-4 text-center font-black text-blue-800">${neto > 0 ? neto : '0.00'} Kg</td>
                             <td class="p-4 text-right flex flex-col items-end gap-1">
@@ -387,6 +389,7 @@
             document.getElementById('edit-dni').value = d.dni || '';
             document.getElementById('edit-patenteCamion').value = d.patenteCamion || '';
             document.getElementById('edit-patenteSemi').value = d.patenteSemi || '';
+            document.getElementById('edit-fecha-estimada').value = d.fechaEstimada || '';
             document.getElementById('edit-tara').value = d.tara || 0; 
             document.getElementById('edit-bruto').value = d.bruto || 0;
             
@@ -412,6 +415,7 @@
                 dni: document.getElementById('edit-dni').value,
                 patenteCamion: document.getElementById('edit-patenteCamion').value.toUpperCase(),
                 patenteSemi: document.getElementById('edit-patenteSemi').value.toUpperCase(),
+                fechaEstimada: document.getElementById('edit-fecha-estimada').value,
                 tara: parseFloat(document.getElementById('edit-tara').value) || 0,
                 bruto: parseFloat(document.getElementById('edit-bruto').value) || 0
             };
