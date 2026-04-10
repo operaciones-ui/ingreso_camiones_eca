@@ -1,4 +1,4 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -45,7 +45,14 @@
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-12 gap-2">
-                    <div class="md:col-span-3"><label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Nombre Chofer</label><input id="chofer" list="lista-choferes" oninput="autocompletarChofer(this.value)" class="w-full border p-2 rounded bg-gray-50 text-xs outline-none"><datalist id="lista-choferes"></datalist></div>
+                    <div class="md:col-span-3">
+                        <div class="flex justify-between items-end mb-1">
+                            <label class="block text-[10px] font-bold text-gray-400 uppercase">Nombre Chofer</label>
+                            <button onclick="abrirModalChofer()" class="text-[9px] bg-blue-600 text-white px-2 py-0.5 rounded hover:bg-blue-700 font-bold">+ NUEVO</button>
+                        </div>
+                        <input id="chofer" list="lista-choferes" oninput="autocompletarChofer(this.value)" class="w-full border p-2 rounded bg-gray-50 text-xs outline-none">
+                        <datalist id="lista-choferes"></datalist>
+                    </div>
                     <div class="md:col-span-1"><label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">DNI</label><input id="dni" type="text" class="w-full border p-2 rounded bg-gray-50 text-[10px] outline-none"></div>
                     <div class="md:col-span-2"><label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Celular</label><input id="celular" type="tel" class="w-full border p-2 rounded bg-gray-50 text-xs outline-none"></div>
                     <div class="md:col-span-2"><label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Transporte</label><input id="transporte" type="text" class="w-full border p-2 rounded bg-gray-50 text-xs outline-none"></div>
@@ -160,6 +167,22 @@
         </div>
     </div>
 
+    <div id="modal-chofer" class="hidden fixed inset-0 bg-slate-900/90 backdrop-blur-sm flex items-center justify-center p-4 z-[80]">
+        <div class="bg-white p-6 rounded-2xl shadow-2xl w-full max-w-md text-xs">
+            <h3 class="font-black text-lg text-gray-800 uppercase mb-4 border-b pb-2">🆕 Registrar Nuevo Chofer</h3>
+            <div class="space-y-3 mb-6">
+                <div><label class="block font-bold text-gray-400 uppercase mb-1">Nombre Completo</label><input id="new-chofer-nombre" type="text" class="w-full border p-2 rounded uppercase"></div>
+                <div><label class="block font-bold text-gray-400 uppercase mb-1">DNI</label><input id="new-chofer-dni" type="text" class="w-full border p-2 rounded"></div>
+                <div><label class="block font-bold text-gray-400 uppercase mb-1">Celular</label><input id="new-chofer-celular" type="tel" class="w-full border p-2 rounded"></div>
+                <div><label class="block font-bold text-gray-400 uppercase mb-1">Empresa de Transporte</label><input id="new-chofer-transporte" type="text" class="w-full border p-2 rounded uppercase"></div>
+            </div>
+            <div class="flex gap-2">
+                <button onclick="guardarNuevoChofer()" class="flex-1 bg-blue-600 text-white p-3 rounded-lg font-black uppercase hover:bg-blue-700">Grabar Chofer</button>
+                <button onclick="cerrarModalChofer()" class="flex-1 bg-gray-100 text-gray-400 p-3 rounded-lg font-black uppercase">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getFirestore, collection, addDoc, onSnapshot, query, updateDoc, deleteDoc, doc, getDoc, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
@@ -178,6 +201,31 @@
         const db = getFirestore(app);
         const auth = getAuth(app);
         const colRef = collection(db, "camiones");
+        const choferesRef = collection(db, "choferes");
+
+        // --- FUNCIONES MODAL CHOFER ---
+        window.abrirModalChofer = () => document.getElementById('modal-chofer').classList.remove('hidden');
+        window.cerrarModalChofer = () => {
+            document.getElementById('modal-chofer').classList.add('hidden');
+            document.querySelectorAll('#modal-chofer input').forEach(i => i.value = "");
+        };
+
+        window.guardarNuevoChofer = async () => {
+            const nombre = document.getElementById('new-chofer-nombre').value;
+            const dni = document.getElementById('new-chofer-dni').value;
+            const celular = document.getElementById('new-chofer-celular').value;
+            const transporte = document.getElementById('new-chofer-transporte').value;
+
+            if(!nombre || !dni) return alert("Nombre y DNI son obligatorios");
+
+            try {
+                await addDoc(choferesRef, { nombre, dni, celular, transporte });
+                alert("Chofer grabado correctamente");
+                cerrarModalChofer();
+            } catch (e) {
+                alert("Error al grabar: " + e.message);
+            }
+        };
 
         // --- FUNCIÓN PARA BANDERAS ---
         const getFlag = (paisNombre) => {
@@ -219,7 +267,7 @@
 
         // --- AUTOCOMPLETADO CHOFER ---
         let baseChoferes = [];
-        onSnapshot(collection(db, "choferes"), (snap) => {
+        onSnapshot(choferesRef, (snap) => {
             const datalist = document.getElementById('lista-choferes');
             datalist.innerHTML = ""; baseChoferes = [];
             snap.forEach(doc => {
@@ -283,7 +331,6 @@
                         ? `<button onclick="autorizar('${d.id}')" class="bg-red-500 text-white px-2 py-1 rounded text-[9px] font-black animate-pulse shadow-md">AUTORIZAR</button>` 
                         : `<span class="text-green-600 font-bold text-[9px] flex items-center justify-end gap-1">✔ HABILITADO</span>`;
 
-                    // --- NUEVA LÓGICA PARA TITILAR ESTADO ---
                     const esEnPlanta = data.estado.toLowerCase().trim() === "en planta";
                     const estadoClases = esEnPlanta 
                         ? "px-2 py-1 rounded text-[9px] font-black bg-red-600 text-white animate-pulse ring-2 ring-red-300" 
@@ -368,10 +415,6 @@
 
             await updateDoc(doc(db, "camiones", id), up); 
             cerrarModal();
-
-            if (!document.getElementById('modal-historial-completo').classList.contains('hidden')) {
-                verHistorialCompleto();
-            }
         };
 
         window.eliminarRegistro = async (id, contenedor) => {
