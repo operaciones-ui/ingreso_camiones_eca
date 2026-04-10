@@ -70,9 +70,9 @@
                    <span class="mr-2">🕒</span> Historial de Cargas Finalizadas
                </h2>
                <div class="bg-white p-3 rounded-xl shadow-sm border border-slate-200 flex flex-wrap gap-3 items-end">
-                   <input id="filtro-desde" type="date" class="text-xs border p-1 rounded">
-                   <input id="filtro-hasta" type="date" class="text-xs border p-1 rounded">
-                   <button onclick="exportarExcel()" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-xs font-black uppercase flex items-center gap-2">
+                   <input id="filtro-desde" type="date" class="text-xs border p-1 rounded outline-none">
+                   <input id="filtro-hasta" type="date" class="text-xs border p-1 rounded outline-none">
+                   <button onclick="exportarExcel()" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-xs font-black uppercase flex items-center gap-2 transition-all">
                        <span>📊</span> Exportar Excel
                    </button>
                </div>
@@ -80,7 +80,7 @@
            <div class="bg-slate-200/50 rounded-xl shadow-inner overflow-hidden border border-slate-300">
                <table class="w-full text-left text-[11px]">
                    <thead>
-                       <tr class="bg-slate-300/50 text-slate-500 border-b border-slate-300 font-bold uppercase">
+                       <tr class="bg-slate-300/50 text-slate-500 border-b border-slate-300 font-bold uppercase text-[10px]">
                            <th class="p-3">Fecha / Contenedor</th>
                            <th class="p-3">Cliente / Destino</th>
                            <th class="p-3">Chofer / DNI</th>
@@ -96,19 +96,41 @@
     </div>
 
     <div id="modal-editar" class="hidden fixed inset-0 bg-slate-900/90 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-        <div class="bg-white p-6 rounded-2xl shadow-2xl w-full max-w-3xl text-sm">
-            <h3 class="font-black text-xl mb-6 border-b pb-4 uppercase">✏️ Editar Registro</h3>
-            <input id="edit-id" type="hidden">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div class="md:col-span-2"><label class="text-[10px] font-bold text-gray-400 uppercase">Chofer</label><input id="edit-chofer" type="text" class="w-full border p-2 rounded"></div>
-                <div><label class="text-[10px] font-bold text-gray-400 uppercase">DNI</label><input id="edit-dni" type="text" class="w-full border p-2 rounded"></div>
-                <div><label class="text-[10px] font-bold text-gray-400 uppercase">Patente Camión</label><input id="edit-patenteCamion" type="text" class="w-full border p-2 rounded uppercase"></div>
-                <div><label class="text-[10px] font-bold text-gray-400 uppercase">Patente Semi</label><input id="edit-patenteSemi" type="text" class="w-full border p-2 rounded uppercase"></div>
-                <div><label class="text-[10px] font-bold text-gray-400 uppercase">Tara</label><input id="edit-tara" type="number" class="w-full border p-2 rounded"></div>
-                <div><label class="text-[10px] font-bold text-gray-400 uppercase">Bruto</label><input id="edit-bruto" type="number" class="w-full border p-2 rounded"></div>
+        <div class="bg-white p-6 rounded-2xl shadow-2xl w-full max-w-4xl text-xs max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center mb-6 border-b pb-4">
+                <h3 class="font-black text-xl text-gray-800 uppercase tracking-tighter">✏️ Editar Registro Completo</h3>
+                <span id="edit-estado-badge" class="px-2 py-1 rounded font-bold uppercase text-[10px]"></span>
             </div>
-            <div class="flex gap-3 mt-8">
-                <button onclick="guardarEdicion()" class="flex-1 bg-zinc-800 text-white p-4 rounded-xl font-black uppercase tracking-widest">Guardar</button>
+            
+            <input id="edit-id" type="hidden">
+            
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-4 mb-6">
+                <div class="md:col-span-2"><label class="block font-bold text-gray-400 uppercase mb-1">Ref.</label><input id="edit-referencia" type="text" class="w-full border p-2 rounded"></div>
+                <div class="md:col-span-4"><label class="block font-bold text-gray-400 uppercase mb-1">Cliente</label><input id="edit-cliente" type="text" class="w-full border p-2 rounded font-bold"></div>
+                <div class="md:col-span-3"><label class="block font-bold text-gray-400 uppercase mb-1">Barco / Viaje</label><input id="edit-barcoViaje" type="text" class="w-full border p-2 rounded"></div>
+                <div class="md:col-span-3"><label class="block font-bold text-orange-600 uppercase mb-1">N° Contenedor</label><input id="edit-contenedor" type="text" class="w-full border border-orange-200 p-2 rounded font-mono font-bold uppercase bg-orange-50"></div>
+                
+                <div class="md:col-span-2"><label class="block font-bold text-gray-400 uppercase mb-1">Tipo</label><input id="edit-tipoContenedor" type="text" class="w-full border p-2 rounded"></div>
+                <div class="md:col-span-4"><label class="block font-bold text-blue-600 uppercase mb-1">Destino</label><input id="edit-destino" type="text" class="w-full border p-2 rounded"></div>
+                <div class="md:col-span-3"><label class="block font-bold text-gray-400 uppercase mb-1">Transporte</label><input id="edit-transporte" type="text" class="w-full border p-2 rounded"></div>
+                <div class="md:col-span-3"><label class="block font-bold text-gray-400 uppercase mb-1">Celular</label><input id="edit-celular" type="text" class="w-full border p-2 rounded"></div>
+
+                <div class="md:col-span-4"><label class="block font-bold text-gray-400 uppercase mb-1">Nombre Chofer</label><input id="edit-chofer" type="text" class="w-full border p-2 rounded"></div>
+                <div class="md:col-span-2"><label class="block font-bold text-gray-400 uppercase mb-1">DNI</label><input id="edit-dni" type="text" class="w-full border p-2 rounded"></div>
+                <div class="md:col-span-3"><label class="block font-bold text-gray-400 uppercase mb-1">Pat. Camión</label><input id="edit-patenteCamion" type="text" class="w-full border p-2 rounded uppercase font-mono"></div>
+                <div class="md:col-span-3"><label class="block font-bold text-gray-400 uppercase mb-1">Pat. Semi</label><input id="edit-patenteSemi" type="text" class="w-full border p-2 rounded uppercase font-mono"></div>
+
+                <div class="md:col-span-6 bg-slate-50 p-3 rounded-xl border border-dashed border-slate-300">
+                    <label class="block font-black text-blue-800 uppercase mb-2 text-center text-[10px]">Pesaje (Balanza)</label>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div><label class="block font-bold text-gray-400 uppercase text-[9px]">Tara (Kg)</label><input id="edit-tara" type="number" class="w-full border p-2 rounded font-black text-center"></div>
+                        <div><label class="block font-bold text-gray-400 uppercase text-[9px]">Bruto (Kg)</label><input id="edit-bruto" type="number" class="w-full border p-2 rounded font-black text-center"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex gap-3">
+                <button onclick="guardarEdicion()" class="flex-1 bg-zinc-800 text-white p-4 rounded-xl font-black uppercase tracking-widest hover:bg-orange-600 transition-all">Guardar Cambios</button>
                 <button onclick="cerrarModal()" class="flex-1 bg-gray-100 text-gray-400 p-4 rounded-xl font-black uppercase">Cancelar</button>
             </div>
         </div>
@@ -193,7 +215,6 @@
                 const fechaDia = data.fecha ? new Date(data.fecha.seconds * 1000).toLocaleDateString('es-AR') : '---';
 
                 if (data.estado !== "Finalizado") {
-                    // SECCIÓN ANIMADA DE AUTORIZACIÓN
                     const botonAccion = data.estado === 'Pendiente' 
                         ? `<button onclick="autorizar('${d.id}')" class="bg-red-500 text-white px-2 py-1 rounded text-[9px] font-black animate-pulse shadow-md">AUTORIZAR</button>` 
                         : `<span class="text-green-600 font-bold text-[9px] flex items-center justify-end gap-1">✔ HABILITADO</span>`;
@@ -208,7 +229,7 @@
                             <td class="p-4 text-center font-black text-blue-800">${neto > 0 ? neto : '0.00'} Kg</td>
                             <td class="p-4 text-right flex flex-col items-end gap-1">
                                 ${botonAccion}
-                                <button onclick="abrirModal('${d.id}')" class="text-blue-500 text-[10px] font-bold uppercase tracking-tighter">Editar</button>
+                                <button onclick="abrirModal('${d.id}')" class="text-blue-500 text-[10px] font-bold uppercase tracking-tighter hover:underline">Editar Registro</button>
                             </td>
                         </tr>`;
                 } else {
@@ -220,7 +241,7 @@
                             <td class="p-3"><b>${data.chofer}</b><p class="text-[9px] text-gray-400 italic">DNI: ${data.dni || '-'}</p></td>
                             <td class="p-3 text-center font-black text-blue-600 bg-blue-50/50">${neto} Kg</td>
                             <td class="p-3 text-right text-[10px]"><span class="text-green-600">IN: ${tEntrada}</span><br><span class="text-red-400">OUT: ${tSalida}</span></td>
-                            <td class="p-3 text-right"><button onclick="abrirModal('${d.id}')" class="text-lg">📝</button></td>
+                            <td class="p-3 text-right"><button onclick="abrirModal('${d.id}')" class="text-lg grayscale hover:grayscale-0 transition">📝</button></td>
                         </tr>`;
                 }
             });
@@ -228,28 +249,53 @@
 
         window.autorizar = (id) => updateDoc(doc(db, "camiones", id), { estado: "Habilitado" });
         window.cerrarModal = () => document.getElementById('modal-editar').classList.add('hidden');
+        
         window.abrirModal = async (id) => {
             const snap = await getDoc(doc(db, "camiones", id)); const d = snap.data();
             document.getElementById('edit-id').value = id; 
+            
+            // Carga de campos completa
+            document.getElementById('edit-referencia').value = d.referencia || '';
+            document.getElementById('edit-cliente').value = d.cliente || '';
+            document.getElementById('edit-barcoViaje').value = d.barcoViaje || '';
+            document.getElementById('edit-contenedor').value = d.contenedor || '';
+            document.getElementById('edit-tipoContenedor').value = d.tipoContenedor || '';
+            document.getElementById('edit-destino').value = d.destino || '';
+            document.getElementById('edit-transporte').value = d.transporte || '';
+            document.getElementById('edit-celular').value = d.celular || '';
             document.getElementById('edit-chofer').value = d.chofer || '';
             document.getElementById('edit-dni').value = d.dni || '';
             document.getElementById('edit-patenteCamion').value = d.patenteCamion || '';
             document.getElementById('edit-patenteSemi').value = d.patenteSemi || '';
             document.getElementById('edit-tara').value = d.tara || 0; 
             document.getElementById('edit-bruto').value = d.bruto || 0;
+            
+            const badge = document.getElementById('edit-estado-badge');
+            badge.innerText = d.estado;
+            badge.className = `px-2 py-1 rounded font-bold uppercase text-[10px] ${d.estado === 'Finalizado' ? 'bg-blue-100 text-blue-700' : 'bg-orange-100 text-orange-700'}`;
+
             document.getElementById('modal-editar').classList.remove('hidden');
         };
 
         window.guardarEdicion = async () => {
             const id = document.getElementById('edit-id').value;
-            await updateDoc(doc(db, "camiones", id), {
+            const up = {
+                referencia: document.getElementById('edit-referencia').value,
+                cliente: document.getElementById('edit-cliente').value,
+                barcoViaje: document.getElementById('edit-barcoViaje').value,
+                contenedor: document.getElementById('edit-contenedor').value.toUpperCase(),
+                tipoContenedor: document.getElementById('edit-tipoContenedor').value,
+                destino: document.getElementById('edit-destino').value,
+                transporte: document.getElementById('edit-transporte').value,
+                celular: document.getElementById('edit-celular').value,
                 chofer: document.getElementById('edit-chofer').value,
                 dni: document.getElementById('edit-dni').value,
                 patenteCamion: document.getElementById('edit-patenteCamion').value.toUpperCase(),
                 patenteSemi: document.getElementById('edit-patenteSemi').value.toUpperCase(),
                 tara: parseFloat(document.getElementById('edit-tara').value) || 0,
                 bruto: parseFloat(document.getElementById('edit-bruto').value) || 0
-            });
+            };
+            await updateDoc(doc(db, "camiones", id), up); 
             cerrarModal();
         };
 
@@ -274,7 +320,7 @@
                 "NETO": (d.bruto - d.tara)
             })));
             const wb = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb, ws, "Reporte");
-            XLSX.writeFile(wb, "Reporte_Logistica.xlsx");
+            XLSX.writeFile(wb, "Reporte_ECA.xlsx");
         };
 
         onAuthStateChanged(auth, (user) => { if (!user) window.location.href = "index.html"; });
