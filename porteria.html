@@ -82,7 +82,7 @@
 
         window.cerrarSesion = () => signOut(auth);
 
-        // COMPONENTE DE TARJETA ACTUALIZADO CON DNI
+        // COMPONENTE DE TARJETA ACTUALIZADO CON DNI Y FECHA ESTIMADA
         const crearTarjeta = (id, data, esEntrada) => {
             const colorPrincipal = esEntrada ? 'orange-500' : 'blue-500';
             const bgBoton = esEntrada ? 'bg-orange-600 hover:bg-orange-500' : 'bg-blue-600 hover:bg-blue-500';
@@ -99,6 +99,10 @@
                     <div class="text-right">
                         <p class="text-[10px] text-zinc-500 font-bold uppercase tracking-widest">${data.tipoContenedor || 'CONTENEDOR'}</p>
                         <p class="text-3xl font-mono font-black text-orange-500 leading-none mt-1">${data.contenedor}</p>
+                        <div class="mt-2 bg-blue-900/40 px-2 py-1 rounded border border-blue-500/30 text-right">
+                            <p class="text-[8px] text-blue-300 font-black uppercase tracking-tighter">Est. Carga</p>
+                            <p class="text-[11px] font-bold text-blue-200">${data.fechaEstimada || 'PENDIENTE'}</p>
+                        </div>
                     </div>
                 </div>
 
@@ -166,6 +170,7 @@
                     <p class="text-sm font-bold text-orange-500 italic">${d.chofer || '---'}</p>
                     <p class="text-[9px] text-zinc-500 font-mono">DNI: ${d.dni || '-'}</p>
                     <p class="text-[10px] text-zinc-400 uppercase tracking-tighter mt-1">${d.cliente} | Destino: ${d.destino || 'S/D'}</p>
+                    <p class="text-[10px] text-blue-400 font-bold mt-1">Estimado Carga: ${d.fechaEstimada || 'S/D'}</p>
                 </div>`;
             
             document.getElementById('peso-input').value = "";
@@ -178,7 +183,7 @@
         document.getElementById('btn-confirmar-peso').onclick = async () => {
             const peso = parseFloat(document.getElementById('peso-input').value);
             
-            if (!peso || peso <= 0) {
+            if (!weight || peso <= 0) {
                 return alert("⚠️ Por favor, ingrese un peso válido.");
             }
 
@@ -213,24 +218,24 @@
             document.getElementById('btn-tab-entrada').className = `flex-1 p-4 rounded-xl font-black text-sm transition-all ${tabId === 'tab-entrada' ? 'bg-orange-600 text-white shadow-lg' : 'bg-zinc-800 text-gray-500'}`;
             document.getElementById('btn-tab-salida').className = `flex-1 p-4 rounded-xl font-black text-sm transition-all ${tabId === 'tab-salida' ? 'bg-blue-700 text-white shadow-lg' : 'bg-zinc-800 text-gray-500'}`;
         };
+
         // --- LÓGICA DE CIERRE POR INACTIVIDAD (2 MINUTOS) ---
-let temporizadorInactividad;
+        let temporizadorInactividad;
 
-const reiniciarTemporizador = () => {
-    clearTimeout(temporizadorInactividad);
-    temporizadorInactividad = setTimeout(() => {
-        alert("Sesión cerrada por inactividad (2 minutos).");
-        signOut(auth).then(() => {
-            window.location.href = "index.html";
-        });
-    }, 120000); // 120,000 milisegundos = 2 minutos
-};
+        const reiniciarTemporizador = () => {
+            clearTimeout(temporizadorInactividad);
+            temporizadorInactividad = setTimeout(() => {
+                alert("Sesión cerrada por inactividad (2 minutos).");
+                signOut(auth).then(() => {
+                    window.location.href = "index.html";
+                });
+            }, 120000);
+        };
 
-        // Escuchar eventos de interacción para resetear el reloj
         window.onload = reiniciarTemporizador;
         document.onmousemove = reiniciarTemporizador;
         document.onkeypress = reiniciarTemporizador;
-        document.ontouchstart = reiniciarTemporizador; // Para tablets o celulares
+        document.ontouchstart = reiniciarTemporizador;
         document.onclick = reiniciarTemporizador;
     </script>
 </body>
