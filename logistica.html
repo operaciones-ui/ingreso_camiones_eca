@@ -44,7 +44,7 @@
                     </div>
                     <div class="md:col-span-3">
                         <label class="block text-[10px] font-bold text-orange-600 uppercase mb-1">N° Contenedor</label>
-                        <input id="contenedor" type="text" class="w-full border p-2 rounded bg-orange-50 uppercase font-mono font-bold text-xs outline-none focus:ring-1 focus:ring-orange-400">
+                        <input id="contenedor" type="text" class="w-full border border-orange-300 p-1.5 rounded bg-orange-50 uppercase font-mono font-bold text-base outline-none focus:ring-1 focus:ring-orange-500 text-orange-900 h-[32px]">
                     </div>
                     <div class="md:col-span-2">
                         <label class="block text-[10px] font-bold text-blue-600 uppercase mb-1">País</label>
@@ -53,27 +53,26 @@
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-12 gap-3">
-                   
+                    <div class="md:col-span-2">
+                        <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Transporte</label>
+                        <input id="transporte" type="text" class="w-full border p-2 rounded bg-gray-50 text-xs outline-none focus:ring-1 focus:ring-orange-400">
+                    </div>
                     <div class="md:col-span-3">
                         <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Nombre Chofer</label>
                         <input id="chofer" list="lista-choferes" oninput="autocompletarChofer(this.value)" placeholder="Escriba para buscar..." class="w-full border p-2 rounded bg-gray-50 text-xs outline-none focus:ring-1 focus:ring-orange-400">
                         <datalist id="lista-choferes"></datalist>
                     </div>
                     <div class="md:col-span-2">
-                        <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Patente Camión</label>
+                        <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">DNI</label>
+                        <input id="dni" type="text" class="w-full border p-2 rounded bg-gray-50 text-xs outline-none focus:ring-1 focus:ring-orange-400">
+                    </div>
+                    <div class="md:col-span-2">
+                        <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Pat. Camión</label>
                         <input id="patente" type="text" class="w-full border p-2 rounded bg-gray-50 text-xs font-mono uppercase outline-none focus:ring-1 focus:ring-orange-400">
                     </div>
                     <div class="md:col-span-2">
-                        <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Patente Semi</label>
-                        <input id="patenteSemi" type="text" class="w-full border p-2 rounded bg-gray-50 text-xs font-mono uppercase outline-none focus:ring-1 focus:ring-orange-400">
-                    </div>
-                    <div class="md:col-span-2">
                         <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Celular</label>
-                        <input id="celular" type="tel" placeholder="223 5..." class="w-full border p-2 rounded bg-gray-50 text-xs outline-none focus:ring-1 focus:ring-orange-400">
-                    </div>
-                     <div class="md:col-span-2">
-                        <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Transporte</label>
-                        <input id="transporte" type="text" class="w-full border p-2 rounded bg-gray-50 text-xs outline-none focus:ring-1 focus:ring-orange-400">
+                        <input id="celular" type="tel" class="w-full border p-2 rounded bg-gray-50 text-xs outline-none focus:ring-1 focus:ring-orange-400">
                     </div>
                     <div class="md:col-span-1 flex items-end">
                         <button onclick="crearViaje()" class="w-full bg-orange-600 text-white p-2 rounded font-black hover:bg-orange-700 transition-all uppercase text-[10px] shadow-lg h-[34px]">Registrar</button>
@@ -82,105 +81,38 @@
             </div>
         </div>
 
-        <h2 class="text-xs font-black text-gray-500 mb-2 uppercase tracking-widest">Cargas en Curso</h2>
         <div class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 mb-10">
             <table class="w-full text-left text-xs">
                 <thead>
                     <tr class="bg-gray-50 text-gray-400 border-b font-bold uppercase text-[10px]">
                         <th class="p-4">Ref / Cliente</th>
-                        <th class="p-4">Contenedor / Tipo</th>
-                        <th class="p-4">Transporte / Chofer</th>
+                        <th class="p-4">Contenedor</th>
+                        <th class="p-4">Chofer / DNI</th>
                         <th class="p-4 text-center">Estado</th>
-                        <th class="p-4 text-center">Neto</th>
                         <th class="p-4 text-right">Acción</th>
                     </tr>
                 </thead>
                 <tbody id="tabla-gestion" class="divide-y divide-gray-100"></tbody>
             </table>
         </div>
-
-        <div id="seccion-historial" class="mb-20">
-             <div class="flex flex-col md:flex-row justify-between items-end mb-4 gap-4">
-                <h2 class="text-xs font-black text-blue-500 uppercase tracking-widest flex items-center">
-                    <span class="mr-2">🕒</span> Historial de Cargas Finalizadas
-                </h2>
-                <div class="bg-white p-3 rounded-xl shadow-sm border border-slate-200 flex flex-wrap gap-3 items-end">
-                    <div>
-                        <label class="block text-[9px] font-bold text-gray-400 uppercase">Desde</label>
-                        <input id="filtro-desde" type="date" class="text-xs border p-1 rounded outline-none focus:ring-1 focus:ring-blue-400">
-                    </div>
-                    <div>
-                        <label class="block text-[9px] font-bold text-gray-400 uppercase">Hasta</label>
-                        <input id="filtro-hasta" type="date" class="text-xs border p-1 rounded outline-none focus:ring-1 focus:ring-blue-400">
-                    </div>
-                    <button onclick="exportarExcel()" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-xs font-black uppercase flex items-center gap-2 transition-all">
-                        <span>📊</span> Exportar Excel
-                    </button>
-                </div>
-            </div>
-
-            <div class="bg-slate-200/50 rounded-xl shadow-inner overflow-hidden border border-slate-300">
-                <table class="w-full text-left text-[11px]">
-                    <thead>
-                        <tr class="bg-slate-300/50 text-slate-500 border-b border-slate-300 font-bold uppercase">
-                            <th class="p-3">Fecha / Contenedor</th>
-                            <th class="p-3">Cliente / Destino</th>
-                            <th class="p-3">Barco / Viaje</th>
-                            <th class="p-3 text-center font-black">Neto</th>
-                            <th class="p-3 text-right">Tiempos</th>
-                            <th class="p-3 text-right">...</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tabla-historial" class="divide-y divide-slate-200"></tbody>
-                </table>
-            </div>
-        </div>
     </div>
 
     <div id="modal-editar" class="hidden fixed inset-0 bg-slate-900/90 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-        <div class="bg-white p-6 rounded-2xl shadow-2xl w-full max-w-3xl text-sm max-h-[90vh] overflow-y-auto">
+        <div class="bg-white p-6 rounded-2xl shadow-2xl w-full max-w-3xl text-sm">
             <h3 class="font-black text-xl mb-6 text-gray-800 border-b pb-4 uppercase">✏️ Editar Registro</h3>
             <input id="edit-id" type="hidden">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div><label class="text-[10px] font-bold text-gray-400 uppercase">Referencia</label><input id="edit-referencia" type="text" class="w-full border p-2 rounded"></div>
-                <div class="md:col-span-2"><label class="text-[10px] font-bold text-gray-400 uppercase">Cliente</label><input id="edit-cliente" type="text" class="w-full border p-2 rounded font-bold"></div>
-                
-                <div><label class="text-[10px] font-bold text-gray-400 uppercase">Barco / Viaje</label><input id="edit-barcoViaje" type="text" class="w-full border p-2 rounded"></div>
-                <div><label class="text-[10px] font-bold text-orange-600 uppercase">Tipo Contenedor</label><input id="edit-tipoContenedor" type="text" class="w-full border p-2 rounded"></div>
-                <div class="md:col-span-3">
-                    <label class="block text-[10px] font-bold text-orange-600 uppercase mb-1">N° Contenedor</label>
-                    <input id="contenedor" type="text" 
-                    placeholder="MSCU123456-7"
-                    class="w-full border border-orange-300 p-1.5 rounded bg-orange-50 uppercase font-mono font-bold text-base outline-none focus:ring-1 focus:ring-orange-500 text-orange-900 h-[32px]">
+                <div class="md:col-span-2"><label class="text-[10px] font-bold text-gray-400 uppercase">Chofer</label><input id="edit-chofer" type="text" class="w-full border p-2 rounded"></div>
+                <div><label class="text-[10px] font-bold text-gray-400 uppercase">DNI</label><input id="edit-dni" type="text" class="w-full border p-2 rounded"></div>
                 </div>
-                <div><label class="text-[10px] font-bold text-blue-600 uppercase">Destino</label><input id="edit-destino" type="text" class="w-full border p-2 rounded bg-blue-50"></div>
-                <div><label class="text-[10px] font-bold text-gray-400 uppercase">Transporte</label><input id="edit-transporte" type="text" class="w-full border p-2 rounded"></div>
-                <div><label class="text-[10px] font-bold text-gray-400 uppercase">Chofer</label><input id="edit-chofer" type="text" class="w-full border p-2 rounded"></div>
-                
-                <div><label class="text-[10px] font-bold text-gray-400 uppercase">Patente Camión</label><input id="edit-patente" type="text" class="w-full border p-2 rounded uppercase"></div>
-                <div><label class="text-[10px] font-bold text-gray-400 uppercase">Patente Semi</label><input id="edit-patenteSemi" type="text" class="w-full border p-2 rounded uppercase"></div>
-                <div><label class="text-[10px] font-bold text-gray-400 uppercase">Celular</label><input id="edit-celular" type="text" class="w-full border p-2 rounded"></div>
-                
-                <div class="bg-orange-50 p-2 rounded border border-orange-200">
-                    <label class="text-[10px] font-bold text-orange-600 uppercase">Tara (Kg)</label>
-                    <input id="edit-tara" type="number" class="w-full bg-transparent font-black text-lg outline-none">
-                </div>
-                <div class="bg-blue-50 p-2 rounded border border-blue-200">
-                    <label class="text-[10px] font-bold text-blue-600 uppercase">Bruto (Kg)</label>
-                    <input id="edit-bruto" type="number" class="w-full bg-transparent font-black text-lg outline-none">
-                </div>
-            </div>
             <div class="flex gap-3 mt-8">
-                <button onclick="guardarEdicion()" class="flex-1 bg-zinc-800 text-white p-4 rounded-xl font-black uppercase hover:bg-black transition-all">Guardar Cambios</button>
+                <button onclick="guardarEdicion()" class="flex-1 bg-zinc-800 text-white p-4 rounded-xl font-black uppercase">Guardar</button>
                 <button onclick="cerrarModal()" class="flex-1 bg-gray-100 text-gray-400 p-4 rounded-xl font-black uppercase">Cancelar</button>
             </div>
         </div>
     </div>
 
     <script type="module">
-
-        
-        
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getFirestore, collection, addDoc, onSnapshot, query, updateDoc, doc, deleteDoc, serverTimestamp, getDoc, orderBy } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
@@ -199,46 +131,31 @@
         const auth = getAuth(app);
         const colRef = collection(db, "camiones");
 
+        // --- LÓGICA DE CHOFERES ---
         let baseChoferes = [];
-
-// 1. Cargar la lista desde la colección "choferes"
-onSnapshot(collection(db, "choferes"), (snap) => {
-    const datalist = document.getElementById('lista-choferes');
-    if (!datalist) return;
-    datalist.innerHTML = "";
-    baseChoferes = [];
-
-    snap.forEach(doc => {
-        const d = doc.data();
-        // Guardamos los datos asegurándonos de que coincidan con tus campos
-        baseChoferes.push({
-            nombre: d.nombre,
-            transporte: d.transporte,
-            celular: d.celular
+        onSnapshot(collection(db, "choferes"), (snap) => {
+            const datalist = document.getElementById('lista-choferes');
+            datalist.innerHTML = "";
+            baseChoferes = [];
+            snap.forEach(doc => {
+                const d = doc.data();
+                baseChoferes.push({ nombre: d.nombre, transporte: d.transporte, celular: d.celular, dni: d.dni });
+                const option = document.createElement('option');
+                option.value = d.nombre;
+                datalist.appendChild(option);
+            });
         });
 
-        const option = document.createElement('option');
-        option.value = d.nombre; // Lo que el usuario ve
-        datalist.appendChild(option);
-    });
-});
+        window.autocompletarChofer = (valor) => {
+            const encontrado = baseChoferes.find(c => c.nombre && c.nombre.toLowerCase() === valor.toLowerCase());
+            if (encontrado) {
+                document.getElementById('celular').value = encontrado.celular || "";
+                document.getElementById('transporte').value = encontrado.transporte || "";
+                document.getElementById('dni').value = encontrado.dni || "";
+            }
+        };
 
-// 2. Función de autocompletado global
-window.autocompletarChofer = (valor) => {
-    // Buscamos ignorando mayúsculas/minúsculas para que sea más fluido
-    const encontrado = baseChoferes.find(c => c.nombre && c.nombre.toLowerCase() === valor.toLowerCase());
-    
-    if (encontrado) {
-        if (encontrado.celular) document.getElementById('celular').value = encontrado.celular;
-        if (encontrado.transporte) document.getElementById('transporte').value = encontrado.transporte;
-    }
-};
-
-        onAuthStateChanged(auth, (user) => { if (!user) window.location.href = "index.html"; });
-        window.cerrarSesion = () => signOut(auth);
-
-        let listaHistorialCompleta = [];
-
+        // --- FUNCIONES CORE ---
         window.crearViaje = async () => {
             const data = {
                 referencia: document.getElementById('referencia').value,
@@ -249,151 +166,33 @@ window.autocompletarChofer = (valor) => {
                 destino: document.getElementById('destino').value,
                 transporte: document.getElementById('transporte').value,
                 chofer: document.getElementById('chofer').value,
+                dni: document.getElementById('dni').value,
                 patente: document.getElementById('patente').value.toUpperCase(),
-                patenteSemi: document.getElementById('patenteSemi').value.toUpperCase(),
                 celular: document.getElementById('celular').value,
                 estado: "Pendiente",
                 tara: 0, bruto: 0, fecha: serverTimestamp()
             };
-            if(!data.contenedor) return alert("Ingrese Contenedor");
             await addDoc(colRef, data);
             document.querySelectorAll('input').forEach(i => i.value = "");
         };
 
         onSnapshot(query(colRef, orderBy("fecha", "desc")), (snapshot) => {
             const contActivos = document.getElementById('tabla-gestion');
-            const contHistorial = document.getElementById('tabla-historial');
-            contActivos.innerHTML = ""; contHistorial.innerHTML = "";
-            listaHistorialCompleta = [];
-
+            contActivos.innerHTML = "";
             snapshot.forEach(d => {
                 const data = { id: d.id, ...d.data() };
-                const neto = (data.bruto - data.tara).toFixed(2);
-                const tEntrada = data.fechaIngreso ? new Date(data.fechaIngreso.seconds * 1000).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) : '--:--';
-                const tSalida = data.fechaSalida ? new Date(data.fechaSalida.seconds * 1000).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) : '--:--';
-                const fechaDia = data.fecha ? new Date(data.fecha.seconds * 1000).toLocaleDateString('es-AR', {day:'2-digit', month:'2-digit', year:'2-digit'}) : '---';
-
                 if (data.estado !== "Finalizado") {
-                    const estadoColor = data.estado === "En Planta" ? "bg-green-100 text-green-700" : (data.estado === "Habilitado" ? "bg-blue-100 text-blue-700" : "bg-orange-100 text-orange-700");
-                    const botonAccion = data.estado === 'Pendiente' 
-                        ? `<button onclick="autorizar('${d.id}')" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-[10px] font-black animate-pulse shadow-md">AUTORIZAR INGRESO</button>` 
-                        : `<span class="text-green-600 font-bold text-[10px]">● AUTORIZADO</span>`;
-
                     contActivos.innerHTML += `
                         <tr class="hover:bg-orange-50/50 transition border-b border-gray-50">
                             <td class="p-4"><p class="text-[9px] text-gray-400 font-bold uppercase">REF: ${data.referencia || '-'}</p><p class="font-bold text-gray-800">${data.cliente}</p></td>
-                            <td class="p-4"><p class="font-mono font-black text-orange-600 text-sm">${data.contenedor}</p><p class="text-[9px] text-gray-400 font-bold uppercase">${data.tipoContenedor || 'Tipo N/D'}</p></td>
-                            <td class="p-4"><p class="font-bold text-gray-500 text-[10px] uppercase">${data.transporte}</p><p class="text-[10px] text-gray-400">${data.chofer} (${data.celular || 'S/C'})</p></td>
-                            <td class="p-4 text-center"><span class="px-2 py-1 rounded text-[9px] uppercase font-bold ${estadoColor}">${data.estado}</span></td>
-                            <td class="p-4 text-center font-black text-blue-800 text-sm">${neto > 0 ? neto : '0.00'} Kg</td>
-                            <td class="p-4 text-right">
-                                <div class="flex flex-col gap-2 items-end">
-                                    ${botonAccion}
-                                    <div class="flex gap-3 items-center">
-                                        <button onclick="abrirModal('${d.id}')" class="text-blue-500 font-black text-[10px] uppercase">Editar</button>
-                                        <button onclick="eliminarCamion('${d.id}')" class="text-red-400 hover:text-red-600">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
-                                        </button>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>`;
-                } else {
-                    listaHistorialCompleta.push(data);
-                    contHistorial.innerHTML += `
-                        <tr class="hover:bg-white transition border-b border-slate-200">
-                            <td class="p-3 font-mono font-bold text-slate-600">
-                                <span class="text-[12px] text-orange-600 block font-extrabold mb-1 tracking-tight">${fechaDia}</span>
-                                <span class="text-sm">${data.contenedor}</span>
-                            </td>
-                            <td class="p-3"><b>${data.cliente}</b><br><div class="flex items-center gap-1 text-blue-600 text-[9px] font-bold uppercase tracking-tighter italic"><span>📍</span>${data.destino || 'S/D'}</div></td>
-                            <td class="p-3 font-bold text-slate-500 uppercase text-[10px] leading-tight">${data.barcoViaje || '-'}<br><span class="font-normal opacity-60">Ref: ${data.referencia || '-'}</span></td>
-                            <td class="p-3 text-center font-black text-blue-600 bg-blue-50/50">${neto} Kg</td>
-                            <td class="p-3 text-right leading-tight text-[10px]"><span class="text-green-600 font-bold">IN: ${tEntrada}</span><br><span class="text-red-400 font-bold">OUT: ${tSalida}</span></td>
-                            <td class="p-3 text-right"><button onclick="abrirModal('${d.id}')" class="text-slate-400 font-bold text-lg">📝</button></td>
+                            <td class="p-4"><p class="font-mono font-black text-orange-600 text-sm">${data.contenedor}</p></td>
+                            <td class="p-4"><p class="font-bold text-gray-700">${data.chofer}</p><p class="text-[10px] text-gray-400">DNI: ${data.dni || '---'}</p></td>
+                            <td class="p-4 text-center"><span class="px-2 py-1 rounded text-[9px] uppercase font-bold bg-orange-100 text-orange-700">${data.estado}</span></td>
+                            <td class="p-4 text-right"><button onclick="abrirModal('${d.id}')" class="text-blue-500 font-black text-[10px]">EDITAR</button></td>
                         </tr>`;
                 }
             });
         });
-
-        window.eliminarCamion = async (id) => {
-            if (confirm("¿Eliminar registro? Se borrará de Logística y Portería.")) {
-                await deleteDoc(doc(db, "camiones", id));
-            }
-        };
-
-        window.autorizar = (id) => updateDoc(doc(db, "camiones", id), { estado: "Habilitado" });
-        
-        window.abrirModal = async (id) => {
-            const snap = await getDoc(doc(db, "camiones", id)); const d = snap.data();
-            document.getElementById('edit-id').value = id; 
-            document.getElementById('edit-referencia').value = d.referencia || '';
-            document.getElementById('edit-cliente').value = d.cliente || ''; 
-            document.getElementById('edit-barcoViaje').value = d.barcoViaje || '';
-            document.getElementById('edit-tipoContenedor').value = d.tipoContenedor || '';
-            document.getElementById('edit-contenedor').value = d.contenedor || '';
-            document.getElementById('edit-destino').value = d.destino || ''; 
-            document.getElementById('edit-transporte').value = d.transporte || '';
-            document.getElementById('edit-chofer').value = d.chofer || ''; 
-            document.getElementById('edit-patente').value = d.patente || '';
-            document.getElementById('edit-patenteSemi').value = d.patenteSemi || '';
-            document.getElementById('edit-celular').value = d.celular || '';
-            document.getElementById('edit-tara').value = d.tara || 0; 
-            document.getElementById('edit-bruto').value = d.bruto || 0;
-            document.getElementById('modal-editar').classList.remove('hidden');
-        };
-
-        window.cerrarModal = () => document.getElementById('modal-editar').classList.add('hidden');
-
-        window.guardarEdicion = async () => {
-            const id = document.getElementById('edit-id').value;
-            const up = {
-                referencia: document.getElementById('edit-referencia').value,
-                cliente: document.getElementById('edit-cliente').value,
-                barcoViaje: document.getElementById('edit-barcoViaje').value,
-                tipoContenedor: document.getElementById('edit-tipoContenedor').value,
-                contenedor: document.getElementById('edit-contenedor').value.toUpperCase(),
-                destino: document.getElementById('edit-destino').value,
-                transporte: document.getElementById('edit-transporte').value,
-                chofer: document.getElementById('edit-chofer').value,
-                patente: document.getElementById('edit-patente').value.toUpperCase(),
-                patenteSemi: document.getElementById('edit-patenteSemi').value.toUpperCase(),
-                celular: document.getElementById('edit-celular').value,
-                tara: parseFloat(document.getElementById('edit-tara').value) || 0,
-                bruto: parseFloat(document.getElementById('edit-bruto').value) || 0
-            };
-            await updateDoc(doc(db, "camiones", id), up); 
-            cerrarModal();
-        };
-
-        window.exportarExcel = () => {
-            const desde = document.getElementById('filtro-desde').value;
-            const hasta = document.getElementById('filtro-hasta').value;
-            if (!desde || !hasta) return alert("Seleccione fechas");
-            const fDesde = new Date(desde + "T00:00:00");
-            const fHasta = new Date(hasta + "T23:59:59");
-            const datosFiltrados = listaHistorialCompleta.filter(d => {
-                const f = new Date(d.fecha.seconds * 1000);
-                return f >= fDesde && f <= fHasta;
-            });
-            const rows = datosFiltrados.map(d => ({
-                "FECHA": new Date(d.fecha.seconds * 1000).toLocaleDateString('es-AR'),
-                "REF": d.referencia,
-                "CLIENTE": d.cliente,
-                "BARCO/VIAJE": d.barcoViaje,
-                "TIPO": d.tipoContenedor,
-                "CONTENEDOR": d.contenedor,
-                "PAIS": d.destino,
-                "TRANSPORTE": d.transporte,
-                "CHOFER": d.chofer,
-                "CELULAR": d.celular,
-                "TARA": d.tara, "BRUTO": d.bruto, "NETO": (d.bruto - d.tara)
-            }));
-            const ws = XLSX.utils.json_to_sheet(rows);
-            const wb = XLSX.utils.book_new();
-            XLSX.utils.book_append_sheet(wb, ws, "Reporte");
-            XLSX.writeFile(wb, "Reporte_ECA.xlsx");
-        };
     </script>
 </body>
 </html>
