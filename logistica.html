@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -90,23 +90,23 @@
                        <span>📊</span> Exportar Excel
                    </button>
                </div>
-           </div>
-           <div class="bg-slate-200/50 rounded-xl shadow-inner overflow-hidden border border-slate-300">
-               <table class="w-full text-left text-[11px]">
-                   <thead>
-                       <tr class="bg-slate-300/50 text-slate-500 border-b border-slate-300 font-bold uppercase text-[10px]">
-                           <th class="p-3">Fecha / Contenedor</th>
-                           <th class="p-3">Cliente / Destino</th>
-                           <th class="p-3">Chofer / DNI</th>
-                           <th class="p-3 text-center font-black">Neto</th>
-                           <th class="p-3 text-right">Tiempos</th>
-                           <th class="p-3 text-right">...</th>
-                       </tr>
-                   </thead>
-                   <tbody id="tabla-historial" class="divide-y divide-slate-200"></tbody>
-               </table>
-           </div>
-       </div>
+            </div>
+            <div class="bg-slate-200/50 rounded-xl shadow-inner overflow-hidden border border-slate-300">
+                <table class="w-full text-left text-[11px]">
+                    <thead>
+                        <tr class="bg-slate-300/50 text-slate-500 border-b border-slate-300 font-bold uppercase text-[10px]">
+                            <th class="p-3">Fecha / Contenedor</th>
+                            <th class="p-3">Cliente / Destino</th>
+                            <th class="p-3">Chofer / DNI</th>
+                            <th class="p-3 text-center font-black">Neto</th>
+                            <th class="p-3 text-right">Tiempos</th>
+                            <th class="p-3 text-right">...</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabla-historial" class="divide-y divide-slate-200"></tbody>
+                </table>
+            </div>
+        </div>
     </div>
 
     <div id="modal-editar" class="hidden fixed inset-0 bg-slate-900/90 backdrop-blur-sm flex items-center justify-center p-4 z-[70]">
@@ -283,13 +283,19 @@
                         ? `<button onclick="autorizar('${d.id}')" class="bg-red-500 text-white px-2 py-1 rounded text-[9px] font-black animate-pulse shadow-md">AUTORIZAR</button>` 
                         : `<span class="text-green-600 font-bold text-[9px] flex items-center justify-end gap-1">✔ HABILITADO</span>`;
 
+                    // --- NUEVA LÓGICA PARA TITILAR ESTADO ---
+                    const esEnPlanta = data.estado.toLowerCase().trim() === "en planta";
+                    const estadoClases = esEnPlanta 
+                        ? "px-2 py-1 rounded text-[9px] font-black bg-red-600 text-white animate-pulse ring-2 ring-red-300" 
+                        : "px-2 py-1 rounded text-[9px] font-bold bg-orange-100 text-orange-700";
+
                     contActivos.innerHTML += `
                         <tr class="hover:bg-orange-50/50 border-b border-gray-50">
                             <td class="p-4"><b>${data.cliente}</b><p class="text-[9px] text-gray-400">REF: ${data.referencia || '-'}</p></td>
                             <td class="p-4 font-mono font-black text-orange-600">${data.contenedor}</td>
                             <td class="p-4"><b>${data.chofer}</b><p class="text-[9px] text-gray-400 italic">DNI: ${data.dni || '-'}</p></td>
                             <td class="p-4 font-mono text-[9px] text-gray-500 uppercase">C: ${data.patenteCamion || '-'}<br>S: ${data.patenteSemi || '-'}</td>
-                            <td class="p-4 text-center"><span class="px-2 py-1 rounded text-[9px] font-bold bg-orange-100 text-orange-700">${data.estado}</span></td>
+                            <td class="p-4 text-center"><span class="${estadoClases}">${data.estado}</span></td>
                             <td class="p-4 text-center font-black text-blue-800">${neto > 0 ? neto : '0.00'} Kg</td>
                             <td class="p-4 text-right flex flex-col items-end gap-1">
                                 ${botonAccion}
