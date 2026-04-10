@@ -183,8 +183,8 @@
         const getFlag = (paisNombre) => {
             if (!paisNombre) return '';
             const paises = {
-                'uruguay': 'uy', 'argentina': 'ar', 'brasil': 'br', 'paraguay': 'py', 
-                'chile': 'cl', 'bolivia': 'bo', 'peru': 'pe', 'china': 'cn', 'eeuu': 'us'
+                'uruguay': 'uy', 'colombia': 'co', 'francia': 'fr', 'paises bajos': 'nl', 
+                'chile': 'cl', 'panama': 'pa', 'japon': 'jp', 'china': 'cn', 'eeuu': 'us'
             };
             const code = paises[paisNombre.toLowerCase().trim()];
             return code ? `<img src="https://flagcdn.com/16x12/${code}.png" class="inline-block mr-1 shadow-sm rounded-sm mb-0.5">` : '🏳️ ';
