@@ -297,6 +297,8 @@
                 patenteSemi: document.getElementById('edit-patenteSemi').value.toUpperCase(),
                 tara: parseFloat(document.getElementById('edit-tara').value) || 0,
                 bruto: parseFloat(document.getElementById('edit-bruto').value) || 0
+                if (!document.getElementById('modal-historial-completo').classList.contains('hidden')) {
+        verHistorialCompleto();
             };
             await updateDoc(doc(db, "camiones", id), up); 
             cerrarModal();
