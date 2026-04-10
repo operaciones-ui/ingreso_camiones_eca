@@ -13,6 +13,15 @@
         .animate-pulse-fast {
             animation: pulse-custom 0.8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
         }
+        /* Estilos específicos para el rediseño del modal */
+        .digital-display {
+            background: linear-gradient(180deg, #000 0%, #111 100%);
+            box-shadow: inset 0 0 20px rgba(249, 115, 22, 0.1);
+        }
+        .input-huge::-webkit-inner-spin-button, 
+        .input-huge::-webkit-outer-spin-button { 
+            -webkit-appearance: none; margin: 0; 
+        }
     </style>
 </head>
 <body class="bg-zinc-900 text-white p-4 font-sans">
@@ -33,8 +42,8 @@
         </div>
 
         <div class="flex gap-2 mb-6">
-            <button onclick="cambiarTab('tab-entrada')" id="btn-tab-entrada" class="flex-1 p-4 rounded-xl font-black text-sm bg-orange-600 text-white shadow-lg transition-all italic">ENTRADA (TARA)</button>
-            <button onclick="cambiarTab('tab-salida')" id="btn-tab-salida" class="flex-1 p-4 rounded-xl font-black text-sm bg-zinc-800 text-gray-500 transition-all italic">SALIDA (BRUTO)</button>
+            <button onclick="cambiarTab('tab-entrada')" id="btn-tab-entrada" class="flex-1 p-4 rounded-xl font-black text-sm bg-orange-600 text-white shadow-lg transition-all italic text-center">ENTRADA (TARA)</button>
+            <button onclick="cambiarTab('tab-salida')" id="btn-tab-salida" class="flex-1 p-4 rounded-xl font-black text-sm bg-zinc-800 text-gray-500 transition-all italic text-center">SALIDA (BRUTO)</button>
         </div>
 
         <div id="tab-entrada" class="space-y-4">
@@ -45,21 +54,38 @@
         </div>
     </div>
 
-    <div id="modal-pesaje" class="hidden fixed inset-0 bg-black/95 backdrop-blur-md flex items-center justify-center p-4 z-50">
-        <div class="bg-zinc-800 p-6 rounded-2xl border border-zinc-700 w-full max-w-md shadow-2xl">
-            <h3 id="modal-titulo" class="font-black text-2xl mb-2 text-orange-500 uppercase italic text-center">PESAJE</h3>
-            <div id="modal-info-unidad" class="bg-zinc-900 p-4 rounded-xl mb-6 border border-zinc-700 text-center space-y-1"></div>
-            
-            <div class="relative">
-                <input id="peso-input" type="number" class="w-full bg-black border-2 border-zinc-700 p-6 rounded-xl text-5xl text-center mb-6 text-white font-mono outline-none focus:border-orange-500" placeholder="0">
-                <span class="absolute right-4 bottom-10 text-zinc-600 font-bold text-xl">KG</span>
+    <div id="modal-pesaje" class="hidden fixed inset-0 bg-black/90 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+        <div class="bg-zinc-900 w-full max-w-md rounded-3xl border-2 border-zinc-700 shadow-[0_0_50px_rgba(0,0,0,0.5)] overflow-hidden">
+            <div class="bg-zinc-800 p-4 border-b border-zinc-700 flex justify-between items-center">
+                <h3 id="modal-titulo" class="font-black text-lg text-orange-500 uppercase italic tracking-tighter">PESAJE DISPONIBLE</h3>
+                <span class="bg-orange-500/10 text-orange-500 text-[10px] font-bold px-2 py-1 rounded border border-orange-500/20 uppercase">Balanza Online</span>
             </div>
 
-            <div class="flex gap-3">
-                <button id="btn-confirmar-peso" class="flex-1 bg-orange-600 p-4 rounded-xl font-black uppercase hover:bg-orange-500 transition-all text-sm flex items-center justify-center gap-2">
-                    <span>Confirmar Peso</span>
-                </button>
-                <button id="btn-modal-volver" onclick="cerrarModal()" class="flex-1 bg-zinc-700 p-4 rounded-xl font-black text-zinc-400 uppercase text-sm text-center">Volver</button>
+            <div class="p-6">
+                <div id="modal-info-unidad" class="mb-6"></div>
+
+                <div class="digital-display rounded-2xl border-2 border-orange-500/50 p-6 mb-6 relative group transition-all hover:border-orange-500">
+                    <label class="absolute top-2 left-4 text-[10px] font-bold text-orange-500/60 uppercase tracking-widest">Peso Detectado</label>
+                    <div class="flex items-center justify-center gap-3">
+                        <input id="peso-input" type="number" 
+                            class="input-huge w-full bg-transparent text-6xl text-center text-white font-mono font-black outline-none placeholder:text-zinc-800" 
+                            placeholder="00000">
+                        <span class="text-3xl font-black text-zinc-600 font-mono">KG</span>
+                    </div>
+                    <div class="w-full h-1 bg-zinc-800 mt-4 rounded-full overflow-hidden">
+                        <div class="h-full bg-orange-500 w-1/3 animate-pulse"></div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 gap-3">
+                    <button id="btn-confirmar-peso" class="w-full bg-orange-600 hover:bg-orange-500 text-white h-20 rounded-2xl font-black uppercase text-lg shadow-[0_4px_0_rgb(154,52,18)] active:translate-y-1 active:shadow-none transition-all flex items-center justify-center gap-3">
+                        <span>Confirmar Registro</span>
+                    </button>
+                    
+                    <button id="btn-modal-volver" onclick="cerrarModal()" class="w-full py-4 text-zinc-500 font-bold uppercase text-xs hover:text-white transition-colors tracking-widest">
+                        ✕ Cancelar Operación
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -128,7 +154,7 @@
                     <div class="text-right"><span class="text-zinc-500 block font-bold uppercase text-[8px]">Cliente</span><span class="text-zinc-300 font-bold">${data.cliente}</span></div>
                 </div>
                 <button onclick="prepararPesaje('${id}', '${data.contenedor}', '${esEntrada ? 'ingreso' : 'salida'}')" 
-                    class="w-full ${bgBoton} p-4 rounded-xl font-black text-sm uppercase transition-all shadow-md active:scale-95">
+                    class="w-full ${bgBoton} p-4 rounded-xl font-black text-sm uppercase transition-all shadow-md active:scale-95 text-center">
                     ${esEntrada ? 'Registrar Tara (Entrada)' : 'Registrar Bruto (Salida)'}
                 </button>
             </div>`;
@@ -152,18 +178,23 @@
             const snap = await getDoc(doc(db, "camiones", id));
             const d = snap.data();
             
-            // Resetear estado del botón al abrir
             const btn = document.getElementById('btn-confirmar-peso');
             btn.disabled = false;
-            btn.innerHTML = "<span>Confirmar Peso</span>";
-            btn.className = "flex-1 bg-orange-600 p-4 rounded-xl font-black uppercase hover:bg-orange-500 transition-all text-sm flex items-center justify-center gap-2";
+            btn.innerHTML = "<span>Confirmar Registro</span>";
+            btn.className = "w-full bg-orange-600 hover:bg-orange-500 text-white h-20 rounded-2xl font-black uppercase text-lg shadow-[0_4px_0_rgb(154,52,18)] active:translate-y-1 active:shadow-none transition-all flex items-center justify-center gap-3";
             document.getElementById('btn-modal-volver').style.display = "block";
 
-            document.getElementById('modal-titulo').innerText = modo === 'ingreso' ? "ENTRADA: TARA" : "SALIDA: BRUTO";
+            document.getElementById('modal-titulo').innerText = modo === 'ingreso' ? "CONTROL DE TARA" : "CONTROL DE BRUTO";
             document.getElementById('modal-info-unidad').innerHTML = `
-                <div class="mb-2"><p class="text-4xl font-mono font-black text-white leading-none">${d.contenedor}</p></div>
-                <div class="border-t border-zinc-800 pt-2"><p class="text-sm font-bold text-orange-500 italic">${d.chofer || '---'}</p>
-                <p class="text-[10px] text-blue-400 font-bold mt-1">Estimado Carga: ${d.fechaEstimada || 'S/D'}</p></div>`;
+                <div class="bg-black/40 p-4 rounded-2xl border border-zinc-800">
+                    <p class="text-[10px] text-zinc-500 font-bold uppercase tracking-widest mb-1 text-center">Identificación de Unidad</p>
+                    <p class="text-4xl font-mono font-black text-white leading-none text-center">${d.contenedor}</p>
+                    <div class="flex justify-between mt-4 text-[11px] border-t border-zinc-800 pt-3">
+                        <span class="text-zinc-400">CHOFER: <b class="text-zinc-200">${d.chofer || '---'}</b></span>
+                        <span class="text-zinc-400">PATENTE: <b class="text-zinc-200">${d.patenteCamion || '---'}</b></span>
+                    </div>
+                </div>`;
+            
             document.getElementById('peso-input').value = "";
             document.getElementById('modal-pesaje').classList.remove('hidden');
             setTimeout(() => document.getElementById('peso-input').focus(), 300);
@@ -173,19 +204,18 @@
 
         document.getElementById('btn-confirmar-peso').onclick = async () => {
             const peso = parseFloat(document.getElementById('peso-input').value);
-            if (!peso || peso <= 0) return alert("⚠️ Ingrese un peso válido.");
+            if (!peso || peso <= 0) return alert("⚠️ Ingrese un peso válido detectado por la balanza.");
             
             const btn = document.getElementById('btn-confirmar-peso');
             const btnVolver = document.getElementById('btn-modal-volver');
             
-            // EFECTO VISUAL DE CARGA
             btn.disabled = true;
-            btnVolver.style.display = "none"; // Ocultar volver para evitar errores
+            btnVolver.style.display = "none";
             btn.innerHTML = `
-                <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
-                <span class="animate-pulse-fast">PROCESANDO...</span>
+                <svg class="animate-spin h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                <span class="animate-pulse-fast">ENVIANDO DATOS...</span>
             `;
-            btn.className = "flex-1 bg-zinc-600 p-4 rounded-xl font-black uppercase text-sm flex items-center justify-center gap-2 cursor-not-allowed";
+            btn.className = "w-full bg-zinc-800 text-zinc-500 h-20 rounded-2xl font-black uppercase text-lg flex items-center justify-center gap-3 cursor-not-allowed border border-zinc-700";
 
             const docRef = doc(db, "camiones", currentId);
             try {
@@ -197,10 +227,9 @@
                 cerrarModal();
             } catch (error) { 
                 alert("Error al guardar: " + error.message);
-                // Si falla, restaurar botón
                 btn.disabled = false;
-                btn.innerHTML = "<span>Confirmar Peso</span>";
-                btn.className = "flex-1 bg-orange-600 p-4 rounded-xl font-black uppercase hover:bg-orange-500 transition-all text-sm flex items-center justify-center gap-2";
+                btn.innerHTML = "<span>Confirmar Registro</span>";
+                btn.className = "w-full bg-orange-600 hover:bg-orange-500 text-white h-20 rounded-2xl font-black uppercase text-lg shadow-[0_4px_0_rgb(154,52,18)] active:translate-y-1 active:shadow-none transition-all flex items-center justify-center gap-3";
                 btnVolver.style.display = "block";
             }
         };
