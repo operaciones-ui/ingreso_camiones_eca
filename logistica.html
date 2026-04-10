@@ -26,58 +26,22 @@
             <h2 class="font-black mb-4 text-gray-700 flex items-center text-sm uppercase italic"><span class="mr-2">📝</span> Nuevo Registro de Carga</h2>
             <div class="space-y-4">
                 <div class="grid grid-cols-1 md:grid-cols-12 gap-3">
-                    <div class="md:col-span-1">
-                        <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Ref.</label>
-                        <input id="referencia" type="text" class="w-full border p-2 rounded bg-gray-50 text-xs outline-none focus:ring-1 focus:ring-orange-400">
-                    </div>
-                    <div class="md:col-span-3">
-                        <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Cliente / Exportador</label>
-                        <input id="cliente" type="text" class="w-full border p-2 rounded bg-gray-50 text-xs font-bold outline-none focus:ring-1 focus:ring-orange-400">
-                    </div>
-                    <div class="md:col-span-2">
-                        <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Barco / Viaje</label>
-                        <input id="barcoViaje" type="text" class="w-full border p-2 rounded bg-gray-50 text-xs outline-none focus:ring-1 focus:ring-orange-400">
-                    </div>
-                    <div class="md:col-span-1">
-                        <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Tipo</label>
-                        <input id="tipoContenedor" type="text" placeholder="40HC" class="w-full border p-2 rounded bg-gray-50 text-xs outline-none focus:ring-1 focus:ring-orange-400">
-                    </div>
-                    <div class="md:col-span-3">
-                        <label class="block text-[10px] font-bold text-orange-600 uppercase mb-1">N° Contenedor</label>
-                        <input id="contenedor" type="text" class="w-full border border-orange-300 p-1.5 rounded bg-orange-50 uppercase font-mono font-bold text-base outline-none focus:ring-1 focus:ring-orange-500 text-orange-900 h-[32px]">
-                    </div>
-                    <div class="md:col-span-2">
-                        <label class="block text-[10px] font-bold text-blue-600 uppercase mb-1">País Destino</label>
-                        <input id="destino" type="text" class="w-full border p-2 rounded bg-blue-50 text-xs font-bold outline-none focus:ring-1 focus:ring-blue-400">
-                    </div>
+                    <div class="md:col-span-1"><label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Ref.</label><input id="referencia" type="text" class="w-full border p-2 rounded bg-gray-50 text-xs"></div>
+                    <div class="md:col-span-3"><label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Cliente / Exportador</label><input id="cliente" type="text" class="w-full border p-2 rounded bg-gray-50 text-xs font-bold"></div>
+                    <div class="md:col-span-2"><label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Barco / Viaje</label><input id="barcoViaje" type="text" class="w-full border p-2 rounded bg-gray-50 text-xs"></div>
+                    <div class="md:col-span-1"><label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Tipo</label><input id="tipoContenedor" type="text" placeholder="40HC" class="w-full border p-2 rounded bg-gray-50 text-xs"></div>
+                    <div class="md:col-span-3"><label class="block text-[10px] font-bold text-orange-600 uppercase mb-1">N° Contenedor</label><input id="contenedor" type="text" class="w-full border border-orange-300 p-1.5 rounded bg-orange-50 uppercase font-mono font-bold text-base outline-none focus:ring-1 focus:ring-orange-500 text-orange-900 h-[32px]"></div>
+                    <div class="md:col-span-2"><label class="block text-[10px] font-bold text-blue-600 uppercase mb-1">País</label><input id="destino" type="text" class="w-full border p-2 rounded bg-blue-50 text-xs font-bold"></div>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-12 gap-3">
-                    <div class="md:col-span-2">
-                        <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Transporte</label>
-                        <input id="transporte" type="text" class="w-full border p-2 rounded bg-gray-50 text-xs outline-none focus:ring-1 focus:ring-orange-400">
-                    </div>
-                    <div class="md:col-span-3">
-                        <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Nombre Chofer</label>
-                        <input id="chofer" list="lista-choferes" oninput="autocompletarChofer(this.value)" placeholder="Buscar..." class="w-full border p-2 rounded bg-gray-50 text-xs outline-none focus:ring-1 focus:ring-orange-400">
-                        <datalist id="lista-choferes"></datalist>
-                    </div>
-                    <div class="md:col-span-1"> <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">DNI</label>
-                        <input id="dni" type="text" class="w-full border p-2 rounded bg-gray-50 text-[10px] outline-none focus:ring-1 focus:ring-orange-400">
-                    </div>
-                    <div class="md:col-span-1"> <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Pat. Camión</label>
-                        <input id="patenteCamion" type="text" class="w-full border p-2 rounded bg-gray-50 text-[11px] font-mono uppercase outline-none focus:ring-1 focus:ring-orange-400">
-                    </div>
-                    <div class="md:col-span-1"> <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Pat. Semi</label>
-                        <input id="patenteSemi" type="text" class="w-full border p-2 rounded bg-gray-50 text-[11px] font-mono uppercase outline-none focus:ring-1 focus:ring-orange-400">
-                    </div>
-                    <div class="md:col-span-2">
-                        <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Celular</label>
-                        <input id="celular" type="tel" class="w-full border p-2 rounded bg-gray-50 text-xs outline-none focus:ring-1 focus:ring-orange-400">
-                    </div>
-                    <div class="md:col-span-2 flex items-end">
-                        <button onclick="crearViaje()" class="w-full bg-orange-600 text-white p-2 rounded font-black hover:bg-orange-700 transition-all uppercase text-[10px] shadow-lg h-[34px]">Registrar</button>
-                    </div>
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-2">
+                    <div class="md:col-span-2"><label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Transporte</label><input id="transporte" type="text" class="w-full border p-2 rounded bg-gray-50 text-xs"></div>
+                    <div class="md:col-span-3"><label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Nombre Chofer</label><input id="chofer" list="lista-choferes" oninput="autocompletarChofer(this.value)" class="w-full border p-2 rounded bg-gray-50 text-xs"><datalist id="lista-choferes"></datalist></div>
+                    <div class="md:col-span-1"><label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">DNI</label><input id="dni" type="text" class="w-full border p-2 rounded bg-gray-50 text-[10px]"></div>
+                    <div class="md:col-span-1"><label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Pat. Camión</label><input id="patenteCamion" type="text" class="w-full border p-2 rounded bg-gray-50 text-[10px] font-mono uppercase"></div>
+                    <div class="md:col-span-1"><label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Pat. Semi</label><input id="patenteSemi" type="text" class="w-full border p-2 rounded bg-gray-50 text-[10px] font-mono uppercase"></div>
+                    <div class="md:col-span-2"><label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Celular</label><input id="celular" type="tel" class="w-full border p-2 rounded bg-gray-50 text-xs"></div>
+                    <div class="md:col-span-2 flex items-end"><button onclick="crearViaje()" class="w-full bg-orange-600 text-white p-2 rounded font-black hover:bg-orange-700 uppercase text-[10px] h-[34px] shadow-lg">Registrar</button></div>
                 </div>
             </div>
         </div>
@@ -92,6 +56,7 @@
                         <th class="p-4">Chofer / DNI</th>
                         <th class="p-4">Patentes</th>
                         <th class="p-4 text-center">Estado</th>
+                        <th class="p-4 text-center">Neto</th>
                         <th class="p-4 text-right">Acción</th>
                     </tr>
                 </thead>
@@ -101,34 +66,57 @@
 
         <div id="seccion-historial" class="mb-20">
             <div class="flex flex-col md:flex-row justify-between items-end mb-4 gap-4">
-                <h2 class="text-xs font-black text-blue-500 uppercase tracking-widest">🕒 Historial de Cargas</h2>
-                <div class="bg-white p-3 rounded-xl shadow-sm flex gap-3 items-end">
-                    <input id="filtro-desde" type="date" class="text-xs border p-1 rounded">
-                    <input id="filtro-hasta" type="date" class="text-xs border p-1 rounded">
-                    <button onclick="exportarExcel()" class="bg-green-600 text-white px-4 py-2 rounded-lg text-xs font-black uppercase">Exportar Excel</button>
-                </div>
-            </div>
-            <div class="bg-slate-200/50 rounded-xl shadow-inner overflow-hidden border border-slate-300">
-                <table class="w-full text-left text-[11px]">
-                    <tbody id="tabla-historial" class="divide-y divide-slate-200"></tbody>
-                </table>
-            </div>
-        </div>
+               <h2 class="text-xs font-black text-blue-500 uppercase tracking-widest flex items-center">
+                   <span class="mr-2">🕒</span> Historial de Cargas Finalizadas
+               </h2>
+               <div class="bg-white p-3 rounded-xl shadow-sm border border-slate-200 flex flex-wrap gap-3 items-end">
+                   <div>
+                       <label class="block text-[9px] font-bold text-gray-400 uppercase">Desde</label>
+                       <input id="filtro-desde" type="date" class="text-xs border p-1 rounded outline-none">
+                   </div>
+                   <div>
+                       <label class="block text-[9px] font-bold text-gray-400 uppercase">Hasta</label>
+                       <input id="filtro-hasta" type="date" class="text-xs border p-1 rounded outline-none">
+                   </div>
+                   <button onclick="exportarExcel()" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-xs font-black uppercase flex items-center gap-2 transition-all">
+                       <span>📊</span> Exportar Excel
+                   </button>
+               </div>
+           </div>
+
+           <div class="bg-slate-200/50 rounded-xl shadow-inner overflow-hidden border border-slate-300">
+               <table class="w-full text-left text-[11px]">
+                   <thead>
+                       <tr class="bg-slate-300/50 text-slate-500 border-b border-slate-300 font-bold uppercase">
+                           <th class="p-3">Fecha / Contenedor</th>
+                           <th class="p-3">Cliente / Destino</th>
+                           <th class="p-3">Chofer / DNI</th>
+                           <th class="p-3 text-center font-black">Neto</th>
+                           <th class="p-3 text-right">Tiempos</th>
+                           <th class="p-3 text-right">...</th>
+                       </tr>
+                   </thead>
+                   <tbody id="tabla-historial" class="divide-y divide-slate-200"></tbody>
+               </table>
+           </div>
+       </div>
     </div>
 
-    <div id="modal-editar" class="hidden fixed inset-0 bg-slate-900/90 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-        <div class="bg-white p-6 rounded-2xl w-full max-w-2xl">
-            <h3 class="font-black mb-4">EDITAR REGISTRO</h3>
+    <div id="modal-editar" class="hidden fixed inset-0 bg-slate-900/90 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+        <div class="bg-white p-6 rounded-2xl shadow-2xl w-full max-w-3xl text-sm">
+            <h3 class="font-black text-xl mb-6 text-gray-800 border-b pb-4 uppercase">✏️ Editar Registro</h3>
             <input id="edit-id" type="hidden">
-            <div class="grid grid-cols-2 gap-4">
-                <input id="edit-chofer" type="text" placeholder="Chofer" class="border p-2 rounded w-full">
-                <input id="edit-dni" type="text" placeholder="DNI" class="border p-2 rounded w-full">
-                <input id="edit-patenteCamion" type="text" placeholder="Patente Camión" class="border p-2 rounded w-full uppercase">
-                <input id="edit-patenteSemi" type="text" placeholder="Patente Semi" class="border p-2 rounded w-full uppercase">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="md:col-span-2"><label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Chofer</label><input id="edit-chofer" type="text" class="w-full border p-2 rounded"></div>
+                <div><label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">DNI</label><input id="edit-dni" type="text" class="w-full border p-2 rounded"></div>
+                <div><label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Patente Camión</label><input id="edit-patenteCamion" type="text" class="w-full border p-2 rounded uppercase font-mono"></div>
+                <div><label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Patente Semi</label><input id="edit-patenteSemi" type="text" class="w-full border p-2 rounded uppercase font-mono"></div>
+                <div><label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Tara</label><input id="edit-tara" type="number" class="w-full border p-2 rounded"></div>
+                <div><label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Bruto</label><input id="edit-bruto" type="number" class="w-full border p-2 rounded"></div>
             </div>
-            <div class="flex gap-2 mt-6">
-                <button onclick="guardarEdicion()" class="bg-black text-white px-6 py-2 rounded font-bold">GUARDAR</button>
-                <button onclick="cerrarModal()" class="bg-gray-200 px-6 py-2 rounded font-bold">CANCELAR</button>
+            <div class="flex gap-3 mt-8">
+                <button onclick="guardarEdicion()" class="flex-1 bg-zinc-800 text-white p-4 rounded-xl font-black uppercase">Guardar</button>
+                <button onclick="cerrarModal()" class="flex-1 bg-gray-100 text-gray-400 p-4 rounded-xl font-black uppercase">Cancelar</button>
             </div>
         </div>
     </div>
@@ -152,31 +140,31 @@
         const auth = getAuth(app);
         const colRef = collection(db, "camiones");
 
-        // --- CHOFERES ---
+        // --- AUTOCUMPLEADO ---
         let baseChoferes = [];
         onSnapshot(collection(db, "choferes"), (snap) => {
             const datalist = document.getElementById('lista-choferes');
-            datalist.innerHTML = "";
-            baseChoferes = [];
+            datalist.innerHTML = ""; baseChoferes = [];
             snap.forEach(doc => {
                 const d = doc.data();
                 baseChoferes.push({ nombre: d.nombre, transporte: d.transporte, celular: d.celular, dni: d.dni });
-                const option = document.createElement('option');
-                option.value = d.nombre;
-                datalist.appendChild(option);
+                const opt = document.createElement('option'); opt.value = d.nombre;
+                datalist.appendChild(opt);
             });
         });
 
-        window.autocompletarChofer = (valor) => {
-            const encontrado = baseChoferes.find(c => c.nombre && c.nombre.toLowerCase() === valor.toLowerCase());
-            if (encontrado) {
-                document.getElementById('celular').value = encontrado.celular || "";
-                document.getElementById('transporte').value = encontrado.transporte || "";
-                document.getElementById('dni').value = encontrado.dni || "";
+        window.autocompletarChofer = (v) => {
+            const e = baseChoferes.find(c => c.nombre && c.nombre.toLowerCase() === v.toLowerCase());
+            if (e) {
+                document.getElementById('celular').value = e.celular || "";
+                document.getElementById('transporte').value = e.transporte || "";
+                document.getElementById('dni').value = e.dni || "";
             }
         };
 
-        // --- OPERACIONES ---
+        // --- LÓGICA DE DATOS ---
+        let listaHistorialCompleta = [];
+
         window.crearViaje = async () => {
             const data = {
                 referencia: document.getElementById('referencia').value,
@@ -191,8 +179,7 @@
                 patenteCamion: document.getElementById('patenteCamion').value.toUpperCase(),
                 patenteSemi: document.getElementById('patenteSemi').value.toUpperCase(),
                 celular: document.getElementById('celular').value,
-                estado: "Pendiente",
-                tara: 0, bruto: 0, fecha: serverTimestamp()
+                estado: "Pendiente", tara: 0, bruto: 0, fecha: serverTimestamp()
             };
             await addDoc(colRef, data);
             document.querySelectorAll('input').forEach(i => i.value = "");
@@ -202,50 +189,57 @@
             const contActivos = document.getElementById('tabla-gestion');
             const contHistorial = document.getElementById('tabla-historial');
             contActivos.innerHTML = ""; contHistorial.innerHTML = "";
-            
+            listaHistorialCompleta = [];
+
             snapshot.forEach(d => {
                 const data = { id: d.id, ...d.data() };
-                const fDia = data.fecha ? new Date(data.fecha.seconds * 1000).toLocaleDateString() : '---';
+                const neto = (data.bruto - data.tara).toFixed(2);
+                const tEntrada = data.fechaIngreso ? new Date(data.fechaIngreso.seconds * 1000).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) : '--:--';
+                const tSalida = data.fechaSalida ? new Date(data.fechaSalida.seconds * 1000).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) : '--:--';
+                const fechaDia = data.fecha ? new Date(data.fecha.seconds * 1000).toLocaleDateString('es-AR') : '---';
 
                 if (data.estado !== "Finalizado") {
                     contActivos.innerHTML += `
                         <tr class="hover:bg-orange-50/50 border-b border-gray-50">
-                            <td class="p-4"><b>${data.cliente}</b><br><small>${data.referencia || '-'}</small></td>
+                            <td class="p-4"><b>${data.cliente}</b><p class="text-[9px] text-gray-400">REF: ${data.referencia || '-'}</p></td>
                             <td class="p-4 font-mono font-black text-orange-600">${data.contenedor}</td>
-                            <td class="p-4"><b>${data.chofer}</b><br><small>DNI: ${data.dni || '-'}</small></td>
+                            <td class="p-4"><b>${data.chofer}</b><p class="text-[9px] text-gray-400 italic">DNI: ${data.dni || '-'}</p></td>
                             <td class="p-4 font-mono text-[10px]">C: ${data.patenteCamion || '-'}<br>S: ${data.patenteSemi || '-'}</td>
                             <td class="p-4 text-center"><span class="px-2 py-1 rounded text-[9px] font-bold bg-orange-100">${data.estado}</span></td>
+                            <td class="p-4 text-center font-black text-blue-800">${neto > 0 ? neto : '0.00'} Kg</td>
                             <td class="p-4 text-right">
-                                <button onclick="autorizar('${d.id}')" class="text-blue-600 font-bold mr-2">OK</button>
+                                <button onclick="autorizar('${d.id}')" class="text-blue-600 font-bold mr-3">AUTORIZAR</button>
                                 <button onclick="abrirModal('${d.id}')" class="text-gray-400">EDITAR</button>
                             </td>
                         </tr>`;
                 } else {
+                    listaHistorialCompleta.push(data);
                     contHistorial.innerHTML += `
                         <tr class="hover:bg-white border-b border-slate-200">
-                            <td class="p-3">${fDia} - <b>${data.contenedor}</b></td>
-                            <td class="p-3">${data.cliente}</td>
-                            <td class="p-3">${data.chofer} (DNI: ${data.dni})</td>
-                            <td class="p-3 text-right"><button onclick="abrirModal('${d.id}')">📝</button></td>
+                            <td class="p-3"><span class="text-orange-600 font-bold block text-[10px]">${fechaDia}</span><span class="font-mono">${data.contenedor}</span></td>
+                            <td class="p-3"><b>${data.cliente}</b><p class="text-[9px] text-blue-500">${data.destino || 'S/D'}</p></td>
+                            <td class="p-3"><b>${data.chofer}</b><p class="text-[9px] text-gray-400 italic">DNI: ${data.dni || '-'}</p></td>
+                            <td class="p-3 text-center font-black text-blue-600 bg-blue-50/50">${neto} Kg</td>
+                            <td class="p-3 text-right text-[10px]"><span class="text-green-600">IN: ${tEntrada}</span><br><span class="text-red-400">OUT: ${tSalida}</span></td>
+                            <td class="p-3 text-right"><button onclick="abrirModal('${d.id}')" class="text-lg">📝</button></td>
                         </tr>`;
                 }
             });
         });
 
         window.autorizar = (id) => updateDoc(doc(db, "camiones", id), { estado: "Habilitado" });
-
+        window.cerrarModal = () => document.getElementById('modal-editar').classList.add('hidden');
         window.abrirModal = async (id) => {
-            const snap = await getDoc(doc(db, "camiones", id));
-            const d = snap.data();
-            document.getElementById('edit-id').value = id;
+            const snap = await getDoc(doc(db, "camiones", id)); const d = snap.data();
+            document.getElementById('edit-id').value = id; 
             document.getElementById('edit-chofer').value = d.chofer || '';
             document.getElementById('edit-dni').value = d.dni || '';
             document.getElementById('edit-patenteCamion').value = d.patenteCamion || '';
             document.getElementById('edit-patenteSemi').value = d.patenteSemi || '';
+            document.getElementById('edit-tara').value = d.tara || 0; 
+            document.getElementById('edit-bruto').value = d.bruto || 0;
             document.getElementById('modal-editar').classList.remove('hidden');
         };
-
-        window.cerrarModal = () => document.getElementById('modal-editar').classList.add('hidden');
 
         window.guardarEdicion = async () => {
             const id = document.getElementById('edit-id').value;
@@ -253,9 +247,34 @@
                 chofer: document.getElementById('edit-chofer').value,
                 dni: document.getElementById('edit-dni').value,
                 patenteCamion: document.getElementById('edit-patenteCamion').value.toUpperCase(),
-                patenteSemi: document.getElementById('edit-patenteSemi').value.toUpperCase()
+                patenteSemi: document.getElementById('edit-patenteSemi').value.toUpperCase(),
+                tara: parseFloat(document.getElementById('edit-tara').value) || 0,
+                bruto: parseFloat(document.getElementById('edit-bruto').value) || 0
             });
             cerrarModal();
+        };
+
+        window.exportarExcel = () => {
+            const desde = document.getElementById('filtro-desde').value;
+            const hasta = document.getElementById('filtro-hasta').value;
+            if (!desde || !hasta) return alert("Seleccione fechas");
+            const fDesde = new Date(desde + "T00:00:00");
+            const fHasta = new Date(hasta + "T23:59:59");
+            const ws = XLSX.utils.json_to_sheet(listaHistorialCompleta.filter(d => {
+                const f = new Date(d.fecha.seconds * 1000);
+                return f >= fDesde && f <= fHasta;
+            }).map(d => ({
+                "FECHA": new Date(d.fecha.seconds * 1000).toLocaleDateString('es-AR'),
+                "CONTENEDOR": d.contenedor,
+                "CLIENTE": d.cliente,
+                "CHOFER": d.chofer,
+                "DNI": d.dni,
+                "CAMION": d.patenteCamion,
+                "SEMI": d.patenteSemi,
+                "NETO": (d.bruto - d.tara)
+            })));
+            const wb = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb, ws, "Reporte");
+            XLSX.writeFile(wb, "Reporte_Logistica.xlsx");
         };
 
         onAuthStateChanged(auth, (user) => { if (!user) window.location.href = "index.html"; });
