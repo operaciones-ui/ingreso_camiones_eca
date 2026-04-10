@@ -36,7 +36,12 @@
                         </select>
                     </div>
                     <div class="md:col-span-3"><label class="block text-[10px] font-bold text-orange-600 uppercase mb-1">N° Contenedor</label><input id="contenedor" type="text" class="w-full border border-orange-300 p-1.5 rounded bg-orange-50 uppercase font-mono font-bold text-base outline-none focus:ring-1 focus:ring-orange-500 text-orange-900 h-[32px]"></div>
-                    <div class="md:col-span-2"><label class="block text-[10px] font-bold text-blue-600 uppercase mb-1">País</label><input id="destino" type="text" class="w-full border p-2 rounded bg-blue-50 text-xs font-bold outline-none focus:ring-1 focus:ring-blue-400"></div>
+                    <div class="md:col-span-2">
+                        <label class="block text-[10px] font-bold text-blue-600 uppercase mb-1">País</label>
+                        <select id="destino" class="w-full border p-2 rounded bg-blue-50 text-xs font-bold outline-none focus:ring-1 focus:ring-blue-400">
+                            <option value="">Cargando...</option>
+                        </select>
+                    </div>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-12 gap-2">
@@ -125,7 +130,12 @@
                         <option value="">Cargando...</option>
                     </select>
                 </div>
-                <div class="md:col-span-4"><label class="block font-bold text-blue-600 uppercase mb-1">Destino</label><input id="edit-destino" type="text" class="w-full border p-2 rounded"></div>
+                <div class="md:col-span-4">
+                    <label class="block font-bold text-blue-600 uppercase mb-1">Destino</label>
+                    <select id="edit-destino" class="w-full border p-2 rounded font-bold">
+                        <option value="">Cargando...</option>
+                    </select>
+                </div>
                 <div class="md:col-span-3"><label class="block font-bold text-gray-400 uppercase mb-1">Transporte</label><input id="edit-transporte" type="text" class="w-full border p-2 rounded"></div>
                 <div class="md:col-span-3"><label class="block font-bold text-gray-400 uppercase mb-1">Celular</label><input id="edit-celular" type="text" class="w-full border p-2 rounded"></div>
 
@@ -173,13 +183,24 @@
         onSnapshot(collection(db, "tiposContenedor"), (snap) => {
             const selectRegistro = document.getElementById('tipoContenedor');
             const selectEdit = document.getElementById('edit-tipoContenedor');
-            
             let optionsHtml = '<option value="" disabled selected>Seleccione...</option>';
             snap.forEach(doc => {
                 const tipo = doc.data().nombre;
                 optionsHtml += `<option value="${tipo}">${tipo}</option>`;
             });
+            selectRegistro.innerHTML = optionsHtml;
+            selectEdit.innerHTML = optionsHtml;
+        });
 
+        // --- CARGAR PAÍSES ---
+        onSnapshot(collection(db, "paises"), (snap) => {
+            const selectRegistro = document.getElementById('destino');
+            const selectEdit = document.getElementById('edit-destino');
+            let optionsHtml = '<option value="" disabled selected>Seleccione País...</option>';
+            snap.forEach(doc => {
+                const pais = doc.data().nombre;
+                optionsHtml += `<option value="${pais}">${pais}</option>`;
+            });
             selectRegistro.innerHTML = optionsHtml;
             selectEdit.innerHTML = optionsHtml;
         });
@@ -229,6 +250,7 @@
             await addDoc(colRef, data);
             document.querySelectorAll('input').forEach(i => i.value = "");
             document.getElementById('tipoContenedor').value = "";
+            document.getElementById('destino').value = "";
         };
 
         onSnapshot(query(colRef, orderBy("fecha", "desc")), (snapshot) => {
