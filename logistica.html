@@ -491,26 +491,54 @@
         };
     </script>
 
-    <div id="modal-historial-completo" class="hidden fixed inset-0 bg-slate-100 z-[60] overflow-hidden flex flex-col">
-        <div class="bg-white p-4 shadow-md flex justify-between items-center border-b-4 border-blue-500">
-            <h2 class="font-black text-xl text-slate-700 uppercase tracking-tighter">📋 Historial Completo de Operaciones</h2>
-            <button onclick="cerrarHistorialCompleto()" class="bg-red-500 text-white px-6 py-2 rounded-full font-bold shadow-lg hover:bg-red-700">CERRAR [X]</button>
+    <div id="modal-historial-completo" class="hidden fixed inset-0 bg-slate-50 z-[100] overflow-hidden flex flex-col">
+        <div class="bg-slate-900 px-6 py-4 shadow-xl flex justify-between items-center border-b-4 border-orange-500">
+            <div class="flex items-center gap-4">
+                <div class="bg-orange-500 p-2 rounded-lg shadow-inner">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                </div>
+                <div>
+                    <h2 class="font-black text-2xl text-white uppercase tracking-tighter leading-none">Reporte Maestro de Operaciones</h2>
+                    <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-1">Logística y Control de Balanza - ECA</p>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-4">
+                <div class="hidden md:block text-right mr-4 border-r border-slate-700 pr-4">
+                    <p class="text-[10px] text-slate-500 font-bold uppercase">Estado del Sistema</p>
+                    <p class="text-xs text-green-400 font-mono italic">Sincronizado con Firebase</p>
+                </div>
+                <button onclick="cerrarHistorialCompleto()" class="bg-red-600 hover:bg-red-700 text-white px-8 py-3 rounded-xl font-black shadow-lg transition-all active:scale-95 flex items-center gap-2">
+                    <span>CERRAR</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
         </div>
-        <div class="flex-1 overflow-auto p-4">
-            <table class="w-full text-left bg-white rounded-xl shadow-lg">
-                <thead class="sticky top-0 bg-slate-800 text-white text-[10px] uppercase font-bold">
-                    <tr>
-                        <th class="p-4">Fecha / Contenedor</th>
-                        <th class="p-4">Cliente / Destino</th>
-                        <th class="p-4">Chofer / DNI</th>
-                        <th class="p-4">          Kilos netos</th>
-                        <th class="p-4 text-center">Ingreso / Egreso</th>
-                        <th class="p-4 text-right">Modificar</th>
-                    </tr>
-                </thead>
-                <tbody id="tabla-historial-full" class="divide-y divide-slate-100 text-xs"></tbody>
-            </table>
+
+        <div class="flex-1 overflow-auto p-6 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]">
+            <div class="max-w-[95%] mx-auto bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-slate-800 text-slate-300 text-[11px] uppercase font-black tracking-widest">
+                            <th class="p-5 border-b border-slate-700">📅 Fecha / Registro</th>
+                            <th class="p-5 border-b border-slate-700">📦 Contenedor</th>
+                            <th class="p-5 border-b border-slate-700">🏢 Cliente / Destino</th>
+                            <th class="p-5 border-b border-slate-700 text-center">🚛 Chofer y Documento</th>
+                            <th class="p-5 border-b border-slate-700 text-right pr-16 text-orange-400">⚖️ Kilos Netos</th>
+                            <th class="p-5 border-b border-slate-700 text-center">⏱️ Tiempos (Entrada/Salida)</th>
+                            <th class="p-5 border-b border-slate-700 text-center">⚙️</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabla-historial-full" class="divide-y divide-slate-100 text-sm">
+                        </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div class="bg-white p-3 border-t border-slate-200 text-center">
+            <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">© 2024 ECA LOGÍSTICA - Visualización de Alta Capacidad</p>
         </div>
     </div>
+
 </body>
 </html>
