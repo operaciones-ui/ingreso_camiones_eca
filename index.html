@@ -53,6 +53,14 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
 
+        // --- SOLUCIÓN PARA EL BOTÓN "ATRÁS" ---
+        window.addEventListener('pageshow', function (event) {
+            // Si event.persisted es true, significa que la página se cargó del cache (botón atrás)
+            if (event.persisted) {
+                window.location.reload();
+            }
+        });
+
         window.login = async () => {
             const email = document.getElementById('email').value;
             const pass = document.getElementById('password').value;
