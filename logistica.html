@@ -179,6 +179,17 @@
         const auth = getAuth(app);
         const colRef = collection(db, "camiones");
 
+        // --- FUNCIÓN PARA BANDERAS ---
+        const getFlag = (paisNombre) => {
+            if (!paisNombre) return '';
+            const paises = {
+                'uruguay': 'uy', 'argentina': 'ar', 'brasil': 'br', 'paraguay': 'py', 
+                'chile': 'cl', 'bolivia': 'bo', 'peru': 'pe', 'china': 'cn', 'eeuu': 'us'
+            };
+            const code = paises[paisNombre.toLowerCase().trim()];
+            return code ? `<img src="https://flagcdn.com/16x12/${code}.png" class="inline-block mr-1 shadow-sm rounded-sm mb-0.5">` : '🏳️ ';
+        };
+
         // --- CARGAR TIPOS DE CONTENEDORES ---
         onSnapshot(collection(db, "tiposContenedor"), (snap) => {
             const selectRegistro = document.getElementById('tipoContenedor');
@@ -205,7 +216,7 @@
             selectEdit.innerHTML = optionsHtml;
         });
 
-        // --- AUTOCUMPLEADO ---
+        // --- AUTOCOMPLETADO CHOFER ---
         let baseChoferes = [];
         onSnapshot(collection(db, "choferes"), (snap) => {
             const datalist = document.getElementById('lista-choferes');
@@ -289,7 +300,7 @@
                     contHistorial.innerHTML += `
                         <tr class="hover:bg-white border-b border-slate-200">
                             <td class="p-3"><span class="text-orange-600 font-bold block text-[10px]">${fechaDia}</span><span class="font-mono">${data.contenedor}</span></td>
-                            <td class="p-3"><b>${data.cliente}</b><p class="text-[9px] text-blue-500">${data.destino || 'S/D'}</p></td>
+                            <td class="p-3"><b>${data.cliente}</b><p class="text-[9px] text-blue-500 flex items-center">${getFlag(data.destino)} ${data.destino || 'S/D'}</p></td>
                             <td class="p-3"><b>${data.chofer}</b><p class="text-[9px] text-gray-400 italic">DNI: ${data.dni || '-'}</p></td>
                             <td class="p-3 text-center font-black text-blue-600 bg-blue-50/50">${neto} Kg</td>
                             <td class="p-3 text-right text-[10px]"><span class="text-green-600">IN: ${tEntrada}</span><br><span class="text-red-400">OUT: ${tSalida}</span></td>
