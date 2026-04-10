@@ -72,6 +72,9 @@
                <div class="bg-white p-3 rounded-xl shadow-sm border border-slate-200 flex flex-wrap gap-3 items-end">
                    <input id="filtro-desde" type="date" class="text-xs border p-1 rounded outline-none">
                    <input id="filtro-hasta" type="date" class="text-xs border p-1 rounded outline-none">
+                   <button onclick="verHistorialCompleto()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-xs font-black uppercase flex items-center gap-2 transition-all">
+                        <span>🖥️</span> Pantalla Completa
+                        </button>
                    <button onclick="exportarExcel()" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-xs font-black uppercase flex items-center gap-2 transition-all">
                        <span>📊</span> Exportar Excel
                    </button>
@@ -346,6 +349,45 @@
 
         // Iniciar el reloj al cargar la página
         resetearReloj();
+        // Funciones para el historial en pantalla completa
+window.verHistorialCompleto = () => {
+    const modal = document.getElementById('modal-historial-completo');
+    const tablaFull = document.getElementById('tabla-historial-full');
+    const tablaOriginal = document.getElementById('tabla-historial');
+    
+    // Clonamos el contenido de la tabla pequeña a la grande
+    tablaFull.innerHTML = tablaOriginal.innerHTML;
+    
+    // Quitamos la columna de edición (la última) para que se vea más limpio en pantalla completa si deseas
+    // O simplemente lo dejamos igual. Aquí lo mostramos:
+    modal.classList.remove('hidden');
+};
+
+window.cerrarHistorialCompleto = () => {
+    document.getElementById('modal-historial-completo').classList.add('hidden');
+};
     </script>
+    <div id="modal-historial-completo" class="hidden fixed inset-0 bg-slate-100 z-[60] overflow-hidden flex flex-col">
+    <div class="bg-white p-4 shadow-md flex justify-between items-center border-b-4 border-blue-500">
+        <h2 class="font-black text-xl text-slate-700 uppercase tracking-tighter">📋 Historial Completo de Operaciones</h2>
+        <button onclick="cerrarHistorialCompleto()" class="bg-red-500 text-white px-6 py-2 rounded-full font-bold shadow-lg hover:bg-red-700">CERRAR [X]</button>
+    </div>
+    <div class="flex-1 overflow-auto p-4">
+        <table class="w-full text-left bg-white rounded-xl shadow-lg">
+            <thead class="sticky top-0 bg-slate-800 text-white text-[10px] uppercase font-bold">
+                <tr>
+                    <th class="p-4">Fecha</th>
+                    <th class="p-4">Contenedor</th>
+                    <th class="p-4">Cliente / Destino</th>
+                    <th class="p-4">Chofer / DNI</th>
+                    <th class="p-4 text-center">Neto</th>
+                    <th class="p-4 text-right">Ingreso/Salida</th>
+                </tr>
+            </thead>
+            <tbody id="tabla-historial-full" class="divide-y divide-slate-100 text-xs">
+                </tbody>
+        </table>
+    </div>
+</div>
 </body>
 </html>
