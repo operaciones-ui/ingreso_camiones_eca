@@ -59,11 +59,11 @@
                     </div>
                     <div class="md:col-span-3">
                         <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Nombre Chofer</label>
-                        <input id="chofer" list="lista-choferes" oninput="autocompletarChofer(this.value)" placeholder="Escriba para buscar..." class="w-full border p-2 rounded bg-gray-50 text-xs outline-none focus:ring-1 focus:ring-orange-400">
+                        <input id="chofer" list="lista-choferes" oninput="autocompletarChofer(this.value)" placeholder="Buscar..." class="w-full border p-2 rounded bg-gray-50 text-xs outline-none focus:ring-1 focus:ring-orange-400">
                         <datalist id="lista-choferes"></datalist>
                     </div>
                     <div class="md:col-span-2">
-                        <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">DNI</label>
+                        <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">DNI Chofer</label>
                         <input id="dni" type="text" class="w-full border p-2 rounded bg-gray-50 text-xs outline-none focus:ring-1 focus:ring-orange-400">
                     </div>
                     <div class="md:col-span-2">
@@ -81,6 +81,7 @@
             </div>
         </div>
 
+        <h2 class="text-xs font-black text-gray-500 mb-2 uppercase tracking-widest">Cargas en Curso</h2>
         <div class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 mb-10">
             <table class="w-full text-left text-xs">
                 <thead>
@@ -89,22 +90,64 @@
                         <th class="p-4">Contenedor</th>
                         <th class="p-4">Chofer / DNI</th>
                         <th class="p-4 text-center">Estado</th>
+                        <th class="p-4 text-center">Neto</th>
                         <th class="p-4 text-right">Acción</th>
                     </tr>
                 </thead>
                 <tbody id="tabla-gestion" class="divide-y divide-gray-100"></tbody>
             </table>
         </div>
+
+        <div id="seccion-historial" class="mb-20">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-4 gap-4">
+               <h2 class="text-xs font-black text-blue-500 uppercase tracking-widest flex items-center">
+                   <span class="mr-2">🕒</span> Historial de Cargas Finalizadas
+               </h2>
+               <div class="bg-white p-3 rounded-xl shadow-sm border border-slate-200 flex flex-wrap gap-3 items-end">
+                   <div>
+                       <label class="block text-[9px] font-bold text-gray-400 uppercase">Desde</label>
+                       <input id="filtro-desde" type="date" class="text-xs border p-1 rounded outline-none">
+                   </div>
+                   <div>
+                       <label class="block text-[9px] font-bold text-gray-400 uppercase">Hasta</label>
+                       <input id="filtro-hasta" type="date" class="text-xs border p-1 rounded outline-none">
+                   </div>
+                   <button onclick="exportarExcel()" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-xs font-black uppercase flex items-center gap-2 transition-all">
+                       <span>📊</span> Exportar Excel
+                   </button>
+               </div>
+           </div>
+
+           <div class="bg-slate-200/50 rounded-xl shadow-inner overflow-hidden border border-slate-300">
+               <table class="w-full text-left text-[11px]">
+                   <thead>
+                       <tr class="bg-slate-300/50 text-slate-500 border-b border-slate-300 font-bold uppercase">
+                           <th class="p-3">Fecha / Contenedor</th>
+                           <th class="p-3">Cliente / Destino</th>
+                           <th class="p-3">Chofer / DNI</th>
+                           <th class="p-3 text-center font-black">Neto</th>
+                           <th class="p-3 text-right">Tiempos</th>
+                           <th class="p-3 text-right">...</th>
+                       </tr>
+                   </thead>
+                   <tbody id="tabla-historial" class="divide-y divide-slate-200"></tbody>
+               </table>
+           </div>
+       </div>
     </div>
 
     <div id="modal-editar" class="hidden fixed inset-0 bg-slate-900/90 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-        <div class="bg-white p-6 rounded-2xl shadow-2xl w-full max-w-3xl text-sm">
+        <div class="bg-white p-6 rounded-2xl shadow-2xl w-full max-w-3xl text-sm max-h-[90vh] overflow-y-auto">
             <h3 class="font-black text-xl mb-6 text-gray-800 border-b pb-4 uppercase">✏️ Editar Registro</h3>
             <input id="edit-id" type="hidden">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div class="md:col-span-2"><label class="text-[10px] font-bold text-gray-400 uppercase">Chofer</label><input id="edit-chofer" type="text" class="w-full border p-2 rounded"></div>
                 <div><label class="text-[10px] font-bold text-gray-400 uppercase">DNI</label><input id="edit-dni" type="text" class="w-full border p-2 rounded"></div>
-                </div>
+                <div><label class="text-[10px] font-bold text-gray-400 uppercase">Transporte</label><input id="edit-transporte" type="text" class="w-full border p-2 rounded"></div>
+                <div><label class="text-[10px] font-bold text-gray-400 uppercase">Contenedor</label><input id="edit-contenedor" type="text" class="w-full border p-2 rounded uppercase"></div>
+                <div><label class="text-[10px] font-bold text-gray-400 uppercase">Tara</label><input id="edit-tara" type="number" class="w-full border p-2 rounded"></div>
+                <div><label class="text-[10px] font-bold text-gray-400 uppercase">Bruto</label><input id="edit-bruto" type="number" class="w-full border p-2 rounded"></div>
+            </div>
             <div class="flex gap-3 mt-8">
                 <button onclick="guardarEdicion()" class="flex-1 bg-zinc-800 text-white p-4 rounded-xl font-black uppercase">Guardar</button>
                 <button onclick="cerrarModal()" class="flex-1 bg-gray-100 text-gray-400 p-4 rounded-xl font-black uppercase">Cancelar</button>
@@ -131,7 +174,7 @@
         const auth = getAuth(app);
         const colRef = collection(db, "camiones");
 
-        // --- LÓGICA DE CHOFERES ---
+        // --- AUTOCUMPLEADO DE CHOFERES ---
         let baseChoferes = [];
         onSnapshot(collection(db, "choferes"), (snap) => {
             const datalist = document.getElementById('lista-choferes');
@@ -155,7 +198,12 @@
             }
         };
 
-        // --- FUNCIONES CORE ---
+        // --- LÓGICA DE CARGA Y TABLAS ---
+        onAuthStateChanged(auth, (user) => { if (!user) window.location.href = "index.html"; });
+        window.cerrarSesion = () => signOut(auth);
+
+        let listaHistorialCompleta = [];
+
         window.crearViaje = async () => {
             const data = {
                 referencia: document.getElementById('referencia').value,
@@ -172,27 +220,106 @@
                 estado: "Pendiente",
                 tara: 0, bruto: 0, fecha: serverTimestamp()
             };
+            if(!data.contenedor) return alert("Ingrese Contenedor");
             await addDoc(colRef, data);
             document.querySelectorAll('input').forEach(i => i.value = "");
         };
 
         onSnapshot(query(colRef, orderBy("fecha", "desc")), (snapshot) => {
             const contActivos = document.getElementById('tabla-gestion');
-            contActivos.innerHTML = "";
+            const contHistorial = document.getElementById('tabla-historial');
+            contActivos.innerHTML = ""; contHistorial.innerHTML = "";
+            listaHistorialCompleta = [];
+
             snapshot.forEach(d => {
                 const data = { id: d.id, ...d.data() };
+                const neto = (data.bruto - data.tara).toFixed(2);
+                const tEntrada = data.fechaIngreso ? new Date(data.fechaIngreso.seconds * 1000).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) : '--:--';
+                const tSalida = data.fechaSalida ? new Date(data.fechaSalida.seconds * 1000).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) : '--:--';
+                const fechaDia = data.fecha ? new Date(data.fecha.seconds * 1000).toLocaleDateString('es-AR') : '---';
+
                 if (data.estado !== "Finalizado") {
+                    const estadoColor = data.estado === "En Planta" ? "bg-green-100 text-green-700" : (data.estado === "Habilitado" ? "bg-blue-100 text-blue-700" : "bg-orange-100 text-orange-700");
+                    const botonAccion = data.estado === 'Pendiente' 
+                        ? `<button onclick="autorizar('${d.id}')" class="bg-red-500 text-white px-2 py-1 rounded text-[10px] font-black animate-pulse">AUTORIZAR</button>` 
+                        : `<span class="text-green-600 font-bold text-[9px]">✔ HABILITADO</span>`;
+
                     contActivos.innerHTML += `
-                        <tr class="hover:bg-orange-50/50 transition border-b border-gray-50">
-                            <td class="p-4"><p class="text-[9px] text-gray-400 font-bold uppercase">REF: ${data.referencia || '-'}</p><p class="font-bold text-gray-800">${data.cliente}</p></td>
-                            <td class="p-4"><p class="font-mono font-black text-orange-600 text-sm">${data.contenedor}</p></td>
-                            <td class="p-4"><p class="font-bold text-gray-700">${data.chofer}</p><p class="text-[10px] text-gray-400">DNI: ${data.dni || '---'}</p></td>
-                            <td class="p-4 text-center"><span class="px-2 py-1 rounded text-[9px] uppercase font-bold bg-orange-100 text-orange-700">${data.estado}</span></td>
-                            <td class="p-4 text-right"><button onclick="abrirModal('${d.id}')" class="text-blue-500 font-black text-[10px]">EDITAR</button></td>
+                        <tr class="hover:bg-orange-50/50 border-b border-gray-50">
+                            <td class="p-4"><b>${data.cliente}</b><p class="text-[9px] text-gray-400">REF: ${data.referencia || '-'}</p></td>
+                            <td class="p-4 font-mono font-black text-orange-600 text-sm">${data.contenedor}</td>
+                            <td class="p-4"><b>${data.chofer}</b><p class="text-[10px] text-gray-400">DNI: ${data.dni || '-'}</p></td>
+                            <td class="p-4 text-center"><span class="px-2 py-1 rounded text-[9px] font-bold ${estadoColor}">${data.estado}</span></td>
+                            <td class="p-4 text-center font-black text-blue-800">${neto > 0 ? neto : '0.00'} Kg</td>
+                            <td class="p-4 text-right flex flex-col items-end gap-1">
+                                ${botonAccion}
+                                <button onclick="abrirModal('${d.id}')" class="text-blue-500 text-[10px] font-bold">EDITAR</button>
+                            </td>
+                        </tr>`;
+                } else {
+                    listaHistorialCompleta.push(data);
+                    contHistorial.innerHTML += `
+                        <tr class="hover:bg-white border-b border-slate-200">
+                            <td class="p-3"><span class="text-orange-600 font-bold block text-[10px]">${fechaDia}</span><span class="font-mono">${data.contenedor}</span></td>
+                            <td class="p-3"><b>${data.cliente}</b><p class="text-[9px] text-blue-500">${data.destino || 'S/D'}</p></td>
+                            <td class="p-3"><b>${data.chofer}</b><p class="text-[9px] text-gray-400">DNI: ${data.dni || '-'}</p></td>
+                            <td class="p-3 text-center font-black text-blue-600 bg-blue-50/50">${neto} Kg</td>
+                            <td class="p-3 text-right text-[10px]"><span class="text-green-600">IN: ${tEntrada}</span><br><span class="text-red-400">OUT: ${tSalida}</span></td>
+                            <td class="p-3 text-right"><button onclick="abrirModal('${d.id}')" class="text-lg">📝</button></td>
                         </tr>`;
                 }
             });
         });
+
+        window.autorizar = (id) => updateDoc(doc(db, "camiones", id), { estado: "Habilitado" });
+        window.abrirModal = async (id) => {
+            const snap = await getDoc(doc(db, "camiones", id)); const d = snap.data();
+            document.getElementById('edit-id').value = id; 
+            document.getElementById('edit-chofer').value = d.chofer || '';
+            document.getElementById('edit-dni').value = d.dni || '';
+            document.getElementById('edit-transporte').value = d.transporte || '';
+            document.getElementById('edit-contenedor').value = d.contenedor || '';
+            document.getElementById('edit-tara').value = d.tara || 0; 
+            document.getElementById('edit-bruto').value = d.bruto || 0;
+            document.getElementById('modal-editar').classList.remove('hidden');
+        };
+        window.cerrarModal = () => document.getElementById('modal-editar').classList.add('hidden');
+        window.guardarEdicion = async () => {
+            const id = document.getElementById('edit-id').value;
+            const up = {
+                chofer: document.getElementById('edit-chofer').value,
+                dni: document.getElementById('edit-dni').value,
+                transporte: document.getElementById('edit-transporte').value,
+                contenedor: document.getElementById('edit-contenedor').value.toUpperCase(),
+                tara: parseFloat(document.getElementById('edit-tara').value) || 0,
+                bruto: parseFloat(document.getElementById('edit-bruto').value) || 0
+            };
+            await updateDoc(doc(db, "camiones", id), up); cerrarModal();
+        };
+
+        window.exportarExcel = () => {
+            const desde = document.getElementById('filtro-desde').value;
+            const hasta = document.getElementById('filtro-hasta').value;
+            if (!desde || !hasta) return alert("Seleccione fechas");
+            const fDesde = new Date(desde + "T00:00:00");
+            const fHasta = new Date(hasta + "T23:59:59");
+            const filtrados = listaHistorialCompleta.filter(d => {
+                const f = new Date(d.fecha.seconds * 1000);
+                return f >= fDesde && f <= fHasta;
+            });
+            const rows = filtrados.map(d => ({
+                "FECHA": new Date(d.fecha.seconds * 1000).toLocaleDateString('es-AR'),
+                "CONTENEDOR": d.contenedor,
+                "CLIENTE": d.cliente,
+                "CHOFER": d.chofer,
+                "DNI": d.dni,
+                "TARA": d.tara, "BRUTO": d.bruto, "NETO": (d.bruto - d.tara)
+            }));
+            const ws = XLSX.utils.json_to_sheet(rows);
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, "Reporte");
+            XLSX.writeFile(wb, "Reporte_ECA.xlsx");
+        };
     </script>
 </body>
 </html>
