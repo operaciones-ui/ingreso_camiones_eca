@@ -5,6 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Balanza: Control de Carga - ECA</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes pulse-custom {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .animate-pulse-fast {
+            animation: pulse-custom 0.8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+    </style>
 </head>
 <body class="bg-zinc-900 text-white p-4 font-sans">
     <div class="max-w-4xl mx-auto">
@@ -47,8 +56,10 @@
             </div>
 
             <div class="flex gap-3">
-                <button id="btn-confirmar-peso" class="flex-1 bg-orange-600 p-4 rounded-xl font-black uppercase hover:bg-orange-500 transition-all text-sm">Confirmar Peso</button>
-                <button onclick="cerrarModal()" class="flex-1 bg-zinc-700 p-4 rounded-xl font-black text-zinc-400 uppercase text-sm text-center">Volver</button>
+                <button id="btn-confirmar-peso" class="flex-1 bg-orange-600 p-4 rounded-xl font-black uppercase hover:bg-orange-500 transition-all text-sm flex items-center justify-center gap-2">
+                    <span>Confirmar Peso</span>
+                </button>
+                <button id="btn-modal-volver" onclick="cerrarModal()" class="flex-1 bg-zinc-700 p-4 rounded-xl font-black text-zinc-400 uppercase text-sm text-center">Volver</button>
             </div>
         </div>
     </div>
@@ -140,6 +151,14 @@
             currentId = id; modoAccion = modo;
             const snap = await getDoc(doc(db, "camiones", id));
             const d = snap.data();
+            
+            // Resetear estado del botón al abrir
+            const btn = document.getElementById('btn-confirmar-peso');
+            btn.disabled = false;
+            btn.innerHTML = "<span>Confirmar Peso</span>";
+            btn.className = "flex-1 bg-orange-600 p-4 rounded-xl font-black uppercase hover:bg-orange-500 transition-all text-sm flex items-center justify-center gap-2";
+            document.getElementById('btn-modal-volver').style.display = "block";
+
             document.getElementById('modal-titulo').innerText = modo === 'ingreso' ? "ENTRADA: TARA" : "SALIDA: BRUTO";
             document.getElementById('modal-info-unidad').innerHTML = `
                 <div class="mb-2"><p class="text-4xl font-mono font-black text-white leading-none">${d.contenedor}</p></div>
@@ -155,6 +174,19 @@
         document.getElementById('btn-confirmar-peso').onclick = async () => {
             const peso = parseFloat(document.getElementById('peso-input').value);
             if (!peso || peso <= 0) return alert("⚠️ Ingrese un peso válido.");
+            
+            const btn = document.getElementById('btn-confirmar-peso');
+            const btnVolver = document.getElementById('btn-modal-volver');
+            
+            // EFECTO VISUAL DE CARGA
+            btn.disabled = true;
+            btnVolver.style.display = "none"; // Ocultar volver para evitar errores
+            btn.innerHTML = `
+                <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                <span class="animate-pulse-fast">PROCESANDO...</span>
+            `;
+            btn.className = "flex-1 bg-zinc-600 p-4 rounded-xl font-black uppercase text-sm flex items-center justify-center gap-2 cursor-not-allowed";
+
             const docRef = doc(db, "camiones", currentId);
             try {
                 if (modoAccion === "ingreso") { 
@@ -163,7 +195,14 @@
                     await updateDoc(docRef, { bruto: peso, estado: "Finalizado", fechaSalida: serverTimestamp() }); 
                 }
                 cerrarModal();
-            } catch (error) { alert("Error al guardar: " + error.message); }
+            } catch (error) { 
+                alert("Error al guardar: " + error.message);
+                // Si falla, restaurar botón
+                btn.disabled = false;
+                btn.innerHTML = "<span>Confirmar Peso</span>";
+                btn.className = "flex-1 bg-orange-600 p-4 rounded-xl font-black uppercase hover:bg-orange-500 transition-all text-sm flex items-center justify-center gap-2";
+                btnVolver.style.display = "block";
+            }
         };
 
         window.cambiarTab = (tabId) => {
