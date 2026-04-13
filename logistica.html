@@ -503,21 +503,33 @@
                 </div>
             </div>
             
-            <div class="flex items-center gap-4">
-                <div class="hidden md:block text-right mr-4 border-r border-slate-700 pr-4">
-                    <p class="text-[10px] text-slate-500 font-bold uppercase">Estado del Sistema</p>
-                    <p class="text-xs text-green-400 font-mono italic">Sincronizado con Firebase</p>
-                </div>
-                <button onclick="cerrarHistorialCompleto()" class="bg-red-600 hover:bg-red-700 text-white px-8 py-3 rounded-xl font-black shadow-lg transition-all active:scale-95 flex items-center gap-2">
-                    <span>CERRAR</span>
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                </button>
+            <button onclick="cerrarHistorialCompleto()" class="bg-red-600 hover:bg-red-700 text-white px-8 py-3 rounded-xl font-black shadow-lg transition-all active:scale-95 flex items-center gap-2">
+                <span>CERRAR</span>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+
+        <div class="bg-white p-4 border-b border-slate-200 flex flex-wrap gap-4 shadow-sm px-10">
+            <div class="flex-1 min-w-[200px]">
+                <label class="block text-[10px] font-black text-slate-400 uppercase mb-1">🔍 Buscar por Contenedor</label>
+                <input type="text" id="filtro-full-contenedor" onkeyup="aplicarFiltrosFull()" placeholder="Ej: TRHU..." class="w-full border-2 border-slate-100 p-2 rounded-lg text-xs font-bold focus:border-orange-400 outline-none transition-colors">
+            </div>
+            <div class="flex-1 min-w-[200px]">
+                <label class="block text-[10px] font-black text-slate-400 uppercase mb-1">🏢 Filtrar por Cliente</label>
+                <input type="text" id="filtro-full-cliente" onkeyup="aplicarFiltrosFull()" placeholder="Nombre del exportador..." class="w-full border-2 border-slate-100 p-2 rounded-lg text-xs font-bold focus:border-orange-400 outline-none transition-colors">
+            </div>
+            <div class="flex-1 min-w-[200px]">
+                <label class="block text-[10px] font-black text-slate-400 uppercase mb-1">🚛 Filtrar por Chofer</label>
+                <input type="text" id="filtro-full-chofer" onkeyup="aplicarFiltrosFull()" placeholder="Nombre del conductor..." class="w-full border-2 border-slate-100 p-2 rounded-lg text-xs font-bold focus:border-orange-400 outline-none transition-colors">
+            </div>
+            <div class="flex items-end">
+                <button onclick="limpiarFiltrosFull()" class="bg-slate-100 hover:bg-slate-200 text-slate-500 px-4 py-2 rounded-lg text-[10px] font-black uppercase">Limpiar</button>
             </div>
         </div>
 
         <div class="flex-1 overflow-auto p-6 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]">
             <div class="max-w-[98%] mx-auto bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden">
-                <table class="w-full text-left border-collapse">
+                <table class="w-full text-left border-collapse" id="tabla-maestra">
                     <thead>
                         <tr class="bg-slate-800 text-slate-300 text-[11px] uppercase font-black tracking-widest">
                             <th class="p-5 border-b border-slate-700">📅 Fecha / Contenedor</th>
@@ -528,16 +540,72 @@
                             <th class="p-5 border-b border-slate-700 text-right">⚙️</th>
                         </tr>
                     </thead>
-                    <tbody id="tabla-historial-full" class="divide-y divide-slate-100 text-sm">
-                        </tbody>
+                    <tbody id="tabla-historial-full" class="divide-y divide-slate-100 text-sm"></tbody>
                 </table>
             </div>
         </div>
-        
-        <div class="bg-white p-3 border-t border-slate-200 text-center">
-            <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">© 2026 ECA LOGÍSTICA - Visualización de Alta Capacidad</p>
-        </div>
     </div>
+
+    <script>
+        // Función para aplicar los filtros en tiempo real
+        function aplicarFiltrosFull() {
+            const fContenedor = document.getElementById('filtro-full-contenedor').value.toUpperCase();
+            const fCliente = document.getElementById('filtro-full-cliente').value.toUpperCase();
+            const fChofer = document.getElementById('filtro-full-chofer').value.toUpperCase();
+            
+            const filas = document.getElementById('tabla-historial-full').getElementsByTagName('tr');
+
+            for (let i = 0; i < filas.length; i++) {
+                const textoFila = filas[i].textContent.toUpperCase();
+                // Verificamos si la fila contiene lo buscado en cada campo (simplificado para eficiencia)
+                const celdaCont = filas[i].cells[0].textContent.toUpperCase();
+                const celdaClie = filas[i].cells[1].textContent.toUpperCase();
+                const celdaChof = filas[i].cells[2].textContent.toUpperCase();
+
+                if (celdaCont.includes(fContenedor) && celdaClie.includes(fCliente) && celdaChof.includes(fChofer)) {
+                    filas[i].style.display = "";
+                } else {
+                    filas[i].style.display = "none";
+                }
+            }
+        }
+
+        function limpiarFiltrosFull() {
+            document.getElementById('filtro-full-contenedor').value = "";
+            document.getElementById('filtro-full-cliente').value = "";
+            document.getElementById('filtro-full-chofer').value = "";
+            aplicarFiltrosFull();
+        }
+    </script>
+
+    window.aplicarFiltrosFull = () => {
+            const fContenedor = document.getElementById('filtro-full-contenedor').value.toUpperCase();
+            const fCliente = document.getElementById('filtro-full-cliente').value.toUpperCase();
+            const fChofer = document.getElementById('filtro-full-chofer').value.toUpperCase();
+            
+            const filas = document.getElementById('tabla-historial-full').getElementsByTagName('tr');
+
+            for (let i = 0; i < filas.length; i++) {
+                const textoFila = filas[i].textContent.toUpperCase();
+                const celdaCont = filas[i].cells[0] ? filas[i].cells[0].textContent.toUpperCase() : "";
+                const celdaClie = filas[i].cells[1] ? filas[i].cells[1].textContent.toUpperCase() : "";
+                const celdaChof = filas[i].cells[2] ? filas[i].cells[2].textContent.toUpperCase() : "";
+
+                if (celdaCont.includes(fContenedor) && celdaClie.includes(fCliente) && celdaChof.includes(fChofer)) {
+                    filas[i].style.display = "";
+                } else {
+                    filas[i].style.display = "none";
+                }
+            }
+        };
+
+        window.limpiarFiltrosFull = () => {
+            document.getElementById('filtro-full-contenedor').value = "";
+            document.getElementById('filtro-full-cliente').value = "";
+            document.getElementById('filtro-full-chofer').value = "";
+            aplicarFiltrosFull();
+        };
+    </script>
 
 </body>
 </html>
