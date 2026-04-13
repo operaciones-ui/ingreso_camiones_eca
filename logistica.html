@@ -44,6 +44,39 @@
                     </div>
                 </div>
 
+                <div class="grid grid-cols-2 md:grid-cols-12 gap-3 p-4 bg-blue-50/50 rounded-xl border border-blue-100">
+            <div class="md:col-span-3">
+                <label class="block text-[10px] font-bold text-blue-800 uppercase mb-1">📦 Producto</label>
+                <input id="producto" type="text" placeholder="Ej: Miel de Azahar" class="w-full border p-2 rounded bg-white text-xs outline-none">
+            </div>
+            <div class="md:col-span-1">
+                <label class="block text-[10px] font-bold text-blue-800 uppercase mb-1">Cant. Tamb.</label>
+                <input id="cantTambores" type="number" oninput="calcularTeorico()" class="w-full border p-2 rounded bg-white text-xs font-bold">
+            </div>
+            <div class="md:col-span-1">
+                <label class="block text-[10px] font-bold text-blue-800 uppercase mb-1">Neto x Tamb.</label>
+                <input id="netoPorTambor" type="number" oninput="calcularTeorico()" class="w-full border p-2 rounded bg-white text-xs">
+            </div>
+            <div class="md:col-span-1">
+                <label class="block text-[10px] font-bold text-blue-800 uppercase mb-1">Tara Tamb.</label>
+                <input id="taraTambor" type="number" oninput="calcularTeorico()" class="w-full border p-2 rounded bg-white text-xs">
+            </div>
+            <div class="md:col-span-1">
+                <label class="block text-[10px] font-bold text-blue-800 uppercase mb-1">Cant. Pallets</label>
+                <input id="cantPallets" type="number" oninput="calcularTeorico()" class="w-full border p-2 rounded bg-white text-xs font-bold">
+            </div>
+            <div class="md:col-span-1">
+                <label class="block text-[10px] font-bold text-blue-800 uppercase mb-1">Peso Pallet</label>
+                <input id="pesoPallet" type="number" oninput="calcularTeorico()" class="w-full border p-2 rounded bg-white text-xs">
+            </div>
+            <div class="md:col-span-4 flex items-center justify-end">
+                <div class="text-right">
+                    <p class="text-[9px] font-black text-blue-400 uppercase leading-none">Total Teórico</p>
+                    <p class="text-xl font-black text-blue-700 leading-none"><span id="displayTeorico">0</span> <span class="text-xs">Kg</span></p>
+                    <input type="hidden" id="pesoTeoricoTotal">
+                </div>
+            </div>
+                
                 <div class="grid grid-cols-1 md:grid-cols-12 gap-2">
                     <div class="md:col-span-3">
                         <div class="flex justify-between items-end mb-1">
