@@ -376,51 +376,66 @@
         };
 
         onSnapshot(query(colRef, orderBy("fecha", "desc")), (snapshot) => {
-            const contActivos = document.getElementById('tabla-gestion'), contHistorial = document.getElementById('tabla-historial');
-            contActivos.innerHTML = ""; contHistorial.innerHTML = ""; listaHistorialCompleta = [];
+    const contActivos = document.getElementById('tabla-gestion'), contHistorial = document.getElementById('tabla-historial');
+    contActivos.innerHTML = ""; contHistorial.innerHTML = ""; listaHistorialCompleta = [];
 
-            snapshot.forEach(d => {
-                const data = { id: d.id, ...d.data() };
-                const neto = (data.bruto - data.tara).toFixed(2);
-                const tIn = data.fechaIngreso ? new Date(data.fechaIngreso.seconds * 1000).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}) : '--:--';
-                const tOut = data.fechaSalida ? new Date(data.fechaSalida.seconds * 1000).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}) : '--:--';
-                const fDia = data.fecha ? new Date(data.fecha.seconds * 1000).toLocaleDateString('es-AR') : '---';
+    snapshot.forEach(d => {
+        const data = { id: d.id, ...d.data() };
+        const neto = (data.bruto - data.tara).toFixed(2);
+        const tIn = data.fechaIngreso ? new Date(data.fechaIngreso.seconds * 1000).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}) : '--:--';
+        const tOut = data.fechaSalida ? new Date(data.fechaSalida.seconds * 1000).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}) : '--:--';
+        const fDia = data.fecha ? new Date(data.fecha.seconds * 1000).toLocaleDateString('es-AR') : '---';
 
-                if (data.estado !== "Finalizado") {
-                    const btnAut = data.estado === 'Pendiente' ? `<button onclick="autorizar('${d.id}')" class="bg-red-500 text-white px-2 py-1 rounded text-[9px] font-black animate-pulse shadow-md uppercase">AUTORIZAR</button>` : `<span class="text-green-600 font-bold text-[9px] flex items-center justify-end gap-1">✔ HABILITADO</span>`;
-                    const clasesEst = data.estado.toLowerCase() === "en planta" ? "bg-red-600 text-white animate-pulse ring-2 ring-red-300" : "bg-orange-100 text-orange-700";
-                    
-                    contActivos.innerHTML += `
-                        <tr class="hover:bg-orange-50 border-b border-gray-50">
-                            <td class="p-4"><b>${data.cliente}</b><p class="text-[9px] text-gray-400">REF: ${data.referencia || '-'}</p></td>
-                            <td class="p-4 font-mono font-black text-orange-600">${data.contenedor}</td>
-                            <td class="p-4"><b>${data.chofer}</b><p class="text-[9px] text-gray-400 italic">DNI: ${data.dni || '-'}</p></td>
-                            <td class="p-4 font-mono text-[9px] text-gray-500 uppercase">C: ${data.patenteCamion || '-'}<br>S: ${data.patenteSemi || '-'}<br><span class="text-blue-600 font-bold">EST: ${data.fechaEstimada || '-'}</span></td>
-                            <td class="p-4 text-center"><span class="px-2 py-1 rounded text-[9px] font-black ${clasesEst}">${data.estado}</span></td>
-                            <td class="p-4 text-center font-black text-blue-800">${neto > 0 ? neto : '0.00'} Kg</td>
-                            <td class="p-4 text-right flex flex-col items-end gap-1">
-                                ${btnAut}
-                                <div class="flex gap-2">
-                                    <button onclick="abrirModalPL('${d.id}')" class="bg-green-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-green-700 shadow-sm uppercase">PL</button>
-                                    <button onclick="abrirModal('${d.id}')" class="text-blue-500 text-[10px] font-bold hover:underline uppercase">Editar</button>
-                                </div>
-                                <button onclick="eliminarRegistro('${d.id}', '${data.contenedor}')" class="text-red-400 text-[9px] font-bold hover:text-red-600 uppercase">Eliminar</button>
-                            </td>
-                        </tr>`;
-                } else {
-                    listaHistorialCompleta.push(data);
-                    contHistorial.innerHTML += `
-                        <tr class="hover:bg-white border-b border-slate-200">
-                            <td class="p-3"><span class="text-orange-600 font-bold block text-[10px]">${fDia}</span><span class="font-mono">${data.contenedor}</span></td>
-                            <td class="p-3"><b>${data.cliente}</b><p class="text-[9px] text-blue-500 flex items-center">${getFlag(data.destino)} ${data.destino || 'S/D'}</p></td>
-                            <td class="p-3"><b>${data.chofer}</b><p class="text-[9px] text-gray-400 italic">DNI: ${data.dni || '-'}</p></td>
-                            <td class="p-3 text-center font-black text-blue-600 bg-blue-50/50">${neto} Kg</td>
-                            <td class="p-3 text-right text-[10px]"><span class="text-green-600">IN: ${tIn}</span><br><span class="text-red-400">OUT: ${tOut}</span></td>
-                            <td class="p-3 text-right"><button onclick="abrirModal('${d.id}')" class="text-lg grayscale hover:grayscale-0 transition">📝</button></td>
-                        </tr>`;
-                }
-            });
-        });
+        if (data.estado !== "Finalizado") {
+            // ... (mantenemos igual la parte de camiones activos) ...
+            const btnAut = data.estado === 'Pendiente' ? `<button onclick="autorizar('${d.id}')" class="bg-red-500 text-white px-2 py-1 rounded text-[9px] font-black animate-pulse shadow-md uppercase">AUTORIZAR</button>` : `<span class="text-green-600 font-bold text-[9px] flex items-center justify-end gap-1">✔ HABILITADO</span>`;
+            const clasesEst = data.estado.toLowerCase() === "en planta" ? "bg-red-600 text-white animate-pulse ring-2 ring-red-300" : "bg-orange-100 text-orange-700";
+            
+            contActivos.innerHTML += `
+                <tr class="hover:bg-orange-50 border-b border-gray-50">
+                    <td class="p-4"><b>${data.cliente}</b><p class="text-[9px] text-gray-400">REF: ${data.referencia || '-'}</p></td>
+                    <td class="p-4 font-mono font-black text-orange-600">${data.contenedor}</td>
+                    <td class="p-4"><b>${data.chofer}</b><p class="text-[9px] text-gray-400 italic">DNI: ${data.dni || '-'}</p></td>
+                    <td class="p-4 font-mono text-[9px] text-gray-500 uppercase">C: ${data.patenteCamion || '-'}<br>S: ${data.patenteSemi || '-'}<br><span class="text-blue-600 font-bold">EST: ${data.fechaEstimada || '-'}</span></td>
+                    <td class="p-4 text-center"><span class="px-2 py-1 rounded text-[9px] font-black ${clasesEst}">${data.estado}</span></td>
+                    <td class="p-4 text-center font-black text-blue-800">${neto > 0 ? neto : '0.00'} Kg</td>
+                    <td class="p-4 text-right flex flex-col items-end gap-1">
+                        ${btnAut}
+                        <div class="flex gap-2">
+                            <button onclick="abrirModalPL('${d.id}')" class="bg-green-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-green-700 shadow-sm uppercase">PL</button>
+                            <button onclick="abrirModal('${d.id}')" class="text-blue-500 text-[10px] font-bold hover:underline uppercase">Editar</button>
+                        </div>
+                        <button onclick="eliminarRegistro('${d.id}', '${data.contenedor}')" class="text-red-400 text-[9px] font-bold hover:text-red-600 uppercase">Eliminar</button>
+                    </td>
+                </tr>`;
+        } else {
+            // --- LÓGICA DE DISTINCIÓN DE PESO ---
+            const validacion = data.validacionPeso || "";
+            let iconoValidacion = "";
+            
+            if (validacion === "ALERTA") {
+                // Triángulo rojo para diferencias mayores a 180kg
+                iconoValidacion = `<span title="Diferencia > 180kg" class="ml-1 text-red-500 cursor-help">⚠️</span>`;
+            } else if (validacion === "OK") {
+                // Tilde verde para pesos correctos
+                iconoValidacion = `<span title="Peso dentro del rango" class="ml-1 text-green-500 cursor-help">✅</span>`;
+            }
+
+            listaHistorialCompleta.push(data);
+            contHistorial.innerHTML += `
+                <tr class="hover:bg-white border-b border-slate-200">
+                    <td class="p-3"><span class="text-orange-600 font-bold block text-[10px]">${fDia}</span><span class="font-mono">${data.contenedor}</span></td>
+                    <td class="p-3"><b>${data.cliente}</b><p class="text-[9px] text-blue-500 flex items-center">${getFlag(data.destino)} ${data.destino || 'S/D'}</p></td>
+                    <td class="p-3"><b>${data.chofer}</b><p class="text-[9px] text-gray-400 italic">DNI: ${data.dni || '-'}</p></td>
+                    <td class="p-3 text-center font-black text-blue-600 bg-blue-50/50">
+                        ${neto} Kg ${iconoValidacion}
+                    </td>
+                    <td class="p-3 text-right text-[10px]"><span class="text-green-600">IN: ${tIn}</span><br><span class="text-red-400">OUT: ${tOut}</span></td>
+                    <td class="p-3 text-right"><button onclick="abrirModal('${d.id}')" class="text-lg grayscale hover:grayscale-0 transition">📝</button></td>
+                </tr>`;
+        }
+    });
+});
 
         // --- FUNCIONES DE ACCIÓN ---
         window.autorizar = (id) => updateDoc(doc(db, "camiones", id), { estado: "Habilitado" });
