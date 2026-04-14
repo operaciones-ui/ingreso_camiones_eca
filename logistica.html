@@ -23,82 +23,56 @@
         </div>
 
         <div class="bg-white p-6 rounded-xl shadow-md mb-8">
-    <h2 class="font-black mb-4 text-gray-700 flex items-center text-sm uppercase italic"><span class="mr-2">📝</span> Nuevo Registro de Carga</h2>
-    
-    <div class="space-y-4">
-        <div class="grid grid-cols-1 md:grid-cols-12 gap-3">
-            <div class="md:col-span-1"><label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Ref.</label><input id="referencia" type="text" class="w-full border p-2 rounded bg-gray-50 text-xs outline-none focus:ring-1 focus:ring-orange-400"></div>
-            <div class="md:col-span-3"><label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Cliente / Exportador</label><input id="cliente" type="text" class="w-full border p-2 rounded bg-gray-50 text-xs font-bold outline-none focus:ring-1 focus:ring-orange-400"></div>
-            <div class="md:col-span-2"><label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Barco / Viaje</label><input id="barcoViaje" type="text" class="w-full border p-2 rounded bg-gray-50 text-xs outline-none focus:ring-1 focus:ring-orange-400"></div>
-            <div class="md:col-span-1">
-                <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Tipo</label>
-                <select id="tipoContenedor" class="w-full border p-2 rounded bg-gray-50 text-xs outline-none focus:ring-1 focus:ring-orange-400">
-                    <option value="">Cargando...</option>
-                </select>
-            </div>
-            <div class="md:col-span-3"><label class="block text-[10px] font-bold text-orange-600 uppercase mb-1">N° Contenedor</label><input id="contenedor" type="text" class="w-full border border-orange-300 p-1.5 rounded bg-orange-50 uppercase font-mono font-bold text-base outline-none focus:ring-1 focus:ring-orange-500 text-orange-900 h-[32px]"></div>
-            <div class="md:col-span-2">
-                <label class="block text-[10px] font-bold text-blue-600 uppercase mb-1">País</label>
-                <select id="destino" class="w-full border p-2 rounded bg-blue-50 text-xs font-bold outline-none focus:ring-1 focus:ring-blue-400">
-                    <option value="">Cargando...</option>
-                </select>
-            </div>
-        </div>
+            <h2 class="font-black mb-4 text-gray-700 flex items-center text-sm uppercase italic"><span class="mr-2">📝</span> Nuevo Registro de Carga</h2>
+            
+            <div class="space-y-4">
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-3">
+                    <div class="md:col-span-1"><label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Ref.</label><input id="referencia" type="text" class="w-full border p-2 rounded bg-gray-50 text-xs outline-none focus:ring-1 focus:ring-orange-400"></div>
+                    <div class="md:col-span-3"><label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Cliente / Exportador</label><input id="cliente" type="text" class="w-full border p-2 rounded bg-gray-50 text-xs font-bold outline-none focus:ring-1 focus:ring-orange-400"></div>
+                    <div class="md:col-span-2"><label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Barco / Viaje</label><input id="barcoViaje" type="text" class="w-full border p-2 rounded bg-gray-50 text-xs outline-none focus:ring-1 focus:ring-orange-400"></div>
+                    <div class="md:col-span-1">
+                        <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Tipo</label>
+                        <select id="tipoContenedor" class="w-full border p-2 rounded bg-gray-50 text-xs outline-none focus:ring-1 focus:ring-orange-400"><option value="">Cargando...</option></select>
+                    </div>
+                    <div class="md:col-span-3"><label class="block text-[10px] font-bold text-orange-600 uppercase mb-1">N° Contenedor</label><input id="contenedor" type="text" class="w-full border border-orange-300 p-1.5 rounded bg-orange-50 uppercase font-mono font-bold text-base outline-none focus:ring-1 focus:ring-orange-500 text-orange-900 h-[32px]"></div>
+                    <div class="md:col-span-2">
+                        <label class="block text-[10px] font-bold text-blue-600 uppercase mb-1">País</label>
+                        <select id="destino" class="w-full border p-2 rounded bg-blue-50 text-xs font-bold outline-none focus:ring-1 focus:ring-blue-400"><option value="">Cargando...</option></select>
+                    </div>
+                </div>
 
-        <div class="grid grid-cols-2 md:grid-cols-12 gap-3 p-4 bg-blue-50/50 rounded-xl border border-blue-100">
-            <div class="md:col-span-3">
-                <label class="block text-[10px] font-bold text-blue-800 uppercase mb-1">📦 Producto</label>
-                <input id="producto" type="text" placeholder="Ej: Miel de Azahar" class="w-full border p-2 rounded bg-white text-xs outline-none">
-            </div>
-            <div class="md:col-span-1">
-                <label class="block text-[10px] font-bold text-blue-800 uppercase mb-1">Cant. Tamb.</label>
-                <input id="cantTambores" type="number" oninput="calcularTeorico()" class="w-full border p-2 rounded bg-white text-xs font-bold">
-            </div>
-            <div class="md:col-span-1">
-                <label class="block text-[10px] font-bold text-blue-800 uppercase mb-1">Neto x Tamb.</label>
-                <input id="netoPorTambor" type="number" oninput="calcularTeorico()" class="w-full border p-2 rounded bg-white text-xs">
-            </div>
-            <div class="md:col-span-1">
-                <label class="block text-[10px] font-bold text-blue-800 uppercase mb-1">Tara Tamb.</label>
-                <input id="taraTambor" type="number" oninput="calcularTeorico()" class="w-full border p-2 rounded bg-white text-xs">
-            </div>
-            <div class="md:col-span-1">
-                <label class="block text-[10px] font-bold text-blue-800 uppercase mb-1">Cant. Pallets</label>
-                <input id="cantPallets" type="number" oninput="calcularTeorico()" class="w-full border p-2 rounded bg-white text-xs font-bold">
-            </div>
-            <div class="md:col-span-1">
-                <label class="block text-[10px] font-bold text-blue-800 uppercase mb-1">Peso Pallet</label>
-                <input id="pesoPallet" type="number" oninput="calcularTeorico()" class="w-full border p-2 rounded bg-white text-xs">
-            </div>
-            <div class="md:col-span-4 flex items-center justify-end">
-                <div class="text-right">
-                    <p class="text-[9px] font-black text-blue-400 uppercase leading-none">Total Teórico</p>
-                    <p class="text-xl font-black text-blue-700 leading-none"><span id="displayTeorico">0</span> <span class="text-xs">Kg</span></p>
-                    <input type="hidden" id="pesoTeoricoTotal">
+                <div class="grid grid-cols-2 md:grid-cols-12 gap-3 p-4 bg-blue-50/50 rounded-xl border border-blue-100">
+                    <div class="md:col-span-3"><label class="block text-[10px] font-bold text-blue-800 uppercase mb-1">📦 Producto</label><input id="producto" type="text" placeholder="Ej: Miel de Azahar" class="w-full border p-2 rounded bg-white text-xs outline-none"></div>
+                    <div class="md:col-span-1"><label class="block text-[10px] font-bold text-blue-800 uppercase mb-1">Cant. Tamb.</label><input id="cantTambores" type="number" oninput="calcularTeorico()" class="w-full border p-2 rounded bg-white text-xs font-bold"></div>
+                    <div class="md:col-span-1"><label class="block text-[10px] font-bold text-blue-800 uppercase mb-1">Neto x Tamb.</label><input id="netoPorTambor" type="number" oninput="calcularTeorico()" class="w-full border p-2 rounded bg-white text-xs"></div>
+                    <div class="md:col-span-1"><label class="block text-[10px] font-bold text-blue-800 uppercase mb-1">Tara Tamb.</label><input id="taraTambor" type="number" oninput="calcularTeorico()" class="w-full border p-2 rounded bg-white text-xs"></div>
+                    <div class="md:col-span-1"><label class="block text-[10px] font-bold text-blue-800 uppercase mb-1">Cant. Pallets</label><input id="cantPallets" type="number" oninput="calcularTeorico()" class="w-full border p-2 rounded bg-white text-xs font-bold"></div>
+                    <div class="md:col-span-1"><label class="block text-[10px] font-bold text-blue-800 uppercase mb-1">Peso Pallet</label><input id="pesoPallet" type="number" oninput="calcularTeorico()" class="w-full border p-2 rounded bg-white text-xs"></div>
+                    <div class="md:col-span-4 flex items-center justify-end">
+                        <div class="text-right">
+                            <p class="text-[9px] font-black text-blue-400 uppercase leading-none">Total Teórico</p>
+                            <p class="text-xl font-black text-blue-700 leading-none"><span id="displayTeorico">0</span> <span class="text-xs">Kg</span></p>
+                            <input type="hidden" id="pesoTeoricoTotal">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-2 pt-2">
+                    <div class="md:col-span-3">
+                        <div class="flex justify-between items-end mb-1"><label class="block text-[10px] font-bold text-gray-400 uppercase">Nombre Chofer</label><button onclick="abrirModalChofer()" class="text-[9px] bg-blue-600 text-white px-2 py-0.5 rounded hover:bg-blue-700 font-bold">+ NUEVO</button></div>
+                        <input id="chofer" list="lista-choferes" oninput="autocompletarChofer(this.value)" class="w-full border p-2 rounded bg-gray-50 text-xs outline-none">
+                        <datalist id="lista-choferes"></datalist>
+                    </div>
+                    <div class="md:col-span-1"><label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">DNI</label><input id="dni" type="text" class="w-full border p-2 rounded bg-gray-50 text-xs outline-none"></div>
+                    <div class="md:col-span-2"><label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Celular</label><input id="celular" type="tel" class="w-full border p-2 rounded bg-gray-50 text-xs outline-none"></div>
+                    <div class="md:col-span-2"><label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Transporte</label><input id="transporte" type="text" class="w-full border p-2 rounded bg-gray-50 text-xs outline-none"></div>
+                    <div class="md:col-span-1"><label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Pat. Camión</label><input id="patenteCamion" type="text" class="w-full border p-2 rounded bg-gray-50 text-xs font-mono uppercase outline-none"></div>
+                    <div class="md:col-span-1"><label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Pat. Semi</label><input id="patenteSemi" type="text" class="w-full border p-2 rounded bg-gray-50 text-xs font-mono uppercase outline-none"></div>
+                    <div class="md:col-span-1"><label class="block text-[10px] font-black text-blue-500 uppercase mb-1">Est. Carga</label><input type="date" id="fecha-estimada" class="w-full border border-blue-200 bg-blue-50 p-2 rounded text-[10px] focus:ring-1 focus:ring-blue-400 outline-none"></div>
+                    <div class="md:col-span-1 flex items-end"><button onclick="crearViaje()" class="w-full bg-orange-600 text-white p-2 rounded font-black hover:bg-orange-700 uppercase text-[10px] h-[34px] shadow-lg">Registrar</button></div>
                 </div>
             </div>
-        </div> <div class="grid grid-cols-1 md:grid-cols-12 gap-2 pt-2">
-            <div class="md:col-span-3">
-                <div class="flex justify-between items-end mb-1">
-                    <label class="block text-[10px] font-bold text-gray-400 uppercase">Nombre Chofer</label>
-                    <button onclick="abrirModalChofer()" class="text-[9px] bg-blue-600 text-white px-2 py-0.5 rounded hover:bg-blue-700 font-bold">+ NUEVO</button>
-                </div>
-                <input id="chofer" list="lista-choferes" oninput="autocompletarChofer(this.value)" class="w-full border p-2 rounded bg-gray-50 text-xs outline-none">
-                <datalist id="lista-choferes"></datalist>
-            </div>
-            <div class="md:col-span-1"><label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">DNI</label><input id="dni" type="text" class="w-full border p-2 rounded bg-gray-50 text-xs outline-none"></div>
-            <div class="md:col-span-2"><label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Celular</label><input id="celular" type="tel" class="w-full border p-2 rounded bg-gray-50 text-xs outline-none"></div>
-            <div class="md:col-span-2"><label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Transporte</label><input id="transporte" type="text" class="w-full border p-2 rounded bg-gray-50 text-xs outline-none"></div>
-            <div class="md:col-span-1"><label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Pat. Camión</label><input id="patenteCamion" type="text" class="w-full border p-2 rounded bg-gray-50 text-xs font-mono uppercase outline-none"></div>
-            <div class="md:col-span-1"><label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Pat. Semi</label><input id="patenteSemi" type="text" class="w-full border p-2 rounded bg-gray-50 text-xs font-mono uppercase outline-none"></div>
-            <div class="md:col-span-1">
-                <label class="block text-[10px] font-black text-blue-500 uppercase mb-1">Est. Carga</label>
-                <input type="date" id="fecha-estimada" class="w-full border border-blue-200 bg-blue-50 p-2 rounded text-[10px] focus:ring-1 focus:ring-blue-400 outline-none">
-            </div>
-            <div class="md:col-span-1 flex items-end"><button onclick="crearViaje()" class="w-full bg-orange-600 text-white p-2 rounded font-black hover:bg-orange-700 uppercase text-[10px] h-[34px] shadow-lg">Registrar</button></div>
         </div>
-    </div>
-</div>
 
         <h2 class="text-xs font-black text-gray-500 mb-2 uppercase tracking-widest">Cargas en Curso</h2>
         <div class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 mb-10 text-xs">
@@ -126,12 +100,8 @@
                <div class="bg-white p-3 rounded-xl shadow-sm border border-slate-200 flex flex-wrap gap-3 items-end">
                    <input id="filtro-desde" type="date" class="text-xs border p-1 rounded outline-none">
                    <input id="filtro-hasta" type="date" class="text-xs border p-1 rounded outline-none">
-                   <button onclick="exportarExcel()" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-xs font-black uppercase flex items-center gap-2 transition-all">
-                       <span>📊</span> Exportar Excel
-                   </button>
-                   <button onclick="verHistorialCompleto()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-xs font-black uppercase flex items-center gap-2 transition-all">
-                       <span>🖥️</span> Pantalla Completa
-                        </button>
+                   <button onclick="exportarExcel()" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-xs font-black uppercase flex items-center gap-2 transition-all"><span>📊</span> Exportar Excel</button>
+                   <button onclick="verHistorialCompleto()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-xs font-black uppercase flex items-center gap-2 transition-all"><span>🖥️</span> Pantalla Completa</button>
                </div>
             </div>
             <div class="bg-slate-200/50 rounded-xl shadow-inner overflow-hidden border border-slate-300">
@@ -153,74 +123,64 @@
     </div>
 
     <div id="modal-editar" class="hidden fixed inset-0 bg-slate-900/90 backdrop-blur-sm flex items-center justify-center p-4 z-[70]">
-    <div class="bg-white p-6 rounded-2xl shadow-2xl w-full max-w-4xl text-xs max-h-[90vh] overflow-y-auto">
-        <div class="flex justify-between items-center mb-6 border-b pb-4">
-            <h3 class="font-black text-xl text-gray-800 uppercase tracking-tighter">✏️ Editar Registro Completo</h3>
-            <span id="edit-estado-badge" class="px-2 py-1 rounded font-bold uppercase text-[10px]"></span>
-        </div>
-        
-        <input id="edit-id" type="hidden">
-        
-        <div class="grid grid-cols-1 md:grid-cols-12 gap-4 mb-6">
-            <div class="md:col-span-2"><label class="block font-bold text-gray-400 uppercase mb-1">Ref.</label><input id="edit-referencia" type="text" class="w-full border p-2 rounded"></div>
-            <div class="md:col-span-4"><label class="block font-bold text-gray-400 uppercase mb-1">Cliente</label><input id="edit-cliente" type="text" class="w-full border p-2 rounded font-bold"></div>
-            <div class="md:col-span-3"><label class="block font-bold text-gray-400 uppercase mb-1">Barco / Viaje</label><input id="edit-barcoViaje" type="text" class="w-full border p-2 rounded"></div>
-            <div class="md:col-span-3"><label class="block font-bold text-orange-600 uppercase mb-1">N° Contenedor</label><input id="edit-contenedor" type="text" class="w-full border border-orange-200 p-2 rounded font-mono font-bold uppercase bg-orange-50"></div>
+        <div class="bg-white p-6 rounded-2xl shadow-2xl w-full max-w-4xl text-xs max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center mb-6 border-b pb-4">
+                <h3 class="font-black text-xl text-gray-800 uppercase tracking-tighter">✏️ Editar Registro Completo</h3>
+                <span id="edit-estado-badge" class="px-2 py-1 rounded font-bold uppercase text-[10px]"></span>
+            </div>
             
-            <div class="md:col-span-2">
-                <label class="block font-bold text-gray-400 uppercase mb-1">Tipo</label>
-                <select id="edit-tipoContenedor" class="w-full border p-2 rounded">
-                    <option value="">Cargando...</option>
-                </select>
-            </div>
-            <div class="md:col-span-4">
-                <label class="block font-bold text-blue-600 uppercase mb-1">Destino</label>
-                <select id="edit-destino" class="w-full border p-2 rounded font-bold">
-                    <option value="">Cargando...</option>
-                </select>
-            </div>
-            <div class="md:col-span-3"><label class="block font-bold text-gray-400 uppercase mb-1">Transporte</label><input id="edit-transporte" type="text" class="w-full border p-2 rounded"></div>
-            <div class="md:col-span-3"><label class="block font-bold text-gray-400 uppercase mb-1">Celular</label><input id="edit-celular" type="text" class="w-full border p-2 rounded"></div>
+            <input id="edit-id" type="hidden">
+            
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-4 mb-6">
+                <div class="md:col-span-2"><label class="block font-bold text-gray-400 uppercase mb-1">Ref.</label><input id="edit-referencia" type="text" class="w-full border p-2 rounded"></div>
+                <div class="md:col-span-4"><label class="block font-bold text-gray-400 uppercase mb-1">Cliente</label><input id="edit-cliente" type="text" class="w-full border p-2 rounded font-bold"></div>
+                <div class="md:col-span-3"><label class="block font-bold text-gray-400 uppercase mb-1">Barco / Viaje</label><input id="edit-barcoViaje" type="text" class="w-full border p-2 rounded"></div>
+                <div class="md:col-span-3"><label class="block font-bold text-orange-600 uppercase mb-1">N° Contenedor</label><input id="edit-contenedor" type="text" class="w-full border border-orange-200 p-2 rounded font-mono font-bold uppercase bg-orange-50"></div>
+                
+                <div class="md:col-span-2"><label class="block font-bold text-gray-400 uppercase mb-1">Tipo</label><select id="edit-tipoContenedor" class="w-full border p-2 rounded"><option value="">Cargando...</option></select></div>
+                <div class="md:col-span-4"><label class="block font-bold text-blue-600 uppercase mb-1">Destino</label><select id="edit-destino" class="w-full border p-2 rounded font-bold"><option value="">Cargando...</option></select></div>
+                <div class="md:col-span-3"><label class="block font-bold text-gray-400 uppercase mb-1">Transporte</label><input id="edit-transporte" type="text" class="w-full border p-2 rounded"></div>
+                <div class="md:col-span-3"><label class="block font-bold text-gray-400 uppercase mb-1">Celular</label><input id="edit-celular" type="text" class="w-full border p-2 rounded"></div>
 
-            <div class="md:col-span-3"><label class="block font-bold text-gray-400 uppercase mb-1">Nombre Chofer</label><input id="edit-chofer" type="text" class="w-full border p-2 rounded"></div>
-            <div class="md:col-span-2"><label class="block font-bold text-gray-400 uppercase mb-1">DNI</label><input id="edit-dni" type="text" class="w-full border p-2 rounded"></div>
-            <div class="md:col-span-2"><label class="block font-bold text-gray-400 uppercase mb-1">Pat. Camión</label><input id="edit-patenteCamion" type="text" class="w-full border p-2 rounded uppercase font-mono"></div>
-            <div class="md:col-span-2"><label class="block font-bold text-gray-400 uppercase mb-1">Pat. Semi</label><input id="edit-patenteSemi" type="text" class="w-full border p-2 rounded uppercase font-mono"></div>
-            <div class="md:col-span-3"><label class="block font-black text-blue-500 uppercase mb-1">Fecha Est. Carga</label><input id="edit-fecha-estimada" type="date" class="w-full border border-blue-200 p-2 rounded bg-blue-50 font-bold"></div>
+                <div class="md:col-span-3"><label class="block font-bold text-gray-400 uppercase mb-1">Nombre Chofer</label><input id="edit-chofer" type="text" class="w-full border p-2 rounded"></div>
+                <div class="md:col-span-2"><label class="block font-bold text-gray-400 uppercase mb-1">DNI</label><input id="edit-dni" type="text" class="w-full border p-2 rounded"></div>
+                <div class="md:col-span-2"><label class="block font-bold text-gray-400 uppercase mb-1">Pat. Camión</label><input id="edit-patenteCamion" type="text" class="w-full border p-2 rounded uppercase font-mono"></div>
+                <div class="md:col-span-2"><label class="block font-bold text-gray-400 uppercase mb-1">Pat. Semi</label><input id="edit-patenteSemi" type="text" class="w-full border p-2 rounded uppercase font-mono"></div>
+                <div class="md:col-span-3"><label class="block font-black text-blue-500 uppercase mb-1">Fecha Est. Carga</label><input id="edit-fecha-estimada" type="date" class="w-full border border-blue-200 p-2 rounded bg-blue-50 font-bold"></div>
 
-            <div class="md:col-span-12 p-4 bg-blue-50 rounded-xl border border-blue-100 mt-2">
-                <h3 class="text-[10px] font-black text-blue-600 uppercase mb-3 italic">📦 Detalle de Carga Teórica</h3>
-                <div class="grid grid-cols-2 md:grid-cols-6 gap-3">
-                    <div><label class="block text-[9px] font-bold text-gray-400 uppercase">Producto</label><input id="edit-producto" type="text" class="w-full border p-2 rounded bg-white"></div>
-                    <div><label class="block text-[9px] font-bold text-gray-400 uppercase">Cant. Tamb.</label><input id="edit-cantTambores" type="number" oninput="recalcularTeoricoEdit()" class="w-full border p-2 rounded bg-white font-bold"></div>
-                    <div><label class="block text-[9px] font-bold text-gray-400 uppercase">Neto x T.</label><input id="edit-netoPorTambor" type="number" oninput="recalcularTeoricoEdit()" class="w-full border p-2 rounded bg-white"></div>
-                    <div><label class="block text-[9px] font-bold text-gray-400 uppercase">Tara T.</label><input id="edit-taraTambor" type="number" oninput="recalcularTeoricoEdit()" class="w-full border p-2 rounded bg-white"></div>
-                    <div><label class="block text-[9px] font-bold text-gray-400 uppercase">Cant. Pallets</label><input id="edit-cantPallets" type="number" oninput="recalcularTeoricoEdit()" class="w-full border p-2 rounded bg-white"></div>
-                    <div><label class="block text-[9px] font-bold text-gray-400 uppercase">Peso P.</label><input id="edit-pesoPallet" type="number" oninput="recalcularTeoricoEdit()" class="w-full border p-2 rounded bg-white"></div>
+                <div class="md:col-span-12 p-4 bg-blue-50 rounded-xl border border-blue-100 mt-2">
+                    <h3 class="text-[10px] font-black text-blue-600 uppercase mb-3 italic">📦 Detalle de Carga Teórica</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-6 gap-3">
+                        <div><label class="block text-[9px] font-bold text-gray-400 uppercase">Producto</label><input id="edit-producto" type="text" class="w-full border p-2 rounded bg-white"></div>
+                        <div><label class="block text-[9px] font-bold text-gray-400 uppercase">Cant. Tamb.</label><input id="edit-cantTambores" type="number" oninput="recalcularTeoricoEdit()" class="w-full border p-2 rounded bg-white font-bold"></div>
+                        <div><label class="block text-[9px] font-bold text-gray-400 uppercase">Neto x T.</label><input id="edit-netoPorTambor" type="number" oninput="recalcularTeoricoEdit()" class="w-full border p-2 rounded bg-white"></div>
+                        <div><label class="block text-[9px] font-bold text-gray-400 uppercase">Tara T.</label><input id="edit-taraTambor" type="number" oninput="recalcularTeoricoEdit()" class="w-full border p-2 rounded bg-white"></div>
+                        <div><label class="block text-[9px] font-bold text-gray-400 uppercase">Cant. Pallets</label><input id="edit-cantPallets" type="number" oninput="recalcularTeoricoEdit()" class="w-full border p-2 rounded bg-white"></div>
+                        <div><label class="block text-[9px] font-bold text-gray-400 uppercase">Peso P.</label><input id="edit-pesoPallet" type="number" oninput="recalcularTeoricoEdit()" class="w-full border p-2 rounded bg-white"></div>
+                    </div>
+                    <div class="mt-3 text-right flex justify-end items-center gap-2">
+                        <span class="text-[10px] font-bold text-blue-400 uppercase tracking-widest">Peso Teórico Calculado:</span>
+                        <span id="edit-displayTeorico" class="text-lg font-black text-blue-700">0</span>
+                        <span class="text-[10px] font-bold text-blue-700">KG</span>
+                        <input type="hidden" id="edit-pesoTeoricoTotal">
+                    </div>
                 </div>
-                <div class="mt-3 text-right flex justify-end items-center gap-2">
-                    <span class="text-[10px] font-bold text-blue-400 uppercase tracking-widest">Peso Teórico Calculado:</span>
-                    <span id="edit-displayTeorico" class="text-lg font-black text-blue-700">0</span>
-                    <span class="text-[10px] font-bold text-blue-700">KG</span>
-                    <input type="hidden" id="edit-pesoTeoricoTotal">
+
+                <div class="md:col-span-12 bg-slate-50 p-4 rounded-xl border border-dashed border-slate-300 mt-2">
+                    <label class="block font-black text-slate-700 uppercase mb-2 text-center text-[10px]">Resultado Final Balanza</label>
+                    <div class="grid grid-cols-2 gap-8 max-w-md mx-auto">
+                        <div><label class="block font-bold text-gray-400 uppercase text-[9px] mb-1 text-center">Tara (Kg)</label><input id="edit-tara" type="number" class="w-full border p-2 rounded-lg font-black text-center text-lg shadow-inner"></div>
+                        <div><label class="block font-bold text-gray-400 uppercase text-[9px] mb-1 text-center">Bruto (Kg)</label><input id="edit-bruto" type="number" class="w-full border p-2 rounded-lg font-black text-center text-lg shadow-inner text-orange-600 border-orange-200"></div>
+                    </div>
                 </div>
             </div>
 
-            <div class="md:col-span-12 bg-slate-50 p-4 rounded-xl border border-dashed border-slate-300 mt-2">
-                <label class="block font-black text-slate-700 uppercase mb-2 text-center text-[10px]">Resultado Final Balanza</label>
-                <div class="grid grid-cols-2 gap-8 max-w-md mx-auto">
-                    <div><label class="block font-bold text-gray-400 uppercase text-[9px] mb-1 text-center">Tara (Kg)</label><input id="edit-tara" type="number" class="w-full border p-2 rounded-lg font-black text-center text-lg shadow-inner"></div>
-                    <div><label class="block font-bold text-gray-400 uppercase text-[9px] mb-1 text-center">Bruto (Kg)</label><input id="edit-bruto" type="number" class="w-full border p-2 rounded-lg font-black text-center text-lg shadow-inner text-orange-600 border-orange-200"></div>
-                </div>
+            <div class="flex gap-3">
+                <button onclick="guardarEdicion()" class="flex-1 bg-zinc-800 text-white p-4 rounded-xl font-black uppercase tracking-widest hover:bg-orange-600 transition-all">Guardar Cambios</button>
+                <button onclick="cerrarModal()" class="flex-1 bg-gray-100 text-gray-400 p-4 rounded-xl font-black uppercase">Cancelar</button>
             </div>
-        </div>
-
-        <div class="flex gap-3">
-            <button onclick="guardarEdicion()" class="flex-1 bg-zinc-800 text-white p-4 rounded-xl font-black uppercase tracking-widest hover:bg-orange-600 transition-all">Guardar Cambios</button>
-            <button onclick="cerrarModal()" class="flex-1 bg-gray-100 text-gray-400 p-4 rounded-xl font-black uppercase">Cancelar</button>
         </div>
     </div>
-</div>
 
     <div id="modal-chofer" class="hidden fixed inset-0 bg-slate-900/90 backdrop-blur-sm flex items-center justify-center p-4 z-[80]">
         <div class="bg-white p-6 rounded-2xl shadow-2xl w-full max-w-md text-xs">
@@ -234,6 +194,50 @@
             <div class="flex gap-2">
                 <button onclick="guardarNuevoChofer()" class="flex-1 bg-blue-600 text-white p-3 rounded-lg font-black uppercase hover:bg-blue-700">Grabar Chofer</button>
                 <button onclick="cerrarModalChofer()" class="flex-1 bg-gray-100 text-gray-400 p-3 rounded-lg font-black uppercase">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-historial-completo" class="hidden fixed inset-0 bg-slate-50 z-[100] overflow-hidden flex flex-col">
+        <div class="bg-slate-900 px-6 py-4 shadow-xl flex justify-between items-center border-b-4 border-orange-500">
+            <div class="flex items-center gap-4">
+                <div class="bg-orange-500 p-2 rounded-lg shadow-inner"><svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg></div>
+                <div><h2 class="font-black text-2xl text-white uppercase tracking-tighter leading-none">Reporte Maestro de Operaciones</h2><p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-1">Logística y Control de Balanza - ECA</p></div>
+            </div>
+            <button onclick="cerrarHistorialCompleto()" class="bg-red-600 hover:bg-red-700 text-white px-8 py-3 rounded-xl font-black shadow-lg transition-all active:scale-95 flex items-center gap-2"><span>CERRAR</span><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+        </div>
+        <div class="bg-white p-4 border-b border-slate-200 flex flex-wrap gap-4 shadow-sm px-10">
+            <div class="flex-1 min-w-[200px]"><label class="block text-[10px] font-black text-slate-400 uppercase mb-1">🔍 Contenedor</label><input type="text" id="filtro-full-contenedor" onkeyup="aplicarFiltrosFull()" class="w-full border-2 border-slate-100 p-2 rounded-lg text-xs font-bold focus:border-orange-400 outline-none"></div>
+            <div class="flex-1 min-w-[200px]"><label class="block text-[10px] font-black text-slate-400 uppercase mb-1">🏢 Cliente</label><input type="text" id="filtro-full-cliente" onkeyup="aplicarFiltrosFull()" class="w-full border-2 border-slate-100 p-2 rounded-lg text-xs font-bold focus:border-orange-400 outline-none"></div>
+            <div class="flex-1 min-w-[200px]"><label class="block text-[10px] font-black text-slate-400 uppercase mb-1">🚛 Chofer</label><input type="text" id="filtro-full-chofer" onkeyup="aplicarFiltrosFull()" class="w-full border-2 border-slate-100 p-2 rounded-lg text-xs font-bold focus:border-orange-400 outline-none"></div>
+            <div class="flex items-end"><button onclick="limpiarFiltrosFull()" class="bg-slate-100 hover:bg-slate-200 text-slate-500 px-4 py-2 rounded-lg text-[10px] font-black uppercase">Limpiar</button></div>
+        </div>
+        <div class="flex-1 overflow-auto p-6 bg-slate-100">
+            <div class="max-w-[98%] mx-auto bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden">
+                <table class="w-full text-left border-collapse"><thead class="bg-slate-800 text-slate-300 text-[11px] uppercase font-black tracking-widest"><tr><th class="p-5">📅 Fecha / Contenedor</th><th class="p-5">🏢 Cliente / Destino</th><th class="p-5">🚛 Chofer / DNI</th><th class="p-5 text-right pr-20 text-orange-400 font-black text-xs">⚖️ Kilos Netos</th><th class="p-5 text-right">⏱️ Tiempos (IN/OUT)</th><th class="p-5 text-right">⚙️</th></tr></thead><tbody id="tabla-historial-full" class="divide-y divide-slate-100 text-sm"></tbody></table>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-pl" class="hidden fixed inset-0 bg-slate-900/90 backdrop-blur-sm flex items-center justify-center p-4 z-[100]">
+        <div class="bg-white p-6 rounded-2xl shadow-2xl w-full max-w-2xl text-xs">
+            <h3 class="font-black text-xl text-gray-800 uppercase mb-4 border-b pb-2">📦 Generar Packing List</h3>
+            <div class="grid grid-cols-2 gap-4 mb-4">
+                <div><label class="block font-bold text-gray-400 uppercase">Contenedor</label><input id="pl-contenedor" type="text" readonly class="w-full bg-gray-100 p-2 rounded font-mono font-bold"></div>
+                <div><label class="block font-bold text-gray-400 uppercase">Producto</label><input id="pl-producto" type="text" readonly class="w-full bg-gray-100 p-2 rounded"></div>
+            </div>
+            <div class="space-y-4 border-t pt-4">
+                <h4 class="font-bold text-blue-600 italic">Completar información adicional:</h4>
+                <div class="grid grid-cols-2 gap-4">
+                    <div><label class="block font-bold text-gray-600">N° de Lote</label><input id="pl-lote" type="text" class="w-full border p-2 rounded outline-none focus:ring-1 focus:ring-green-500" placeholder="Ej: L-2024-01"></div>
+                    <div><label class="block font-bold text-gray-600">Fecha de Producción</label><input id="pl-fecha-prod" type="date" class="w-full border p-2 rounded"></div>
+                    <div><label class="block font-bold text-gray-600">Senasa / Habilitación</label><input id="pl-senasa" type="text" class="w-full border p-2 rounded"></div>
+                    <div><label class="block font-bold text-gray-600">Observaciones</label><input id="pl-obs" type="text" class="w-full border p-2 rounded"></div>
+                </div>
+            </div>
+            <div class="flex gap-3 mt-6">
+                <button onclick="generarDocumentoPL()" class="flex-1 bg-green-600 text-white p-3 rounded-xl font-black uppercase hover:bg-green-700">Crear Documento PL</button>
+                <button onclick="document.getElementById('modal-pl').classList.add('hidden')" class="flex-1 bg-gray-200 text-gray-500 p-3 rounded-xl font-black uppercase">Cerrar</button>
             </div>
         </div>
     </div>
@@ -258,37 +262,30 @@
         const colRef = collection(db, "camiones");
         const choferesRef = collection(db, "choferes");
 
-        // --- FUNCIONES DE CÁLCULO TEÓRICO ---
+        // --- CÁLCULOS TEÓRICOS ---
+        window.calcularTeorico = () => {
+            const cantT = parseFloat(document.getElementById('cantTambores').value) || 0;
+            const netoT = parseFloat(document.getElementById('netoPorTambor').value) || 0;
+            const taraT = parseFloat(document.getElementById('taraTambor').value) || 0;
+            const cantP = parseFloat(document.getElementById('cantPallets').value) || 0;
+            const pesoP = parseFloat(document.getElementById('pesoPallet').value) || 0;
+            const total = (cantT * (netoT + taraT)) + (cantP * pesoP);
+            document.getElementById('displayTeorico').innerText = total.toLocaleString();
+            document.getElementById('pesoTeoricoTotal').value = total;
+        };
 
-// Para el registro de camión NUEVO
-window.calcularTeorico = () => {
-    const cantT = parseFloat(document.getElementById('cantTambores').value) || 0;
-    const netoT = parseFloat(document.getElementById('netoPorTambor').value) || 0;
-    const taraT = parseFloat(document.getElementById('taraTambor').value) || 0;
-    const cantP = parseFloat(document.getElementById('cantPallets').value) || 0;
-    const pesoP = parseFloat(document.getElementById('pesoPallet').value) || 0;
+        window.recalcularTeoricoEdit = () => {
+            const cantT = parseFloat(document.getElementById('edit-cantTambores').value) || 0;
+            const netoT = parseFloat(document.getElementById('edit-netoPorTambor').value) || 0;
+            const taraT = parseFloat(document.getElementById('edit-taraTambor').value) || 0;
+            const cantP = parseFloat(document.getElementById('edit-cantPallets').value) || 0;
+            const pesoP = parseFloat(document.getElementById('edit-pesoPallet').value) || 0;
+            const total = (cantT * (netoT + taraT)) + (cantP * pesoP);
+            document.getElementById('edit-displayTeorico').innerText = total.toLocaleString();
+            document.getElementById('edit-pesoTeoricoTotal').value = total;
+        };
 
-    const total = (cantT * (netoT + taraT)) + (cantP * pesoP);
-    
-    document.getElementById('displayTeorico').innerText = total.toLocaleString();
-    document.getElementById('pesoTeoricoTotal').value = total;
-};
-
-// Para el modal de EDICIÓN
-window.recalcularTeoricoEdit = () => {
-    const cantT = parseFloat(document.getElementById('edit-cantTambores').value) || 0;
-    const netoT = parseFloat(document.getElementById('edit-netoPorTambor').value) || 0;
-    const taraT = parseFloat(document.getElementById('edit-taraTambor').value) || 0;
-    const cantP = parseFloat(document.getElementById('edit-cantPallets').value) || 0;
-    const pesoP = parseFloat(document.getElementById('edit-pesoPallet').value) || 0;
-
-    const total = (cantT * (netoT + taraT)) + (cantP * pesoP);
-    
-    document.getElementById('edit-displayTeorico').innerText = total.toLocaleString();
-    document.getElementById('edit-pesoTeoricoTotal').value = total;
-};
-        
-        // --- FUNCIONES MODAL CHOFER ---
+        // --- MODAL CHOFER ---
         window.abrirModalChofer = () => document.getElementById('modal-chofer').classList.remove('hidden');
         window.cerrarModalChofer = () => {
             document.getElementById('modal-chofer').classList.add('hidden');
@@ -300,76 +297,48 @@ window.recalcularTeoricoEdit = () => {
             const dni = document.getElementById('new-chofer-dni').value;
             const celular = document.getElementById('new-chofer-celular').value;
             const transporte = document.getElementById('new-chofer-transporte').value;
-
             if(!nombre || !dni) return alert("Nombre y DNI son obligatorios");
-
             try {
                 await addDoc(choferesRef, { nombre, dni, celular, transporte });
                 alert("Chofer grabado correctamente");
                 cerrarModalChofer();
-            } catch (e) {
-                alert("Error al grabar: " + e.message);
-            }
+            } catch (e) { alert("Error: " + e.message); }
         };
 
-        // --- FUNCIÓN PARA BANDERAS ---
+        // --- BANDERAS Y SELECTS ---
         const getFlag = (paisNombre) => {
             if (!paisNombre) return '';
-            const nombreLimpio = paisNombre.toLowerCase().trim();
-            const paises = {
-                'uruguay': 'uy', 'argentina': 'ar', 'colombia': 'co', 'francia': 'fr', 'paises bajos': 'nl', 
-                'chile': 'cl', 'panama': 'pa', 'japon': 'jp', 'china': 'cn', 'estados unidos': 'us'
-            };
-            const code = paises[nombreLimpio];
-            return code ? `<img src="https://flagcdn.com/16x12/${code}.png" class="inline-block mr-1 shadow-sm rounded-sm mb-0.5">` : '🏳️ ';
+            const code = { 'uruguay': 'uy', 'argentina': 'ar', 'colombia': 'co', 'francia': 'fr', 'paises bajos': 'nl', 'chile': 'cl', 'panama': 'pa', 'japon': 'jp', 'china': 'cn', 'estados unidos': 'us' }[paisNombre.toLowerCase().trim()];
+            return code ? `<img src="https://flagcdn.com/16x12/${code}.png" class="inline-block mr-1">` : '🏳️ ';
         };
 
-        // --- CARGAR TIPOS DE CONTENEDORES ---
         onSnapshot(collection(db, "tiposContenedor"), (snap) => {
-            const selectRegistro = document.getElementById('tipoContenedor');
-            const selectEdit = document.getElementById('edit-tipoContenedor');
-            let optionsHtml = '<option value="" disabled selected>Seleccione...</option>';
-            snap.forEach(doc => {
-                const tipo = doc.data().nombre;
-                optionsHtml += `<option value="${tipo}">${tipo}</option>`;
-            });
-            selectRegistro.innerHTML = optionsHtml;
-            selectEdit.innerHTML = optionsHtml;
+            const s1 = document.getElementById('tipoContenedor'), s2 = document.getElementById('edit-tipoContenedor');
+            let h = '<option value="" disabled selected>Seleccione...</option>';
+            snap.forEach(d => h += `<option value="${d.data().nombre}">${d.data().nombre}</option>`);
+            s1.innerHTML = s2.innerHTML = h;
         });
 
-        // --- CARGAR PAÍSES ---
         onSnapshot(collection(db, "paises"), (snap) => {
-            const selectRegistro = document.getElementById('destino');
-            const selectEdit = document.getElementById('edit-destino');
-            let optionsHtml = '<option value="" disabled selected>Seleccione País...</option>';
-            snap.forEach(doc => {
-                const pais = doc.data().nombre;
-                optionsHtml += `<option value="${pais}">${pais}</option>`;
-            });
-            selectRegistro.innerHTML = optionsHtml;
-            selectEdit.innerHTML = optionsHtml;
+            const s1 = document.getElementById('destino'), s2 = document.getElementById('edit-destino');
+            let h = '<option value="" disabled selected>País...</option>';
+            snap.forEach(d => h += `<option value="${d.data().nombre}">${d.data().nombre}</option>`);
+            s1.innerHTML = s2.innerHTML = h;
         });
 
-        // --- AUTOCOMPLETADO CHOFER ---
+        // --- AUTOCOMPLETADO ---
         let baseChoferes = [];
         onSnapshot(choferesRef, (snap) => {
-            const datalist = document.getElementById('lista-choferes');
-            datalist.innerHTML = ""; baseChoferes = [];
+            const dl = document.getElementById('lista-choferes'); dl.innerHTML = ""; baseChoferes = [];
             snap.forEach(doc => {
-                const d = doc.data();
-                baseChoferes.push({ nombre: d.nombre, transporte: d.transporte, celular: d.celular, dni: d.dni });
-                const opt = document.createElement('option'); opt.value = d.nombre;
-                datalist.appendChild(opt);
+                const d = doc.data(); baseChoferes.push(d);
+                const o = document.createElement('option'); o.value = d.nombre; dl.appendChild(o);
             });
         });
 
         window.autocompletarChofer = (v) => {
             const e = baseChoferes.find(c => c.nombre && c.nombre.toLowerCase() === v.toLowerCase());
-            if (e) {
-                document.getElementById('celular').value = e.celular || "";
-                document.getElementById('transporte').value = e.transporte || "";
-                document.getElementById('dni').value = e.dni || "";
-            }
+            if (e) { document.getElementById('celular').value = e.celular || ""; document.getElementById('transporte').value = e.transporte || ""; document.getElementById('dni').value = e.dni || ""; }
         };
 
         // --- LÓGICA DE DATOS ---
@@ -390,224 +359,182 @@ window.recalcularTeoricoEdit = () => {
                 patenteSemi: document.getElementById('patenteSemi').value.toUpperCase(),
                 celular: document.getElementById('celular').value,
                 fechaEstimada: document.getElementById('fecha-estimada').value,
+                // Campos teóricos
+                producto: document.getElementById('producto').value,
+                cantTambores: Number(document.getElementById('cantTambores').value) || 0,
+                netoPorTambor: Number(document.getElementById('netoPorTambor').value) || 0,
+                taraTambor: Number(document.getElementById('taraTambor').value) || 0,
+                cantPallets: Number(document.getElementById('cantPallets').value) || 0,
+                pesoPallet: Number(document.getElementById('pesoPallet').value) || 0,
+                pesoTeoricoTotal: Number(document.getElementById('pesoTeoricoTotal').value) || 0,
                 estado: "Pendiente", tara: 0, bruto: 0, fecha: serverTimestamp()
             };
             if(!data.contenedor) return alert("Falta contenedor");
             await addDoc(colRef, data);
             document.querySelectorAll('input').forEach(i => i.value = "");
-            document.getElementById('tipoContenedor').value = "";
-            document.getElementById('destino').value = "";
+            document.getElementById('displayTeorico').innerText = "0";
         };
 
         onSnapshot(query(colRef, orderBy("fecha", "desc")), (snapshot) => {
-            const contActivos = document.getElementById('tabla-gestion');
-            const contHistorial = document.getElementById('tabla-historial');
-            contActivos.innerHTML = ""; contHistorial.innerHTML = "";
-            listaHistorialCompleta = [];
+            const contActivos = document.getElementById('tabla-gestion'), contHistorial = document.getElementById('tabla-historial');
+            contActivos.innerHTML = ""; contHistorial.innerHTML = ""; listaHistorialCompleta = [];
 
             snapshot.forEach(d => {
                 const data = { id: d.id, ...d.data() };
                 const neto = (data.bruto - data.tara).toFixed(2);
-                const tEntrada = data.fechaIngreso ? new Date(data.fechaIngreso.seconds * 1000).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) : '--:--';
-                const tSalida = data.fechaSalida ? new Date(data.fechaSalida.seconds * 1000).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) : '--:--';
-                const fechaDia = data.fecha ? new Date(data.fecha.seconds * 1000).toLocaleDateString('es-AR') : '---';
+                const tIn = data.fechaIngreso ? new Date(data.fechaIngreso.seconds * 1000).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}) : '--:--';
+                const tOut = data.fechaSalida ? new Date(data.fechaSalida.seconds * 1000).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}) : '--:--';
+                const fDia = data.fecha ? new Date(data.fecha.seconds * 1000).toLocaleDateString('es-AR') : '---';
 
-                // Dentro de tu onSnapshot, en el string de la tabla:
-<button onclick="abrirModalPL('${doc.id}')" class="bg-green-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-green-700">PL</button>
-                
                 if (data.estado !== "Finalizado") {
-                    const botonAccion = data.estado === 'Pendiente' 
-                        ? `<button onclick="autorizar('${d.id}')" class="bg-red-500 text-white px-2 py-1 rounded text-[9px] font-black animate-pulse shadow-md">AUTORIZAR</button>` 
-                        : `<span class="text-green-600 font-bold text-[9px] flex items-center justify-end gap-1">✔ HABILITADO</span>`;
-
-                    const esEnPlanta = data.estado.toLowerCase().trim() === "en planta";
-                    const estadoClases = esEnPlanta 
-                        ? "px-2 py-1 rounded text-[9px] font-black bg-red-600 text-white animate-pulse ring-2 ring-red-300" 
-                        : "px-2 py-1 rounded text-[9px] font-bold bg-orange-100 text-orange-700";
-
+                    const btnAut = data.estado === 'Pendiente' ? `<button onclick="autorizar('${d.id}')" class="bg-red-500 text-white px-2 py-1 rounded text-[9px] font-black animate-pulse shadow-md uppercase">AUTORIZAR</button>` : `<span class="text-green-600 font-bold text-[9px] flex items-center justify-end gap-1">✔ HABILITADO</span>`;
+                    const clasesEst = data.estado.toLowerCase() === "en planta" ? "bg-red-600 text-white animate-pulse ring-2 ring-red-300" : "bg-orange-100 text-orange-700";
+                    
                     contActivos.innerHTML += `
-                        <tr class="hover:bg-orange-50/50 border-b border-gray-50">
+                        <tr class="hover:bg-orange-50 border-b border-gray-50">
                             <td class="p-4"><b>${data.cliente}</b><p class="text-[9px] text-gray-400">REF: ${data.referencia || '-'}</p></td>
                             <td class="p-4 font-mono font-black text-orange-600">${data.contenedor}</td>
                             <td class="p-4"><b>${data.chofer}</b><p class="text-[9px] text-gray-400 italic">DNI: ${data.dni || '-'}</p></td>
                             <td class="p-4 font-mono text-[9px] text-gray-500 uppercase">C: ${data.patenteCamion || '-'}<br>S: ${data.patenteSemi || '-'}<br><span class="text-blue-600 font-bold">EST: ${data.fechaEstimada || '-'}</span></td>
-                            <td class="p-4 text-center"><span class="${estadoClases}">${data.estado}</span></td>
+                            <td class="p-4 text-center"><span class="px-2 py-1 rounded text-[9px] font-black ${clasesEst}">${data.estado}</span></td>
                             <td class="p-4 text-center font-black text-blue-800">${neto > 0 ? neto : '0.00'} Kg</td>
                             <td class="p-4 text-right flex flex-col items-end gap-1">
-                                ${botonAccion}
-                                <button onclick="abrirModal('${d.id}')" class="text-blue-500 text-[10px] font-bold uppercase tracking-tighter hover:underline">Editar Registro</button>
-                                <button onclick="eliminarRegistro('${d.id}', '${data.contenedor}')" class="text-red-400 text-[9px] font-bold uppercase tracking-tighter hover:text-red-600">Eliminar Registro</button>
+                                ${btnAut}
+                                <div class="flex gap-2">
+                                    <button onclick="abrirModalPL('${d.id}')" class="bg-green-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-green-700 shadow-sm uppercase">PL</button>
+                                    <button onclick="abrirModal('${d.id}')" class="text-blue-500 text-[10px] font-bold hover:underline uppercase">Editar</button>
+                                </div>
+                                <button onclick="eliminarRegistro('${d.id}', '${data.contenedor}')" class="text-red-400 text-[9px] font-bold hover:text-red-600 uppercase">Eliminar</button>
                             </td>
                         </tr>`;
                 } else {
                     listaHistorialCompleta.push(data);
                     contHistorial.innerHTML += `
                         <tr class="hover:bg-white border-b border-slate-200">
-                            <td class="p-3"><span class="text-orange-600 font-bold block text-[10px]">${fechaDia}</span><span class="font-mono">${data.contenedor}</span></td>
+                            <td class="p-3"><span class="text-orange-600 font-bold block text-[10px]">${fDia}</span><span class="font-mono">${data.contenedor}</span></td>
                             <td class="p-3"><b>${data.cliente}</b><p class="text-[9px] text-blue-500 flex items-center">${getFlag(data.destino)} ${data.destino || 'S/D'}</p></td>
                             <td class="p-3"><b>${data.chofer}</b><p class="text-[9px] text-gray-400 italic">DNI: ${data.dni || '-'}</p></td>
                             <td class="p-3 text-center font-black text-blue-600 bg-blue-50/50">${neto} Kg</td>
-                            <td class="p-3 text-right text-[10px]"><span class="text-green-600">IN: ${tEntrada}</span><br><span class="text-red-400">OUT: ${tSalida}</span></td>
+                            <td class="p-3 text-right text-[10px]"><span class="text-green-600">IN: ${tIn}</span><br><span class="text-red-400">OUT: ${tOut}</span></td>
                             <td class="p-3 text-right"><button onclick="abrirModal('${d.id}')" class="text-lg grayscale hover:grayscale-0 transition">📝</button></td>
                         </tr>`;
                 }
             });
         });
 
+        // --- FUNCIONES DE ACCIÓN ---
         window.autorizar = (id) => updateDoc(doc(db, "camiones", id), { estado: "Habilitado" });
         window.cerrarModal = () => document.getElementById('modal-editar').classList.add('hidden');
-        
+        window.eliminarRegistro = async (id, contenedor) => { if(confirm(`¿Eliminar contenedor ${contenedor}?`)) await deleteDoc(doc(db, "camiones", id)); };
+
         window.abrirModal = async (id) => {
-    const snap = await getDoc(doc(db, "camiones", id)); 
-    const d = snap.data();
-    
-    document.getElementById('edit-id').value = id; 
-    
-    document.getElementById('edit-referencia').value = d.referencia || '';
-    document.getElementById('edit-cliente').value = d.cliente || '';
-    document.getElementById('edit-barcoViaje').value = d.barcoViaje || '';
-    document.getElementById('edit-contenedor').value = d.contenedor || '';
-    document.getElementById('edit-tipoContenedor').value = d.tipoContenedor || '';
-    document.getElementById('edit-destino').value = d.destino || '';
-    document.getElementById('edit-transporte').value = d.transporte || '';
-    document.getElementById('edit-celular').value = d.celular || '';
-    document.getElementById('edit-chofer').value = d.chofer || '';
-    document.getElementById('edit-dni').value = d.dni || '';
-    document.getElementById('edit-patenteCamion').value = d.patenteCamion || '';
-    document.getElementById('edit-patenteSemi').value = d.patenteSemi || '';
-    document.getElementById('edit-fecha-estimada').value = d.fechaEstimada || '';
-    
-    // --- NUEVOS CAMPOS TEÓRICOS ---
-    document.getElementById('edit-producto').value = d.producto || '';
-    document.getElementById('edit-cantTambores').value = d.cantTambores || 0;
-    document.getElementById('edit-netoPorTambor').value = d.netoPorTambor || 0;
-    document.getElementById('edit-taraTambor').value = d.taraTambor || 0;
-    document.getElementById('edit-cantPallets').value = d.cantPallets || 0;
-    document.getElementById('edit-pesoPallet').value = d.pesoPallet || 0;
-    
-    // Seteamos el total y el display visual
-    const totalTeorico = d.pesoTeoricoTotal || 0;
-    document.getElementById('edit-pesoTeoricoTotal').value = totalTeorico;
-    document.getElementById('edit-displayTeorico').innerText = totalTeorico.toLocaleString();
-    // ------------------------------
-
-    document.getElementById('edit-tara').value = d.tara || 0; 
-    document.getElementById('edit-bruto').value = d.bruto || 0;
-    
-    const badge = document.getElementById('edit-estado-badge');
-    badge.innerText = d.estado;
-    badge.className = `px-2 py-1 rounded font-bold uppercase text-[10px] ${d.estado === 'Finalizado' ? 'bg-blue-100 text-blue-700' : 'bg-orange-100 text-orange-700'}`;
-
-    document.getElementById('modal-editar').classList.remove('hidden');
-};
+            const snap = await getDoc(doc(db, "camiones", id)); const d = snap.data();
+            document.getElementById('edit-id').value = id; 
+            document.getElementById('edit-referencia').value = d.referencia || '';
+            document.getElementById('edit-cliente').value = d.cliente || '';
+            document.getElementById('edit-barcoViaje').value = d.barcoViaje || '';
+            document.getElementById('edit-contenedor').value = d.contenedor || '';
+            document.getElementById('edit-tipoContenedor').value = d.tipoContenedor || '';
+            document.getElementById('edit-destino').value = d.destino || '';
+            document.getElementById('edit-transporte').value = d.transporte || '';
+            document.getElementById('edit-celular').value = d.celular || '';
+            document.getElementById('edit-chofer').value = d.chofer || '';
+            document.getElementById('edit-dni').value = d.dni || '';
+            document.getElementById('edit-patenteCamion').value = d.patenteCamion || '';
+            document.getElementById('edit-patenteSemi').value = d.patenteSemi || '';
+            document.getElementById('edit-fecha-estimada').value = d.fechaEstimada || '';
+            document.getElementById('edit-producto').value = d.producto || '';
+            document.getElementById('edit-cantTambores').value = d.cantTambores || 0;
+            document.getElementById('edit-netoPorTambor').value = d.netoPorTambor || 0;
+            document.getElementById('edit-taraTambor').value = d.taraTambor || 0;
+            document.getElementById('edit-cantPallets').value = d.cantPallets || 0;
+            document.getElementById('edit-pesoPallet').value = d.pesoPallet || 0;
+            const tt = d.pesoTeoricoTotal || 0;
+            document.getElementById('edit-pesoTeoricoTotal').value = tt;
+            document.getElementById('edit-displayTeorico').innerText = tt.toLocaleString();
+            document.getElementById('edit-tara').value = d.tara || 0; 
+            document.getElementById('edit-bruto').value = d.bruto || 0;
+            const b = document.getElementById('edit-estado-badge'); b.innerText = d.estado;
+            b.className = `px-2 py-1 rounded font-bold uppercase text-[10px] ${d.estado === 'Finalizado' ? 'bg-blue-100 text-blue-700' : 'bg-orange-100 text-orange-700'}`;
+            document.getElementById('modal-editar').classList.remove('hidden');
+        };
 
         window.guardarEdicion = async () => {
-    const id = document.getElementById('edit-id').value;
-    const docRef = doc(db, "camiones", id);
-    
-    // 1. Obtener datos actuales de Firebase (Necesario para saber el estado anterior y fecha de salida)
-    const snap = await getDoc(docRef);
-    if (!snap.exists()) {
-        alert("El registro no existe.");
-        return;
-    }
-    const dataPrevia = snap.data();
+            const id = document.getElementById('edit-id').value;
+            const docRef = doc(db, "camiones", id);
+            const snap = await getDoc(docRef);
+            const dataPrevia = snap.data();
 
-    // 2. Obtener valores de balanza
-    const tara = parseFloat(document.getElementById('edit-tara').value) || 0;
-    const bruto = parseFloat(document.getElementById('edit-bruto').value) || 0;
-    const netoReal = bruto - tara;
+            const tara = parseFloat(document.getElementById('edit-tara').value) || 0;
+            const bruto = parseFloat(document.getElementById('edit-bruto').value) || 0;
+            const netoReal = bruto - tara;
+            const pesoTeorico = parseFloat(document.getElementById('edit-pesoTeoricoTotal').value) || 0;
 
-    // 3. Obtener valores del desglose (editables en el modal)
-    const producto = document.getElementById('edit-producto').value;
-    const cantTambores = parseFloat(document.getElementById('edit-cantTambores').value) || 0;
-    const netoPorTambor = parseFloat(document.getElementById('edit-netoPorTambor').value) || 0;
-    const taraTambor = parseFloat(document.getElementById('edit-taraTambor').value) || 0;
-    const cantPallets = parseFloat(document.getElementById('edit-cantPallets').value) || 0;
-    const pesoPallet = parseFloat(document.getElementById('edit-pesoPallet').value) || 0;
-    const pesoTeoricoNuevo = parseFloat(document.getElementById('edit-pesoTeoricoTotal').value) || 0;
+            if (pesoTeorico > 0 && bruto > 0 && tara > 0) {
+                const diff = Math.abs(netoReal - pesoTeorico);
+                if (diff > 180) { if (!confirm(`⚠️ DIFERENCIA DE ${diff.toFixed(2)} KG.\n¿Desea continuar?`)) return; }
+            }
 
-    // 4. Lógica de alerta por diferencia de 180kg
-    if (pesoTeoricoNuevo > 0 && bruto > 0 && tara > 0) {
-        const diferencia = Math.abs(netoReal - pesoTeoricoNuevo);
-        const margenPermitido = 180;
+            const up = {
+                referencia: document.getElementById('edit-referencia').value,
+                cliente: document.getElementById('edit-cliente').value,
+                barcoViaje: document.getElementById('edit-barcoViaje').value,
+                contenedor: document.getElementById('edit-contenedor').value.toUpperCase(),
+                tipoContenedor: document.getElementById('edit-tipoContenedor').value,
+                destino: document.getElementById('edit-destino').value,
+                transporte: document.getElementById('edit-transporte').value,
+                celular: document.getElementById('edit-celular').value,
+                chofer: document.getElementById('edit-chofer').value,
+                dni: document.getElementById('edit-dni').value,
+                patenteCamion: document.getElementById('edit-patenteCamion').value.toUpperCase(),
+                patenteSemi: document.getElementById('edit-patenteSemi').value.toUpperCase(),
+                fechaEstimada: document.getElementById('edit-fecha-estimada').value,
+                producto: document.getElementById('edit-producto').value,
+                cantTambores: Number(document.getElementById('edit-cantTambores').value) || 0,
+                netoPorTambor: Number(document.getElementById('edit-netoPorTambor').value) || 0,
+                taraTambor: Number(document.getElementById('edit-taraTambor').value) || 0,
+                cantPallets: Number(document.getElementById('edit-cantPallets').value) || 0,
+                pesoPallet: Number(document.getElementById('edit-pesoPallet').value) || 0,
+                pesoTeoricoTotal: pesoTeorico,
+                tara, bruto,
+                estado: (bruto > 0 && tara > 0) ? "Finalizado" : dataPrevia.estado
+            };
 
-        if (diferencia > margenPermitido) {
-            const mensaje = `⚠️ ALERTA DE DIFERENCIA DE PESO\n\n` +
-                            `Neto Balanza: ${netoReal} Kg\n` +
-                            `Neto Teórico: ${pesoTeoricoNuevo} Kg\n` +
-                            `Diferencia: ${diferencia.toFixed(2)} Kg\n\n` +
-                            `La variación supera los ${margenPermitido} Kg. ¿Desea continuar?`;
-            
-            if (!confirm(mensaje)) return;
-        }
-    }
+            if (bruto > 0 && tara > 0 && !dataPrevia.fechaSalida) up.fechaSalida = serverTimestamp();
 
-    // 5. Preparar objeto de actualización UNIFICADO
-    const up = {
-        referencia: document.getElementById('edit-referencia').value,
-        cliente: document.getElementById('edit-cliente').value,
-        barcoViaje: document.getElementById('edit-barcoViaje').value,
-        contenedor: document.getElementById('edit-contenedor').value.toUpperCase(),
-        tipoContenedor: document.getElementById('edit-tipoContenedor').value,
-        destino: document.getElementById('edit-destino').value,
-        transporte: document.getElementById('edit-transporte').value,
-        celular: document.getElementById('edit-celular').value,
-        chofer: document.getElementById('edit-chofer').value,
-        dni: document.getElementById('edit-dni').value,
-        patenteCamion: document.getElementById('edit-patenteCamion').value.toUpperCase(),
-        patenteSemi: document.getElementById('edit-patenteSemi').value.toUpperCase(),
-        fechaEstimada: document.getElementById('edit-fecha-estimada').value,
-        // Desglose
-        producto,
-        cantTambores,
-        netoPorTambor,
-        taraTambor,
-        cantPallets,
-        pesoPallet,
-        pesoTeoricoTotal: pesoTeoricoNuevo,
-        // Balanza
-        tara,
-        bruto,
-        // Estado y Fecha Salida
-        estado: (bruto > 0 && tara > 0) ? "Finalizado" : dataPrevia.estado
-    };
+            try { await updateDoc(docRef, up); cerrarModal(); alert("✅ Actualizado"); } catch (e) { alert("Error al guardar"); }
+        };
 
-    // Registrar fecha de salida solo la primera vez que se finaliza
-    if (bruto > 0 && tara > 0 && !dataPrevia.fechaSalida) {
-        up.fechaSalida = serverTimestamp();
-    }
+        // --- SISTEMA PACKING LIST (PL) ---
+        let datosPLActual = null;
+        window.abrirModalPL = async (id) => {
+            const snap = await getDoc(doc(db, "camiones", id)); const d = snap.data();
+            datosPLActual = { ...d, id };
+            document.getElementById('pl-contenedor').value = d.contenedor;
+            document.getElementById('pl-producto').value = d.producto || 'No especificado';
+            document.getElementById('pl-lote').value = "";
+            document.getElementById('pl-fecha-prod').value = "";
+            document.getElementById('modal-pl').classList.remove('hidden');
+        };
 
-    // 6. Ejecutar actualización
-    try {
-        await updateDoc(docRef, up);
-        cerrarModal();
-        alert("✅ Registro actualizado correctamente");
-    } catch (error) {
-        console.error("Error al guardar:", error);
-        alert("Error al guardar: " + error.message);
-    }
-};
+        window.generarDocumentoPL = () => {
+            const lote = document.getElementById('pl-lote').value, fechaProd = document.getElementById('pl-fecha-prod').value;
+            if (!lote || !fechaProd) return alert("Complete Lote y Fecha");
+            alert(`Packing List generado para ${datosPLActual.contenedor}.\nLote: ${lote}`);
+            document.getElementById('modal-pl').classList.add('hidden');
+        };
 
+        // --- EXCEL Y SESIÓN ---
         window.exportarExcel = () => {
-            const desde = document.getElementById('filtro-desde').value;
-            const hasta = document.getElementById('filtro-hasta').value;
-            if (!desde || !hasta) return alert("Seleccione fechas");
-            const fDesde = new Date(desde + "T00:00:00");
-            const fHasta = new Date(hasta + "T23:59:59");
+            const d1 = document.getElementById('filtro-desde').value, d2 = document.getElementById('filtro-hasta').value;
+            if (!d1 || !d2) return alert("Seleccione fechas");
             const filtrados = listaHistorialCompleta.filter(d => {
                 const f = new Date(d.fecha.seconds * 1000);
-                return f >= fDesde && f <= fHasta;
+                return f >= new Date(d1 + "T00:00:00") && f <= new Date(d2 + "T23:59:59");
             });
             const ws = XLSX.utils.json_to_sheet(filtrados.map(d => ({
                 "FECHA": new Date(d.fecha.seconds * 1000).toLocaleDateString('es-AR'),
-                "CONTENEDOR": d.contenedor,
-                "CLIENTE": d.cliente,
-                "CHOFER": d.chofer,
-                "DNI": d.dni,
-                "CAMION": d.patenteCamion,
-                "SEMI": d.patenteSemi,
-                "NETO": (d.bruto - d.tara)
+                "CONTENEDOR": d.contenedor, "CLIENTE": d.cliente, "CHOFER": d.chofer, "DNI": d.dni, "NETO": (d.bruto - d.tara)
             })));
             const wb = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb, ws, "Reporte");
             XLSX.writeFile(wb, "Reporte_ECA.xlsx");
@@ -619,178 +546,36 @@ window.recalcularTeoricoEdit = () => {
         let timerInactividad;
         const resetearReloj = () => {
             clearTimeout(timerInactividad);
-            timerInactividad = setTimeout(() => {
-                signOut(auth).then(() => {
-                    window.location.href = "index.html";
-                });
-            }, 180000);
+            timerInactividad = setTimeout(() => { signOut(auth).then(() => window.location.href = "index.html"); }, 180000);
         };
-
-        const eventos = ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart'];
-        eventos.forEach(evento => {
-            document.addEventListener(evento, resetearReloj, true);
-        });
-
+        ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart'].forEach(e => document.addEventListener(e, resetearReloj, true));
         resetearReloj();
 
         window.verHistorialCompleto = () => {
             const modal = document.getElementById('modal-historial-completo');
-            const tablaFull = document.getElementById('tabla-historial-full');
-            const tablaOriginal = document.getElementById('tabla-historial');
-            tablaFull.innerHTML = tablaOriginal.innerHTML;
+            document.getElementById('tabla-historial-full').innerHTML = document.getElementById('tabla-historial').innerHTML;
             modal.classList.remove('hidden');
         };
+        window.cerrarHistorialCompleto = () => document.getElementById('modal-historial-completo').classList.add('hidden');
 
-        window.cerrarHistorialCompleto = () => {
-            document.getElementById('modal-historial-completo').classList.add('hidden');
-        };
-    </script>
-
-    <div id="modal-historial-completo" class="hidden fixed inset-0 bg-slate-50 z-[100] overflow-hidden flex flex-col">
-        <div class="bg-slate-900 px-6 py-4 shadow-xl flex justify-between items-center border-b-4 border-orange-500">
-            <div class="flex items-center gap-4">
-                <div class="bg-orange-500 p-2 rounded-lg shadow-inner">
-                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                </div>
-                <div>
-                    <h2 class="font-black text-2xl text-white uppercase tracking-tighter leading-none">Reporte Maestro de Operaciones</h2>
-                    <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-1">Logística y Control de Balanza - ECA</p>
-                </div>
-            </div>
-            
-            <button onclick="cerrarHistorialCompleto()" class="bg-red-600 hover:bg-red-700 text-white px-8 py-3 rounded-xl font-black shadow-lg transition-all active:scale-95 flex items-center gap-2">
-                <span>CERRAR</span>
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-            </button>
-        </div>
-
-        <div class="bg-white p-4 border-b border-slate-200 flex flex-wrap gap-4 shadow-sm px-10">
-            <div class="flex-1 min-w-[200px]">
-                <label class="block text-[10px] font-black text-slate-400 uppercase mb-1">🔍 Buscar por Contenedor</label>
-                <input type="text" id="filtro-full-contenedor" onkeyup="aplicarFiltrosFull()" placeholder="Ej: TRHU..." class="w-full border-2 border-slate-100 p-2 rounded-lg text-xs font-bold focus:border-orange-400 outline-none transition-colors">
-            </div>
-            <div class="flex-1 min-w-[200px]">
-                <label class="block text-[10px] font-black text-slate-400 uppercase mb-1">🏢 Filtrar por Cliente</label>
-                <input type="text" id="filtro-full-cliente" onkeyup="aplicarFiltrosFull()" placeholder="Nombre del exportador..." class="w-full border-2 border-slate-100 p-2 rounded-lg text-xs font-bold focus:border-orange-400 outline-none transition-colors">
-            </div>
-            <div class="flex-1 min-w-[200px]">
-                <label class="block text-[10px] font-black text-slate-400 uppercase mb-1">🚛 Filtrar por Chofer</label>
-                <input type="text" id="filtro-full-chofer" onkeyup="aplicarFiltrosFull()" placeholder="Nombre del conductor..." class="w-full border-2 border-slate-100 p-2 rounded-lg text-xs font-bold focus:border-orange-400 outline-none transition-colors">
-            </div>
-            <div class="flex items-end">
-                <button onclick="limpiarFiltrosFull()" class="bg-slate-100 hover:bg-slate-200 text-slate-500 px-4 py-2 rounded-lg text-[10px] font-black uppercase">Limpiar</button>
-            </div>
-        </div>
-
-        <div class="flex-1 overflow-auto p-6 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]">
-            <div class="max-w-[98%] mx-auto bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden">
-                <table class="w-full text-left border-collapse" id="tabla-maestra">
-                    <thead>
-                        <tr class="bg-slate-800 text-slate-300 text-[11px] uppercase font-black tracking-widest">
-                            <th class="p-5 border-b border-slate-700">📅 Fecha / Contenedor</th>
-                            <th class="p-5 border-b border-slate-700">🏢 Cliente / Destino</th>
-                            <th class="p-5 border-b border-slate-700">🚛 Chofer / DNI</th>
-                            <th class="p-5 border-b border-slate-700 text-right pr-20 text-orange-400 font-black text-xs">⚖️ Kilos Netos</th>
-                            <th class="p-5 border-b border-slate-700 text-right">⏱️ Tiempos (IN/OUT)</th>
-                            <th class="p-5 border-b border-slate-700 text-right">⚙️</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tabla-historial-full" class="divide-y divide-slate-100 text-sm"></tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // Función para aplicar los filtros en tiempo real
-        function aplicarFiltrosFull() {
-            const fContenedor = document.getElementById('filtro-full-contenedor').value.toUpperCase();
-            const fCliente = document.getElementById('filtro-full-cliente').value.toUpperCase();
-            const fChofer = document.getElementById('filtro-full-chofer').value.toUpperCase();
-            
+        window.aplicarFiltrosFull = () => {
+            const fCont = document.getElementById('filtro-full-contenedor').value.toUpperCase();
+            const fClie = document.getElementById('filtro-full-cliente').value.toUpperCase();
+            const fChof = document.getElementById('filtro-full-chofer').value.toUpperCase();
             const filas = document.getElementById('tabla-historial-full').getElementsByTagName('tr');
-
             for (let i = 0; i < filas.length; i++) {
-                const textoFila = filas[i].textContent.toUpperCase();
-                // Verificamos si la fila contiene lo buscado en cada campo (simplificado para eficiencia)
-                const celdaCont = filas[i].cells[0].textContent.toUpperCase();
-                const celdaClie = filas[i].cells[1].textContent.toUpperCase();
-                const celdaChof = filas[i].cells[2].textContent.toUpperCase();
-
-                if (celdaCont.includes(fContenedor) && celdaClie.includes(fCliente) && celdaChof.includes(fChofer)) {
-                    filas[i].style.display = "";
-                } else {
-                    filas[i].style.display = "none";
-                }
-            }
-        }
-
-        function limpiarFiltrosFull() {
-            document.getElementById('filtro-full-contenedor').value = "";
-            document.getElementById('filtro-full-cliente').value = "";
-            document.getElementById('filtro-full-chofer').value = "";
-            aplicarFiltrosFull();
-        }
-   
-    window.aplicarFiltrosFull = () => {
-            const fContenedor = document.getElementById('filtro-full-contenedor').value.toUpperCase();
-            const fCliente = document.getElementById('filtro-full-cliente').value.toUpperCase();
-            const fChofer = document.getElementById('filtro-full-chofer').value.toUpperCase();
-            
-            const filas = document.getElementById('tabla-historial-full').getElementsByTagName('tr');
-
-            for (let i = 0; i < filas.length; i++) {
-                const textoFila = filas[i].textContent.toUpperCase();
-                const celdaCont = filas[i].cells[0] ? filas[i].cells[0].textContent.toUpperCase() : "";
-                const celdaClie = filas[i].cells[1] ? filas[i].cells[1].textContent.toUpperCase() : "";
-                const celdaChof = filas[i].cells[2] ? filas[i].cells[2].textContent.toUpperCase() : "";
-
-                if (celdaCont.includes(fContenedor) && celdaClie.includes(fCliente) && celdaChof.includes(fChofer)) {
-                    filas[i].style.display = "";
-                } else {
-                    filas[i].style.display = "none";
-                }
+                const c1 = filas[i].cells[0]?.textContent.toUpperCase() || "";
+                const c2 = filas[i].cells[1]?.textContent.toUpperCase() || "";
+                const c3 = filas[i].cells[2]?.textContent.toUpperCase() || "";
+                filas[i].style.display = (c1.includes(fCont) && c2.includes(fClie) && c3.includes(fChof)) ? "" : "none";
             }
         };
-
         window.limpiarFiltrosFull = () => {
             document.getElementById('filtro-full-contenedor').value = "";
             document.getElementById('filtro-full-cliente').value = "";
             document.getElementById('filtro-full-chofer').value = "";
             aplicarFiltrosFull();
         };
-
-        // --- FUNCIONES DE CÁLCULO ---
-
-// Esta es para cuando creas un registro nuevo
-window.calcularTeorico = () => {
-    const cantT = parseFloat(document.getElementById('cantTambores').value) || 0;
-    const netoT = parseFloat(document.getElementById('netoPorTambor').value) || 0;
-    const taraT = parseFloat(document.getElementById('taraTambor').value) || 0;
-    const cantP = parseFloat(document.getElementById('cantPallets').value) || 0;
-    const pesoP = parseFloat(document.getElementById('pesoPallet').value) || 0;
-
-    const total = (cantT * (netoT + taraT)) + (cantP * pesoP);
-    
-    document.getElementById('displayTeorico').innerText = total.toLocaleString();
-    document.getElementById('pesoTeoricoTotal').value = total;
-};
-
-// Esta es la que agregamos ahora para el MODAL DE EDICIÓN
-window.recalcularTeoricoEdit = () => {
-    const cantT = parseFloat(document.getElementById('edit-cantTambores').value) || 0;
-    const netoT = parseFloat(document.getElementById('edit-netoPorTambor').value) || 0;
-    const taraT = parseFloat(document.getElementById('edit-taraTambor').value) || 0;
-    const cantP = parseFloat(document.getElementById('edit-cantPallets').value) || 0;
-    const pesoP = parseFloat(document.getElementById('edit-pesoPallet').value) || 0;
-
-    const total = (cantT * (netoT + taraT)) + (cantP * pesoP);
-    
-    document.getElementById('edit-displayTeorico').innerText = total.toLocaleString();
-    document.getElementById('edit-pesoTeoricoTotal').value = total;
-};
-        
     </script>
-
 </body>
 </html>
