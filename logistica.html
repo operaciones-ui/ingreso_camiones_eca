@@ -785,6 +785,37 @@ window.recalcularTeoricoEdit = () => {
             document.getElementById('filtro-full-chofer').value = "";
             aplicarFiltrosFull();
         };
+
+        // --- FUNCIONES DE CÁLCULO ---
+
+// Esta es para cuando creas un registro nuevo
+window.calcularTeorico = () => {
+    const cantT = parseFloat(document.getElementById('cantTambores').value) || 0;
+    const netoT = parseFloat(document.getElementById('netoPorTambor').value) || 0;
+    const taraT = parseFloat(document.getElementById('taraTambor').value) || 0;
+    const cantP = parseFloat(document.getElementById('cantPallets').value) || 0;
+    const pesoP = parseFloat(document.getElementById('pesoPallet').value) || 0;
+
+    const total = (cantT * (netoT + taraT)) + (cantP * pesoP);
+    
+    document.getElementById('displayTeorico').innerText = total.toLocaleString();
+    document.getElementById('pesoTeoricoTotal').value = total;
+};
+
+// Esta es la que agregamos ahora para el MODAL DE EDICIÓN
+window.recalcularTeoricoEdit = () => {
+    const cantT = parseFloat(document.getElementById('edit-cantTambores').value) || 0;
+    const netoT = parseFloat(document.getElementById('edit-netoPorTambor').value) || 0;
+    const taraT = parseFloat(document.getElementById('edit-taraTambor').value) || 0;
+    const cantP = parseFloat(document.getElementById('edit-cantPallets').value) || 0;
+    const pesoP = parseFloat(document.getElementById('edit-pesoPallet').value) || 0;
+
+    const total = (cantT * (netoT + taraT)) + (cantP * pesoP);
+    
+    document.getElementById('edit-displayTeorico').innerText = total.toLocaleString();
+    document.getElementById('edit-pesoTeoricoTotal').value = total;
+};
+        
     </script>
 
 </body>
