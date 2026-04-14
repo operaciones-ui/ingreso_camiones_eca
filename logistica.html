@@ -425,31 +425,48 @@
         window.cerrarModal = () => document.getElementById('modal-editar').classList.add('hidden');
         
         window.abrirModal = async (id) => {
-            const snap = await getDoc(doc(db, "camiones", id)); const d = snap.data();
-            document.getElementById('edit-id').value = id; 
-            
-            document.getElementById('edit-referencia').value = d.referencia || '';
-            document.getElementById('edit-cliente').value = d.cliente || '';
-            document.getElementById('edit-barcoViaje').value = d.barcoViaje || '';
-            document.getElementById('edit-contenedor').value = d.contenedor || '';
-            document.getElementById('edit-tipoContenedor').value = d.tipoContenedor || '';
-            document.getElementById('edit-destino').value = d.destino || '';
-            document.getElementById('edit-transporte').value = d.transporte || '';
-            document.getElementById('edit-celular').value = d.celular || '';
-            document.getElementById('edit-chofer').value = d.chofer || '';
-            document.getElementById('edit-dni').value = d.dni || '';
-            document.getElementById('edit-patenteCamion').value = d.patenteCamion || '';
-            document.getElementById('edit-patenteSemi').value = d.patenteSemi || '';
-            document.getElementById('edit-fecha-estimada').value = d.fechaEstimada || '';
-            document.getElementById('edit-tara').value = d.tara || 0; 
-            document.getElementById('edit-bruto').value = d.bruto || 0;
-            
-            const badge = document.getElementById('edit-estado-badge');
-            badge.innerText = d.estado;
-            badge.className = `px-2 py-1 rounded font-bold uppercase text-[10px] ${d.estado === 'Finalizado' ? 'bg-blue-100 text-blue-700' : 'bg-orange-100 text-orange-700'}`;
+    const snap = await getDoc(doc(db, "camiones", id)); 
+    const d = snap.data();
+    
+    document.getElementById('edit-id').value = id; 
+    
+    document.getElementById('edit-referencia').value = d.referencia || '';
+    document.getElementById('edit-cliente').value = d.cliente || '';
+    document.getElementById('edit-barcoViaje').value = d.barcoViaje || '';
+    document.getElementById('edit-contenedor').value = d.contenedor || '';
+    document.getElementById('edit-tipoContenedor').value = d.tipoContenedor || '';
+    document.getElementById('edit-destino').value = d.destino || '';
+    document.getElementById('edit-transporte').value = d.transporte || '';
+    document.getElementById('edit-celular').value = d.celular || '';
+    document.getElementById('edit-chofer').value = d.chofer || '';
+    document.getElementById('edit-dni').value = d.dni || '';
+    document.getElementById('edit-patenteCamion').value = d.patenteCamion || '';
+    document.getElementById('edit-patenteSemi').value = d.patenteSemi || '';
+    document.getElementById('edit-fecha-estimada').value = d.fechaEstimada || '';
+    
+    // --- NUEVOS CAMPOS TEÓRICOS ---
+    document.getElementById('edit-producto').value = d.producto || '';
+    document.getElementById('edit-cantTambores').value = d.cantTambores || 0;
+    document.getElementById('edit-netoPorTambor').value = d.netoPorTambor || 0;
+    document.getElementById('edit-taraTambor').value = d.taraTambor || 0;
+    document.getElementById('edit-cantPallets').value = d.cantPallets || 0;
+    document.getElementById('edit-pesoPallet').value = d.pesoPallet || 0;
+    
+    // Seteamos el total y el display visual
+    const totalTeorico = d.pesoTeoricoTotal || 0;
+    document.getElementById('edit-pesoTeoricoTotal').value = totalTeorico;
+    document.getElementById('edit-displayTeorico').innerText = totalTeorico.toLocaleString();
+    // ------------------------------
 
-            document.getElementById('modal-editar').classList.remove('hidden');
-        };
+    document.getElementById('edit-tara').value = d.tara || 0; 
+    document.getElementById('edit-bruto').value = d.bruto || 0;
+    
+    const badge = document.getElementById('edit-estado-badge');
+    badge.innerText = d.estado;
+    badge.className = `px-2 py-1 rounded font-bold uppercase text-[10px] ${d.estado === 'Finalizado' ? 'bg-blue-100 text-blue-700' : 'bg-orange-100 text-orange-700'}`;
+
+    document.getElementById('modal-editar').classList.remove('hidden');
+};
 
         window.guardarEdicion = async () => {
     const id = document.getElementById('edit-id').value;
