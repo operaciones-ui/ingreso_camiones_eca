@@ -209,8 +209,9 @@
             const btn = document.getElementById('btn-confirmar-peso');
             const btnVolver = document.getElementById('btn-modal-volver');
             
-            let estadoValidacion = "OK"; // Por defecto está bien
+            let estadoValidacion = "OK"; // Por defecto asumimos que el peso está en rango
 
+            // --- LÓGICA DE VALIDACIÓN DE PESO ---
             if (modoAccion === "salida") {
                 try {
                     const snap = await getDoc(doc(db, "camiones", currentId));
@@ -223,22 +224,24 @@
                         if (pesoTeorico > 0) {
                             const diferencia = Math.abs(netoReal - pesoTeorico);
                             if (diferencia > 180) {
-                                const confirmar = confirm(`⚠️ DIFERENCIA DE ${diferencia.toFixed(2)} KG.\n¿Desea continuar de todos modos?`);
-                                if (!confirmar) return;
-                                estadoValidacion = "ALERTA"; // Se marca como alerta si aceptó la diferencia
+                                const confirmar = confirm(
+                                    `⚠️ ALERTA DE DIFERENCIA\n\n` +
+                                    `Neto Teórico: ${pesoTeorico} kg\n` +
+                                    `Neto Balanza: ${netoReal} kg\n` +
+                                    `Diferencia: ${diferencia.toFixed(2)} kg\n\n` +
+                                    `La diferencia supera los 180kg. ¿Desea continuar de todos modos?`
+                                );
+                                if (!confirmar) return; // Cancela el guardado
+                                estadoValidacion = "ALERTA"; // Usuario aceptó la diferencia
                             }
                         }
                     }
-                } catch (err) { console.error(err); }
-            }
-
-        
                 } catch (err) {
                     console.error("Error validando pesos:", err);
                 }
             }
-            // --- FIN DE LÓGICA DE ALERTA ---
 
+            // --- INTERFAZ DE PROCESANDO ---
             btn.disabled = true;
             btnVolver.style.display = "none";
             btn.innerHTML = `
@@ -247,12 +250,22 @@
             `;
             btn.className = "w-full bg-zinc-800 text-zinc-500 h-20 rounded-2xl font-black uppercase text-lg flex items-center justify-center gap-3 cursor-not-allowed border border-zinc-700";
 
+            // --- GUARDADO EN FIREBASE ---
             const docRef = doc(db, "camiones", currentId);
             try {
                 if (modoAccion === "ingreso") { 
-                    await updateDoc(docRef, { tara: peso, estado: "En Planta", fechaIngreso: serverTimestamp() }); 
+                    await updateDoc(docRef, { 
+                        tara: peso, 
+                        estado: "En Planta", 
+                        fechaIngreso: serverTimestamp() 
+                    }); 
                 } else { 
-                    await updateDoc(docRef, { bruto: peso, estado: "Finalizado", fechaSalida: serverTimestamp() }); 
+                    await updateDoc(docRef, { 
+                        bruto: peso, 
+                        estado: "Finalizado", 
+                        fechaSalida: serverTimestamp(),
+                        validacionPeso: estadoValidacion // <--- Esto le avisa a Logística
+                    }); 
                 }
                 cerrarModal();
             } catch (error) { 
