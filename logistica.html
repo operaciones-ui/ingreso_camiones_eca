@@ -501,34 +501,73 @@ window.recalcularTeoricoEdit = () => {
         window.guardarEdicion = async () => {
     const id = document.getElementById('edit-id').value;
     
-    // 1. Obtener valores de los inputs de balanza
+    // 1. Obtener valores de balanza y calcular neto real
     const tara = parseFloat(document.getElementById('edit-tara').value) || 0;
     const bruto = parseFloat(document.getElementById('edit-bruto').value) || 0;
     const netoReal = bruto - tara;
 
-    // 2. Obtener el Peso Teórico guardado previamente en Firebase
-    const docRef = doc(db, "camiones", id);
-    const snap = await getDoc(docRef);
-    const dataPrevia = snap.data();
-    const pesoTeorico = dataPrevia.pesoTeoricoTotal || 0;
+    // 2. Obtener valores del desglose (por si fueron editados en el modal)
+    const producto = document.getElementById('edit-producto').value;
+    const cantTambores = parseFloat(document.getElementById('edit-cantTambores').value) || 0;
+    const netoPorTambor = parseFloat(document.getElementById('edit-netoPorTambor').value) || 0;
+    const taraTambor = parseFloat(document.getElementById('edit-taraTambor').value) || 0;
+    const cantPallets = parseFloat(document.getElementById('edit-cantPallets').value) || 0;
+    const pesoPallet = parseFloat(document.getElementById('edit-pesoPallet').value) || 0;
+    const pesoTeoricoNuevo = parseFloat(document.getElementById('edit-pesoTeoricoTotal').value) || 0;
 
     // 3. Lógica de alerta por diferencia de 180kg
-    // Solo validamos si hay un peso teórico cargado y si se ingresaron pesos de balanza
-    if (pesoTeorico > 0 && bruto > 0 && tara > 0) {
-        const diferencia = Math.abs(netoReal - pesoTeorico);
+    if (pesoTeoricoNuevo > 0 && bruto > 0 && tara > 0) {
+        const diferencia = Math.abs(netoReal - pesoTeoricoNuevo);
         const margenPermitido = 180;
 
         if (diferencia > margenPermitido) {
             const mensaje = `⚠️ ALERTA DE DIFERENCIA DE PESO\n\n` +
                             `Neto Balanza: ${netoReal} Kg\n` +
-                            `Neto Teórico: ${pesoTeorico} Kg\n` +
+                            `Neto Teórico: ${pesoTeoricoNuevo} Kg\n` +
                             `Diferencia: ${diferencia.toFixed(2)} Kg\n\n` +
-                            `La variación supera los ${margenPermitido} Kg. ¿Desea continuar con el guardado?`;
+                            `La variación supera los ${margenPermitido} Kg. ¿Desea continuar?`;
             
-            // Si el usuario presiona "Cancelar", se corta la función aquí
             if (!confirm(mensaje)) return;
         }
     }
+
+    // 4. Objeto con todos los campos para actualizar en Firebase
+    const up = {
+        referencia: document.getElementById('edit-referencia').value,
+        cliente: document.getElementById('edit-cliente').value,
+        barcoViaje: document.getElementById('edit-barcoViaje').value,
+        contenedor: document.getElementById('edit-contenedor').value.toUpperCase(),
+        tipoContenedor: document.getElementById('edit-tipoContenedor').value,
+        destino: document.getElementById('edit-destino').value,
+        transporte: document.getElementById('edit-transporte').value,
+        celular: document.getElementById('edit-celular').value,
+        chofer: document.getElementById('edit-chofer').value,
+        dni: document.getElementById('edit-dni').value,
+        patenteCamion: document.getElementById('edit-patenteCamion').value.toUpperCase(),
+        patenteSemi: document.getElementById('edit-patenteSemi').value.toUpperCase(),
+        fechaEstimada: document.getElementById('edit-fecha-estimada').value,
+        // Guardamos el desglose actualizado
+        producto,
+        cantTambores,
+        netoPorTambor,
+        taraTambor,
+        cantPallets,
+        pesoPallet,
+        pesoTeoricoTotal: pesoTeoricoNuevo,
+        // Pesos de balanza
+        tara,
+        bruto,
+        estado: (bruto > 0 && tara > 0) ? "Finalizado" : "Habilitado"
+    };
+
+    try {
+        await updateDoc(doc(db, "camiones", id), up);
+        cerrarModal();
+        alert("✅ Registro actualizado correctamente");
+    } catch (error) {
+        alert("Error al guardar: " + error.message);
+    }
+};
 
     // 4. Preparar el objeto para actualizar
     const up = {
