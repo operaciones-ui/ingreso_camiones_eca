@@ -209,7 +209,8 @@
             const btn = document.getElementById('btn-confirmar-peso');
             const btnVolver = document.getElementById('btn-modal-volver');
             
-            // --- NUEVA LÓGICA DE ALERTA POR DIFERENCIA ---
+            let estadoValidacion = "OK"; // Por defecto está bien
+
             if (modoAccion === "salida") {
                 try {
                     const snap = await getDoc(doc(db, "camiones", currentId));
@@ -217,22 +218,21 @@
                         const data = snap.data();
                         const taraGuardada = data.tara || 0;
                         const pesoTeorico = data.pesoTeoricoTotal || 0;
-                        const netoReal = peso - taraGuardada; // Bruto actual - Tara de entrada
+                        const netoReal = peso - taraGuardada;
 
                         if (pesoTeorico > 0) {
                             const diferencia = Math.abs(netoReal - pesoTeorico);
                             if (diferencia > 180) {
-                                const confirmar = confirm(
-                                    `⚠️ ALERTA DE DIFERENCIA\n\n` +
-                                    `Neto Teórico: ${pesoTeorico} kg\n` +
-                                    `Neto Balanza: ${netoReal} kg\n` +
-                                    `Diferencia: ${diferencia.toFixed(2)} kg\n\n` +
-                                    `La diferencia supera los 180kg. ¿Desea continuar?`
-                                );
-                                if (!confirmar) return; // Si cancela, no hace nada y permite corregir el peso
+                                const confirmar = confirm(`⚠️ DIFERENCIA DE ${diferencia.toFixed(2)} KG.\n¿Desea continuar de todos modos?`);
+                                if (!confirmar) return;
+                                estadoValidacion = "ALERTA"; // Se marca como alerta si aceptó la diferencia
                             }
                         }
                     }
+                } catch (err) { console.error(err); }
+            }
+
+        
                 } catch (err) {
                     console.error("Error validando pesos:", err);
                 }
