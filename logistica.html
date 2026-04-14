@@ -412,6 +412,9 @@ window.recalcularTeoricoEdit = () => {
                 const tSalida = data.fechaSalida ? new Date(data.fechaSalida.seconds * 1000).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) : '--:--';
                 const fechaDia = data.fecha ? new Date(data.fecha.seconds * 1000).toLocaleDateString('es-AR') : '---';
 
+                // Dentro de tu onSnapshot, en el string de la tabla:
+<button onclick="abrirModalPL('${doc.id}')" class="bg-green-600 text-white px-2 py-1 rounded text-[10px] font-bold hover:bg-green-700">PL</button>
+                
                 if (data.estado !== "Finalizado") {
                     const botonAccion = data.estado === 'Pendiente' 
                         ? `<button onclick="autorizar('${d.id}')" class="bg-red-500 text-white px-2 py-1 rounded text-[9px] font-black animate-pulse shadow-md">AUTORIZAR</button>` 
