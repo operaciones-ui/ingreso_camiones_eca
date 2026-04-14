@@ -209,6 +209,36 @@
             const btn = document.getElementById('btn-confirmar-peso');
             const btnVolver = document.getElementById('btn-modal-volver');
             
+            // --- NUEVA LÓGICA DE ALERTA POR DIFERENCIA ---
+            if (modoAccion === "salida") {
+                try {
+                    const snap = await getDoc(doc(db, "camiones", currentId));
+                    if (snap.exists()) {
+                        const data = snap.data();
+                        const taraGuardada = data.tara || 0;
+                        const pesoTeorico = data.pesoTeoricoTotal || 0;
+                        const netoReal = peso - taraGuardada; // Bruto actual - Tara de entrada
+
+                        if (pesoTeorico > 0) {
+                            const diferencia = Math.abs(netoReal - pesoTeorico);
+                            if (diferencia > 180) {
+                                const confirmar = confirm(
+                                    `⚠️ ALERTA DE DIFERENCIA\n\n` +
+                                    `Neto Teórico: ${pesoTeorico} kg\n` +
+                                    `Neto Balanza: ${netoReal} kg\n` +
+                                    `Diferencia: ${diferencia.toFixed(2)} kg\n\n` +
+                                    `La diferencia supera los 180kg. ¿Desea continuar?`
+                                );
+                                if (!confirmar) return; // Si cancela, no hace nada y permite corregir el peso
+                            }
+                        }
+                    }
+                } catch (err) {
+                    console.error("Error validando pesos:", err);
+                }
+            }
+            // --- FIN DE LÓGICA DE ALERTA ---
+
             btn.disabled = true;
             btnVolver.style.display = "none";
             btn.innerHTML = `
@@ -233,7 +263,7 @@
                 btnVolver.style.display = "block";
             }
         };
-
+        
         window.cambiarTab = (tabId) => {
             document.getElementById('tab-entrada').classList.toggle('hidden', tabId !== 'tab-entrada');
             document.getElementById('tab-salida').classList.toggle('hidden', tabId !== 'tab-salida');
