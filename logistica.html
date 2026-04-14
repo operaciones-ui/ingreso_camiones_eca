@@ -435,16 +435,16 @@
                         <p class="text-[9px] text-gray-400 italic">DNI: ${data.dni || '-'}</p>
                     </td>
                     <td class="p-3 text-center bg-blue-50/30">
-                        <div class="flex flex-col items-center">
-                            <div class="flex gap-2 text-[9px] text-gray-500 font-mono mb-1">
-                                <span>T: ${(data.tara || 0).toLocaleString()}</span>
-                                <span>B: ${(data.bruto || 0).toLocaleString()}</span>
-                            </div>
-                            <span class="font-black text-blue-700 text-sm">
-                                ${neto} Kg ${iconoValidacion}
-                            </span>
-                        </div>
-                    </td>
+    <div class="flex flex-col items-center">
+        <div class="flex gap-2 text-[9px] text-gray-500 font-mono mb-1">
+            <span title="Tara (Entrada)">T: ${Number(data.tara || 0).toLocaleString()}</span>
+            <span title="Bruto (Salida)">B: ${Number(data.bruto || 0).toLocaleString()}</span>
+        </div>
+        <span class="font-black text-blue-700 text-sm">
+            ${neto} Kg ${iconoValidacion}
+        </span>
+    </div>
+</td>
                     <td class="p-3 text-right text-[10px]">
                         <span class="text-green-600">IN: ${tIn}</span><br>
                         <span class="text-red-400">OUT: ${tOut}</span>
