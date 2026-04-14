@@ -23,28 +23,29 @@
         </div>
 
         <div class="bg-white p-6 rounded-xl shadow-md mb-8">
-            <h2 class="font-black mb-4 text-gray-700 flex items-center text-sm uppercase italic"><span class="mr-2">📝</span> Nuevo Registro de Carga</h2>
-            <div class="space-y-4">
-                <div class="grid grid-cols-1 md:grid-cols-12 gap-3">
-                    <div class="md:col-span-1"><label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Ref.</label><input id="referencia" type="text" class="w-full border p-2 rounded bg-gray-50 text-xs outline-none focus:ring-1 focus:ring-orange-400"></div>
-                    <div class="md:col-span-3"><label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Cliente / Exportador</label><input id="cliente" type="text" class="w-full border p-2 rounded bg-gray-50 text-xs font-bold outline-none focus:ring-1 focus:ring-orange-400"></div>
-                    <div class="md:col-span-2"><label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Barco / Viaje</label><input id="barcoViaje" type="text" class="w-full border p-2 rounded bg-gray-50 text-xs outline-none focus:ring-1 focus:ring-orange-400"></div>
-                    <div class="md:col-span-1">
-                        <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Tipo</label>
-                        <select id="tipoContenedor" class="w-full border p-2 rounded bg-gray-50 text-xs outline-none focus:ring-1 focus:ring-orange-400">
-                            <option value="">Cargando...</option>
-                        </select>
-                    </div>
-                    <div class="md:col-span-3"><label class="block text-[10px] font-bold text-orange-600 uppercase mb-1">N° Contenedor</label><input id="contenedor" type="text" class="w-full border border-orange-300 p-1.5 rounded bg-orange-50 uppercase font-mono font-bold text-base outline-none focus:ring-1 focus:ring-orange-500 text-orange-900 h-[32px]"></div>
-                    <div class="md:col-span-2">
-                        <label class="block text-[10px] font-bold text-blue-600 uppercase mb-1">País</label>
-                        <select id="destino" class="w-full border p-2 rounded bg-blue-50 text-xs font-bold outline-none focus:ring-1 focus:ring-blue-400">
-                            <option value="">Cargando...</option>
-                        </select>
-                    </div>
-                </div>
+    <h2 class="font-black mb-4 text-gray-700 flex items-center text-sm uppercase italic"><span class="mr-2">📝</span> Nuevo Registro de Carga</h2>
+    
+    <div class="space-y-4">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-3">
+            <div class="md:col-span-1"><label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Ref.</label><input id="referencia" type="text" class="w-full border p-2 rounded bg-gray-50 text-xs outline-none focus:ring-1 focus:ring-orange-400"></div>
+            <div class="md:col-span-3"><label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Cliente / Exportador</label><input id="cliente" type="text" class="w-full border p-2 rounded bg-gray-50 text-xs font-bold outline-none focus:ring-1 focus:ring-orange-400"></div>
+            <div class="md:col-span-2"><label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Barco / Viaje</label><input id="barcoViaje" type="text" class="w-full border p-2 rounded bg-gray-50 text-xs outline-none focus:ring-1 focus:ring-orange-400"></div>
+            <div class="md:col-span-1">
+                <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Tipo</label>
+                <select id="tipoContenedor" class="w-full border p-2 rounded bg-gray-50 text-xs outline-none focus:ring-1 focus:ring-orange-400">
+                    <option value="">Cargando...</option>
+                </select>
+            </div>
+            <div class="md:col-span-3"><label class="block text-[10px] font-bold text-orange-600 uppercase mb-1">N° Contenedor</label><input id="contenedor" type="text" class="w-full border border-orange-300 p-1.5 rounded bg-orange-50 uppercase font-mono font-bold text-base outline-none focus:ring-1 focus:ring-orange-500 text-orange-900 h-[32px]"></div>
+            <div class="md:col-span-2">
+                <label class="block text-[10px] font-bold text-blue-600 uppercase mb-1">País</label>
+                <select id="destino" class="w-full border p-2 rounded bg-blue-50 text-xs font-bold outline-none focus:ring-1 focus:ring-blue-400">
+                    <option value="">Cargando...</option>
+                </select>
+            </div>
+        </div>
 
-                <div class="grid grid-cols-2 md:grid-cols-12 gap-3 p-4 bg-blue-50/50 rounded-xl border border-blue-100">
+        <div class="grid grid-cols-2 md:grid-cols-12 gap-3 p-4 bg-blue-50/50 rounded-xl border border-blue-100">
             <div class="md:col-span-3">
                 <label class="block text-[10px] font-bold text-blue-800 uppercase mb-1">📦 Producto</label>
                 <input id="producto" type="text" placeholder="Ej: Miel de Azahar" class="w-full border p-2 rounded bg-white text-xs outline-none">
@@ -76,29 +77,28 @@
                     <input type="hidden" id="pesoTeoricoTotal">
                 </div>
             </div>
-                
-                <div class="grid grid-cols-1 md:grid-cols-12 gap-2">
-                    <div class="md:col-span-3">
-                        <div class="flex justify-between items-end mb-1">
-                            <label class="block text-[10px] font-bold text-gray-400 uppercase">Nombre Chofer</label>
-                            <button onclick="abrirModalChofer()" class="text-[9px] bg-blue-600 text-white px-2 py-0.5 rounded hover:bg-blue-700 font-bold">+ NUEVO</button>
-                        </div>
-                        <input id="chofer" list="lista-choferes" oninput="autocompletarChofer(this.value)" class="w-full border p-2 rounded bg-gray-50 text-xs outline-none">
-                        <datalist id="lista-choferes"></datalist>
-                    </div>
-                    <div class="md:col-span-1"><label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">DNI</label><input id="dni" type="text" class="w-full border p-2 rounded bg-gray-50 text-xs outline-none"></div>
-                    <div class="md:col-span-2"><label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Celular</label><input id="celular" type="tel" class="w-full border p-2 rounded bg-gray-50 text-xs outline-none"></div>
-                    <div class="md:col-span-2"><label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Transporte</label><input id="transporte" type="text" class="w-full border p-2 rounded bg-gray-50 text-xs outline-none"></div>
-                    <div class="md:col-span-1"><label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Pat. Camión</label><input id="patenteCamion" type="text" class="w-full border p-2 rounded bg-gray-50 text-xs font-mono uppercase outline-none"></div>
-                    <div class="md:col-span-1"><label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Pat. Semi</label><input id="patenteSemi" type="text" class="w-full border p-2 rounded bg-gray-50 text-xs font-mono uppercase outline-none"></div>
-                    <div class="md:col-span-1">
-                        <label class="block text-[10px] font-black text-blue-500 uppercase mb-1">Est. Carga</label>
-                        <input type="date" id="fecha-estimada" class="w-full border border-blue-200 bg-blue-50 p-2 rounded text-[10px] focus:ring-1 focus:ring-blue-400 outline-none">
-                    </div>
-                    <div class="md:col-span-1 flex items-end"><button onclick="crearViaje()" class="w-full bg-orange-600 text-white p-2 rounded font-black hover:bg-orange-700 uppercase text-[10px] h-[34px] shadow-lg">Registrar</button></div>
+        </div> <div class="grid grid-cols-1 md:grid-cols-12 gap-2 pt-2">
+            <div class="md:col-span-3">
+                <div class="flex justify-between items-end mb-1">
+                    <label class="block text-[10px] font-bold text-gray-400 uppercase">Nombre Chofer</label>
+                    <button onclick="abrirModalChofer()" class="text-[9px] bg-blue-600 text-white px-2 py-0.5 rounded hover:bg-blue-700 font-bold">+ NUEVO</button>
                 </div>
+                <input id="chofer" list="lista-choferes" oninput="autocompletarChofer(this.value)" class="w-full border p-2 rounded bg-gray-50 text-xs outline-none">
+                <datalist id="lista-choferes"></datalist>
             </div>
+            <div class="md:col-span-1"><label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">DNI</label><input id="dni" type="text" class="w-full border p-2 rounded bg-gray-50 text-xs outline-none"></div>
+            <div class="md:col-span-2"><label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Celular</label><input id="celular" type="tel" class="w-full border p-2 rounded bg-gray-50 text-xs outline-none"></div>
+            <div class="md:col-span-2"><label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Transporte</label><input id="transporte" type="text" class="w-full border p-2 rounded bg-gray-50 text-xs outline-none"></div>
+            <div class="md:col-span-1"><label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Pat. Camión</label><input id="patenteCamion" type="text" class="w-full border p-2 rounded bg-gray-50 text-xs font-mono uppercase outline-none"></div>
+            <div class="md:col-span-1"><label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Pat. Semi</label><input id="patenteSemi" type="text" class="w-full border p-2 rounded bg-gray-50 text-xs font-mono uppercase outline-none"></div>
+            <div class="md:col-span-1">
+                <label class="block text-[10px] font-black text-blue-500 uppercase mb-1">Est. Carga</label>
+                <input type="date" id="fecha-estimada" class="w-full border border-blue-200 bg-blue-50 p-2 rounded text-[10px] focus:ring-1 focus:ring-blue-400 outline-none">
+            </div>
+            <div class="md:col-span-1 flex items-end"><button onclick="crearViaje()" class="w-full bg-orange-600 text-white p-2 rounded font-black hover:bg-orange-700 uppercase text-[10px] h-[34px] shadow-lg">Registrar</button></div>
         </div>
+    </div>
+</div>
 
         <h2 class="text-xs font-black text-gray-500 mb-2 uppercase tracking-widest">Cargas en Curso</h2>
         <div class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 mb-10 text-xs">
