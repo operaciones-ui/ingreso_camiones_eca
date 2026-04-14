@@ -500,13 +500,22 @@ window.recalcularTeoricoEdit = () => {
 
         window.guardarEdicion = async () => {
     const id = document.getElementById('edit-id').value;
+    const docRef = doc(db, "camiones", id);
     
-    // 1. Obtener valores de balanza y calcular neto real
+    // 1. Obtener datos actuales de Firebase (Necesario para saber el estado anterior y fecha de salida)
+    const snap = await getDoc(docRef);
+    if (!snap.exists()) {
+        alert("El registro no existe.");
+        return;
+    }
+    const dataPrevia = snap.data();
+
+    // 2. Obtener valores de balanza
     const tara = parseFloat(document.getElementById('edit-tara').value) || 0;
     const bruto = parseFloat(document.getElementById('edit-bruto').value) || 0;
     const netoReal = bruto - tara;
 
-    // 2. Obtener valores del desglose (por si fueron editados en el modal)
+    // 3. Obtener valores del desglose (editables en el modal)
     const producto = document.getElementById('edit-producto').value;
     const cantTambores = parseFloat(document.getElementById('edit-cantTambores').value) || 0;
     const netoPorTambor = parseFloat(document.getElementById('edit-netoPorTambor').value) || 0;
@@ -515,7 +524,7 @@ window.recalcularTeoricoEdit = () => {
     const pesoPallet = parseFloat(document.getElementById('edit-pesoPallet').value) || 0;
     const pesoTeoricoNuevo = parseFloat(document.getElementById('edit-pesoTeoricoTotal').value) || 0;
 
-    // 3. Lógica de alerta por diferencia de 180kg
+    // 4. Lógica de alerta por diferencia de 180kg
     if (pesoTeoricoNuevo > 0 && bruto > 0 && tara > 0) {
         const diferencia = Math.abs(netoReal - pesoTeoricoNuevo);
         const margenPermitido = 180;
@@ -531,7 +540,7 @@ window.recalcularTeoricoEdit = () => {
         }
     }
 
-    // 4. Objeto con todos los campos para actualizar en Firebase
+    // 5. Preparar objeto de actualización UNIFICADO
     const up = {
         referencia: document.getElementById('edit-referencia').value,
         cliente: document.getElementById('edit-cliente').value,
@@ -546,7 +555,7 @@ window.recalcularTeoricoEdit = () => {
         patenteCamion: document.getElementById('edit-patenteCamion').value.toUpperCase(),
         patenteSemi: document.getElementById('edit-patenteSemi').value.toUpperCase(),
         fechaEstimada: document.getElementById('edit-fecha-estimada').value,
-        // Guardamos el desglose actualizado
+        // Desglose
         producto,
         cantTambores,
         netoPorTambor,
@@ -554,66 +563,28 @@ window.recalcularTeoricoEdit = () => {
         cantPallets,
         pesoPallet,
         pesoTeoricoTotal: pesoTeoricoNuevo,
-        // Pesos de balanza
+        // Balanza
         tara,
         bruto,
-        estado: (bruto > 0 && tara > 0) ? "Finalizado" : "Habilitado"
-    };
-
-    try {
-        await updateDoc(doc(db, "camiones", id), up);
-        cerrarModal();
-        alert("✅ Registro actualizado correctamente");
-    } catch (error) {
-        alert("Error al guardar: " + error.message);
-    }
-};
-
-    // 4. Preparar el objeto para actualizar
-    const up = {
-        referencia: document.getElementById('edit-referencia').value,
-        cliente: document.getElementById('edit-cliente').value,
-        barcoViaje: document.getElementById('edit-barcoViaje').value,
-        contenedor: document.getElementById('edit-contenedor').value.toUpperCase(),
-        tipoContenedor: document.getElementById('edit-tipoContenedor').value,
-        destino: document.getElementById('edit-destino').value,
-        transporte: document.getElementById('edit-transporte').value,
-        celular: document.getElementById('edit-celular').value,
-        chofer: document.getElementById('edit-chofer').value,
-        dni: document.getElementById('edit-dni').value,
-        patenteCamion: document.getElementById('edit-patenteCamion').value.toUpperCase(),
-        patenteSemi: document.getElementById('edit-patenteSemi').value.toUpperCase(),
-        fechaEstimada: document.getElementById('edit-fecha-estimada').value,
-        tara: tara,
-        bruto: bruto,
-        // Actualizamos estado si ya tiene ambos pesos
+        // Estado y Fecha Salida
         estado: (bruto > 0 && tara > 0) ? "Finalizado" : dataPrevia.estado
     };
 
-    // 5. Si finaliza, registramos la fecha de salida
+    // Registrar fecha de salida solo la primera vez que se finaliza
     if (bruto > 0 && tara > 0 && !dataPrevia.fechaSalida) {
         up.fechaSalida = serverTimestamp();
     }
 
+    // 6. Ejecutar actualización
     try {
         await updateDoc(docRef, up);
         cerrarModal();
-        console.log("Actualización exitosa");
+        alert("✅ Registro actualizado correctamente");
     } catch (error) {
         console.error("Error al guardar:", error);
-        alert("Hubo un error al intentar guardar los datos.");
+        alert("Error al guardar: " + error.message);
     }
 };
-
-        window.eliminarRegistro = async (id, contenedor) => {
-            if(confirm(`¿Está seguro de eliminar permanentemente el registro del contenedor ${contenedor}?`)) {
-                try {
-                    await deleteDoc(doc(db, "camiones", id));
-                } catch (error) {
-                    alert("Error al eliminar: " + error.message);
-                }
-            }
-        };
 
         window.exportarExcel = () => {
             const desde = document.getElementById('filtro-desde').value;
